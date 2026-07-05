@@ -1,0 +1,21 @@
+# python
+.venv/
+__pycache__/
+*.pyc
+
+# node
+node_modules/
+app/frontend/dist/
+
+# generated data (rebuild with db/build_db.py + data/make_data.py)
+db/practice.db
+data/customers.csv
+
+# personal — your progress and profile stay on your machine
+app/progress.db
+profile/
+sessions/
+feedback.md
+
+# os
+.DS_Store

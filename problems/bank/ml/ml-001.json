@@ -1,0 +1,30 @@
+{
+  "id": "ml-001",
+  "area": "ml",
+  "topic": "feature engineering",
+  "difficulty": "easy",
+  "title": "Clean the missing charges",
+  "prompt": "A churn DataFrame **`df`** is preloaded (`pandas` as `pd`, `numpy` as `np` available). Columns: `customer_id`, `tenure_months`, `monthly_charge`, `plan`, `support_calls`, `contract`, `churned`.\n\n`monthly_charge` has missing values. Impute them with the **median** of the column, in place in `df`, and define:\n\n- `charge_median` \u2014 the median you used (float)\n- `clean_mean` \u2014 mean of `monthly_charge` **after** imputation, rounded to 2 decimals\n\nUse **Run** + `print(...)` to explore first. Why median and not mean here? (Be ready to defend it.)",
+  "starter_code": "# df is preloaded \u2014 explore with print(df.head()), print(df.isna().sum())\n\ncharge_median = ...\nclean_mean = ...\n",
+  "checks": [
+    {
+      "name": "charge_median",
+      "expr": "round(float(charge_median), 2)",
+      "expected": 69.67,
+      "tol": 0.01
+    },
+    {
+      "name": "no missing values left",
+      "expr": "int(df['monthly_charge'].isna().sum())",
+      "expected": 0
+    },
+    {
+      "name": "clean_mean",
+      "expr": "round(float(clean_mean), 2)",
+      "expected": 69.61,
+      "tol": 0.01
+    }
+  ],
+  "reference_solution": "charge_median = float(df['monthly_charge'].median())\ndf['monthly_charge'] = df['monthly_charge'].fillna(charge_median)\nclean_mean = round(float(df['monthly_charge'].mean()), 2)\n",
+  "hint_notes": "Median is robust to the right-skewed charges. Tags: mean-vs-median-imputation, no-missingness-check."
+}

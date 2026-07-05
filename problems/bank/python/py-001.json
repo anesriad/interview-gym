@@ -1,0 +1,19 @@
+{
+  "id": "py-001",
+  "area": "python",
+  "topic": "arrays/hashing",
+  "difficulty": "easy",
+  "title": "Two sum",
+  "prompt": "Given a list of integers `nums` and an integer `target`, return the **indices** of the two numbers that add up to `target`, as a list sorted ascending.\n\nExactly one solution exists; you may not use the same element twice.\n\n**Example**: `two_sum([2, 7, 11, 15], 9)` → `[0, 1]`\n\nAim for **O(n)** — an interviewer will push back on the nested-loop version.",
+  "starter_code": "def two_sum(nums, target):\n    # return [i, j] with i < j\n    pass\n",
+  "function_name": "two_sum",
+  "tests": [
+    {"args": [[2, 7, 11, 15], 9], "expected": [0, 1]},
+    {"args": [[3, 2, 4], 6], "expected": [1, 2]},
+    {"args": [[3, 3], 6], "expected": [0, 1]},
+    {"args": [[1, 5, 9, 13], 22], "expected": [2, 3]},
+    {"args": [[-3, 4, 90, 3], 0], "expected": [0, 3]}
+  ],
+  "reference_solution": "def two_sum(nums, target):\n    seen = {}\n    for i, x in enumerate(nums):\n        if target - x in seen:\n            return [seen[target - x], i]\n        seen[x] = i\n",
+  "hint_notes": "Hash map of value->index, one pass. Tag if O(n^2): missed-hashmap-tradeoff."
+}

@@ -1,0 +1,31 @@
+{
+  "id": "ml-002",
+  "area": "ml",
+  "topic": "stats/experimentation",
+  "difficulty": "easy",
+  "title": "Churn rate by contract",
+  "prompt": "Using the preloaded churn DataFrame **`df`**, compare churn between contract types. Define:\n\n- `monthly_rate` \u2014 churn rate of `contract == 'monthly'` customers, rounded to 4 decimals\n- `annual_rate` \u2014 churn rate of `contract == 'annual'` customers, rounded to 4 decimals\n- `rate_diff` \u2014 `monthly_rate - annual_rate`, rounded to 4 decimals\n\n(Churn rate = mean of the 0/1 `churned` column.)",
+  "starter_code": "# df is preloaded\n\nmonthly_rate = ...\nannual_rate = ...\nrate_diff = ...\n",
+  "checks": [
+    {
+      "name": "monthly_rate",
+      "expr": "round(float(monthly_rate), 4)",
+      "expected": 0.2078,
+      "tol": 0.0001
+    },
+    {
+      "name": "annual_rate",
+      "expr": "round(float(annual_rate), 4)",
+      "expected": 0.1069,
+      "tol": 0.0001
+    },
+    {
+      "name": "rate_diff",
+      "expr": "round(float(rate_diff), 4)",
+      "expected": 0.1009,
+      "tol": 0.0001
+    }
+  ],
+  "reference_solution": "monthly_rate = round(float(df.loc[df.contract == 'monthly', 'churned'].mean()), 4)\nannual_rate = round(float(df.loc[df.contract == 'annual', 'churned'].mean()), 4)\nrate_diff = round(monthly_rate - annual_rate, 4)\n",
+  "hint_notes": "groupby('contract')['churned'].mean() is the idiom. Tags: groupby-idiom, rate-vs-count-confusion."
+}

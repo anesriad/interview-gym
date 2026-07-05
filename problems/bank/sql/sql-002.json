@@ -1,0 +1,12 @@
+{
+  "id": "sql-002",
+  "area": "sql",
+  "topic": "joins/aggregation",
+  "difficulty": "medium",
+  "title": "Top spenders and their trip counts",
+  "prompt": "Find the **top 5 users by total payment amount**.\n\nReturn three columns:\n\n- `user_id`\n- `total_paid` — sum of `amount_usd` from `payments`, rounded to 2 decimals\n- `completed_trips` — number of **completed** trips that user has taken (0 is possible in general; count only trips with status `'completed'`)\n\nOrder by `total_paid` descending, then `user_id` ascending. Limit to 5 rows.\n\n*Careful: joining payments to trips naively can double-count. Think about aggregating each table separately.*",
+  "starter_code": "-- Tables: users, trips, payments, content, sessions_watch\n-- Write your query below\n\n",
+  "reference_sql": "WITH pay AS (SELECT user_id, ROUND(SUM(amount_usd),2) AS total_paid FROM payments GROUP BY user_id), tr AS (SELECT user_id, COUNT(*) AS completed_trips FROM trips WHERE status='completed' GROUP BY user_id) SELECT p.user_id, p.total_paid, COALESCE(t.completed_trips,0) AS completed_trips FROM pay p LEFT JOIN tr t ON p.user_id=t.user_id ORDER BY p.total_paid DESC, p.user_id ASC LIMIT 5",
+  "order_matters": true,
+  "hint_notes": "Fan-out trap: aggregate payments and trips in separate CTEs before joining. Tag if they join then aggregate: join-fanout-double-count."
+}

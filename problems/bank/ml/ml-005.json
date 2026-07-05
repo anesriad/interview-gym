@@ -1,0 +1,28 @@
+{
+  "id": "ml-005",
+  "area": "ml",
+  "topic": "stats/experimentation",
+  "difficulty": "medium",
+  "title": "Is the churn difference real?",
+  "prompt": "In ml-002 you saw monthly-contract customers churn more. Could that be noise? Test it on the preloaded **`df`**.\n\nRun a **chi-square test of independence** between `contract` and `churned` (hint: `scipy.stats.chi2_contingency` on `pd.crosstab(...)`).\n\nDefine:\n- `chi2_p` \u2014 the test's p-value (float)\n- `significant` \u2014 `chi2_p < 0.05` (bool)\n- `n_monthly` \u2014 number of monthly-contract customers (int), just to prove you looked at group sizes\n\nBe ready to explain: what are the null hypothesis and the assumptions here? Would a two-proportion z-test also work?",
+  "starter_code": "from scipy.stats import chi2_contingency\n\n# df is preloaded\n\nchi2_p = ...\nsignificant = ...\nn_monthly = ...\n",
+  "checks": [
+    {
+      "name": "significant",
+      "expr": "bool(significant)",
+      "expected": true
+    },
+    {
+      "name": "p-value consistent with verdict",
+      "expr": "bool((chi2_p < 0.05) == significant)",
+      "expected": true
+    },
+    {
+      "name": "n_monthly",
+      "expr": "int(n_monthly)",
+      "expected": 1906
+    }
+  ],
+  "reference_solution": "from scipy.stats import chi2_contingency\nct = pd.crosstab(df['contract'], df['churned'])\nchi2_p = float(chi2_contingency(ct)[1])\nsignificant = bool(chi2_p < 0.05)\nn_monthly = int((df['contract'] == 'monthly').sum())\n",
+  "hint_notes": "crosstab + chi2_contingency; p-value is element [1]. Tags: test-selection, p-value-interpretation (probe: p is NOT P(H0))."
+}

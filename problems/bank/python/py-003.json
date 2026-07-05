@@ -1,0 +1,20 @@
+{
+  "id": "py-003",
+  "area": "python",
+  "topic": "two pointers/sliding window",
+  "difficulty": "medium",
+  "title": "Longest substring without repeating characters",
+  "prompt": "Given a string `s`, return the **length** of the longest substring with no repeated characters.\n\n**Examples**:\n- `\"abcabcbb\"` → `3` (`\"abc\"`)\n- `\"bbbbb\"` → `1`\n- `\"abba\"` → `2` *(classic trap — make sure your window start never moves backwards)*",
+  "starter_code": "def length_of_longest_substring(s):\n    pass\n",
+  "function_name": "length_of_longest_substring",
+  "tests": [
+    {"args": ["abcabcbb"], "expected": 3},
+    {"args": ["bbbbb"], "expected": 1},
+    {"args": ["pwwkew"], "expected": 3},
+    {"args": [""], "expected": 0},
+    {"args": ["dvdf"], "expected": 3},
+    {"args": ["abba"], "expected": 2}
+  ],
+  "reference_solution": "def length_of_longest_substring(s):\n    last, start, best = {}, 0, 0\n    for i, ch in enumerate(s):\n        if ch in last and last[ch] >= start:\n            start = last[ch] + 1\n        last[ch] = i\n        best = max(best, i - start + 1)\n    return best\n",
+  "hint_notes": "Sliding window + last-seen index; the 'abba' case catches start moving backwards. Tag: sliding-window-start-regression."
+}

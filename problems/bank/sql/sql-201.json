@@ -1,0 +1,12 @@
+{
+  "id": "sql-201",
+  "area": "sql",
+  "topic": "window functions",
+  "difficulty": "medium",
+  "title": "Netflix: top 3 titles per genre",
+  "prompt": "*You're an analyst on the content team. Leadership wants a leaderboard for the quarterly review.*\n\nFor each **genre**, find the **top 3 titles by total minutes watched** (across all users, from `sessions_watch` joined to `content`).\n\nReturn:\n- `genre`\n- `title`\n- `total_minutes`\n- `rnk` — the title's rank within its genre (1 = most watched), using `DENSE_RANK`\n\nKeep only `rnk <= 3`.",
+  "starter_code": "-- Tables: users, trips, payments, content, sessions_watch\n-- Write your query below\n\n",
+  "reference_sql": "SELECT genre, title, total_minutes, rnk FROM (SELECT c.genre, c.title, SUM(s.minutes_watched) AS total_minutes, DENSE_RANK() OVER (PARTITION BY c.genre ORDER BY SUM(s.minutes_watched) DESC) AS rnk FROM sessions_watch s JOIN content c ON c.content_id = s.content_id GROUP BY c.genre, c.title) WHERE rnk <= 3",
+  "order_matters": false,
+  "hint_notes": "Aggregate to genre×title first, then DENSE_RANK per genre over the SUM; filter in an outer query (can't filter window fn in WHERE). Tags: window-over-aggregate, window-filter-placement."
+}

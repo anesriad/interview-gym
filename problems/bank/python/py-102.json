@@ -1,0 +1,19 @@
+{
+  "id": "py-102",
+  "area": "python",
+  "topic": "basics: strings",
+  "difficulty": "very easy",
+  "title": "Count the vowels",
+  "prompt": "Return how many **vowels** (`a e i o u`, case-insensitive) a string contains.\n\n**Example**: `count_vowels(\"Data Science\")` → `5`\n\nRefresher goals: iterating over a string, `.lower()`, membership with `in`.",
+  "starter_code": "def count_vowels(s):\n    pass\n",
+  "function_name": "count_vowels",
+  "tests": [
+    {"args": ["Data Science"], "expected": 5},
+    {"args": [""], "expected": 0},
+    {"args": ["xyz"], "expected": 0},
+    {"args": ["AEIOU"], "expected": 5},
+    {"args": ["hello world"], "expected": 3}
+  ],
+  "reference_solution": "def count_vowels(s):\n    return sum(1 for ch in s.lower() if ch in 'aeiou')\n",
+  "hint_notes": "Lowercase once, then membership in a set/string of vowels."
+}

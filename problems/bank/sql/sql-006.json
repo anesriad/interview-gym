@@ -1,0 +1,12 @@
+{
+  "id": "sql-006",
+  "area": "sql",
+  "topic": "joins/aggregation",
+  "difficulty": "easy",
+  "title": "Users who never paid by card",
+  "prompt": "Return the `user_id` of every user who has **never made a card payment** (`payments.method = 'card'`). Users with wallet/cash payments only — or with quirky payment histories — must be included.\n\nOne column, ordered by `user_id` ascending.\n\n*There are three classic ways to write an anti-join. If you reach for `NOT IN`, think about what a `NULL` in the subquery would do.*",
+  "starter_code": "-- Tables: users, trips, payments, content, sessions_watch\n-- Write your query below\n\n",
+  "reference_sql": "SELECT u.user_id FROM users u LEFT JOIN payments p ON p.user_id = u.user_id AND p.method = 'card' WHERE p.user_id IS NULL ORDER BY u.user_id",
+  "order_matters": true,
+  "hint_notes": "Anti-join: LEFT JOIN … IS NULL, or NOT EXISTS / NOT IN (NULL trap!). Tags: anti-join-pattern, not-in-null-trap."
+}

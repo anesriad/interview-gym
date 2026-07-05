@@ -1,0 +1,30 @@
+{
+  "id": "ml-201",
+  "area": "ml",
+  "topic": "model selection/eval",
+  "difficulty": "medium",
+  "title": "Netflix: who do we call before they cancel?",
+  "prompt": "*The retention team can reach out to the top 25% highest-risk customers. Your model decides who gets the call.*\n\nUsing the preloaded **`df`**, train the standard recipe (same as \"Beat the baseline\"):\n\n1. Median-impute `monthly_charge`; features = 3 numerics + `pd.get_dummies` of `plan`/`contract`; `y = churned`.\n2. `train_test_split(test_size=0.25, random_state=42, stratify=y)`; `LogisticRegression(max_iter=1000)`.\n\nThen, on the **test set**, target the top 25% by churn probability (`threshold = np.percentile(probs, 75)`, target where `probs >= threshold`) and define:\n\n- `recall_at_25` \u2014 share of actual churners that the campaign reaches, rounded to 3 decimals\n- `precision_at_25` \u2014 share of targeted customers who are actual churners, rounded to 3 decimals\n\nSanity question to be ready for: if we targeted randomly, what would recall be? Why is precision so much lower than recall here?",
+  "starter_code": "import numpy as np\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.linear_model import LogisticRegression\n\n# df is preloaded\n\nrecall_at_25 = ...\nprecision_at_25 = ...\n",
+  "checks": [
+    {
+      "name": "recall_at_25",
+      "expr": "round(float(recall_at_25), 3)",
+      "expected": 0.492,
+      "tol": 0.005
+    },
+    {
+      "name": "precision_at_25",
+      "expr": "round(float(precision_at_25), 3)",
+      "expected": 0.335,
+      "tol": 0.005
+    },
+    {
+      "name": "beats random targeting (recall > 0.25)",
+      "expr": "bool(recall_at_25 > 0.25)",
+      "expected": true
+    }
+  ],
+  "reference_solution": "import numpy as np\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.linear_model import LogisticRegression\n\ndf['monthly_charge'] = df['monthly_charge'].fillna(df['monthly_charge'].median())\nX = pd.concat([df[['tenure_months', 'monthly_charge', 'support_calls']], pd.get_dummies(df[['plan', 'contract']])], axis=1)\ny = df['churned']\nXtr, Xte, ytr, yte = train_test_split(X, y, test_size=0.25, random_state=42, stratify=y)\nm = LogisticRegression(max_iter=1000).fit(Xtr, ytr)\nprobs = m.predict_proba(Xte)[:, 1]\nthreshold = np.percentile(probs, 75)\ntargeted = probs >= threshold\nrecall_at_25 = round(float(yte[targeted].sum() / yte.sum()), 3)\nprecision_at_25 = round(float(yte[targeted].mean()), 3)\n",
+  "hint_notes": "Top-k targeting = business framing of precision/recall at a capacity constraint. Random targeting recall = 25%. Tags: threshold-vs-capacity, precision-recall-confusion."
+}

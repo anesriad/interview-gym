@@ -1,0 +1,12 @@
+{
+  "id": "sql-005",
+  "area": "sql",
+  "topic": "cohort/funnel",
+  "difficulty": "hard",
+  "title": "Signup cohort activation rate",
+  "prompt": "Define a user as **activated** if they completed at least one trip within **30 days** of their signup date.\n\nFor each **signup month** (cohort), compute the activation rate.\n\nReturn three columns:\n\n- `cohort_month` — first day of the signup month (DATE)\n- `cohort_size` — number of users who signed up that month\n- `activation_rate` — share of the cohort that activated, rounded to 3 decimals (e.g. `0.412`)\n\nOrder by `cohort_month` ascending. Every cohort with at least one signup must appear, even if nobody activated.\n\n*Note: compare `complete_ts` to `signup_date` — a trip counts if it completes on day 0 through day 30 inclusive.*",
+  "starter_code": "-- Tables: users, trips, payments, content, sessions_watch\n-- Write your query below\n\n",
+  "reference_sql": "WITH activated AS (SELECT DISTINCT u.user_id FROM users u JOIN trips t ON t.user_id=u.user_id AND t.status='completed' AND t.complete_ts::DATE BETWEEN u.signup_date AND u.signup_date + INTERVAL 30 DAY) SELECT DATE_TRUNC('month', u.signup_date)::DATE AS cohort_month, COUNT(*) AS cohort_size, ROUND(COUNT(a.user_id)*1.0/COUNT(*), 3) AS activation_rate FROM users u LEFT JOIN activated a ON a.user_id=u.user_id GROUP BY 1 ORDER BY 1",
+  "order_matters": true,
+  "hint_notes": "Cohort pattern: derive activation flag per user, LEFT JOIN back to keep full cohorts, integer-division trap on the rate. Tags: cohort-left-join-dropout, integer-division."
+}

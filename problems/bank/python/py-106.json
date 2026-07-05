@@ -1,0 +1,19 @@
+{
+  "id": "py-106",
+  "area": "python",
+  "topic": "basics: functions",
+  "difficulty": "very easy",
+  "title": "FizzBuzz, but return it",
+  "prompt": "Write `fizzbuzz(n)` that returns a **list** of the values from 1 to `n` where:\n\n- multiples of 3 become `\"Fizz\"`\n- multiples of 5 become `\"Buzz\"`\n- multiples of both become `\"FizzBuzz\"`\n- everything else stays a number\n\n**Example**: `fizzbuzz(5)` → `[1, 2, \"Fizz\", 4, \"Buzz\"]`\n\nRefresher goals: `range`, if/elif order (why must the 15-case come first?).",
+  "starter_code": "def fizzbuzz(n):\n    pass\n",
+  "function_name": "fizzbuzz",
+  "tests": [
+    {"args": [5], "expected": [1, 2, "Fizz", 4, "Buzz"]},
+    {"args": [1], "expected": [1]},
+    {"args": [15], "expected": [1, 2, "Fizz", 4, "Buzz", "Fizz", 7, 8, "Fizz", "Buzz", 11, "Fizz", 13, 14, "FizzBuzz"]},
+    {"args": [0], "expected": []},
+    {"args": [3], "expected": [1, 2, "Fizz"]}
+  ],
+  "reference_solution": "def fizzbuzz(n):\n    out = []\n    for i in range(1, n + 1):\n        if i % 15 == 0: out.append('FizzBuzz')\n        elif i % 3 == 0: out.append('Fizz')\n        elif i % 5 == 0: out.append('Buzz')\n        else: out.append(i)\n    return out\n",
+  "hint_notes": "Branch-order bug (3-check swallowing 15) is the classic. range(1, n+1) off-by-one."
+}

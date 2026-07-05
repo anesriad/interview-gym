@@ -1,0 +1,18 @@
+{
+  "id": "py-104",
+  "area": "python",
+  "topic": "basics: dicts",
+  "difficulty": "very easy",
+  "title": "Word counter",
+  "prompt": "Given a sentence, return a **dict** mapping each word (lowercased) to how many times it appears. Words are separated by spaces.\n\n**Example**: `word_count(\"the cat and the hat\")` → `{\"the\": 2, \"cat\": 1, \"and\": 1, \"hat\": 1}`\n\nRefresher goals: `.split()`, dict get-or-default. Do it manually before reaching for `Counter`.",
+  "starter_code": "def word_count(sentence):\n    pass\n",
+  "function_name": "word_count",
+  "tests": [
+    {"args": ["the cat and the hat"], "expected": {"the": 2, "cat": 1, "and": 1, "hat": 1}},
+    {"args": [""], "expected": {}},
+    {"args": ["A a a"], "expected": {"a": 3}},
+    {"args": ["one"], "expected": {"one": 1}}
+  ],
+  "reference_solution": "def word_count(sentence):\n    counts = {}\n    for w in sentence.lower().split():\n        counts[w] = counts.get(w, 0) + 1\n    return counts\n",
+  "hint_notes": "dict.get(w, 0) + 1 is the idiom. ''.split() → [] handles the empty case for free."
+}

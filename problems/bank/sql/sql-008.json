@@ -1,0 +1,12 @@
+{
+  "id": "sql-008",
+  "area": "sql",
+  "topic": "joins/aggregation",
+  "difficulty": "medium",
+  "title": "Where does the money come from?",
+  "prompt": "For each user **plan** (`free`, `standard`, `premium`), compute:\n\n- `plan`\n- `payers` — distinct users on that plan who made at least one payment\n- `total_paid` — sum of their payment amounts, rounded to 2 decimals\n- `pct_of_revenue` — that plan's share of ALL payment revenue, in percent rounded to 2 decimals (e.g. `41.27`)\n\nOrder by `total_paid` descending.\n\n*Elegant version: one query, no self-join — a window function can see the grand total.*",
+  "starter_code": "-- Tables: users, trips, payments, content, sessions_watch\n-- Write your query below\n\n",
+  "reference_sql": "SELECT u.plan, COUNT(DISTINCT p.user_id) AS payers, ROUND(SUM(p.amount_usd), 2) AS total_paid, ROUND(100.0 * SUM(p.amount_usd) / SUM(SUM(p.amount_usd)) OVER (), 2) AS pct_of_revenue FROM payments p JOIN users u ON u.user_id = p.user_id GROUP BY u.plan ORDER BY total_paid DESC",
+  "order_matters": true,
+  "hint_notes": "SUM(SUM(x)) OVER () = grand total alongside GROUP BY. Alternatives: CTE with total, or subquery. Tags: window-over-aggregate, pct-of-total-pattern."
+}

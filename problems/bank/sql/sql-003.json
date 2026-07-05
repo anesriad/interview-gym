@@ -1,0 +1,12 @@
+{
+  "id": "sql-003",
+  "area": "sql",
+  "topic": "window functions",
+  "difficulty": "medium",
+  "title": "Each user's latest completed trip",
+  "prompt": "For every user who has at least one **completed** trip, return their **most recent** completed trip (by `complete_ts`).\n\nReturn three columns:\n\n- `user_id`\n- `trip_id`\n- `complete_ts`\n\nOne row per user. If a user has two trips completed at the exact same timestamp, take the one with the higher `trip_id`.",
+  "starter_code": "-- Tables: users, trips, payments, content, sessions_watch\n-- Write your query below\n\n",
+  "reference_sql": "SELECT user_id, trip_id, complete_ts FROM (SELECT user_id, trip_id, complete_ts, ROW_NUMBER() OVER (PARTITION BY user_id ORDER BY complete_ts DESC, trip_id DESC) AS rn FROM trips WHERE status='completed') WHERE rn=1",
+  "order_matters": false,
+  "hint_notes": "Classic ROW_NUMBER per-group top-1. Watch for: using MAX(complete_ts) with a self-join and mishandling ties; forgetting the tiebreak on trip_id."
+}

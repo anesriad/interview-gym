@@ -1,0 +1,11 @@
+{
+  "title": "Peak Usage Hours by City and Plan",
+  "topic": "joins/aggregation",
+  "difficulty": "medium",
+  "prompt": "For each city and user plan type, find the hour of the day (0-23) when the most trips were requested. Output should include city, plan, hour, and trip count, ordered by city, plan, and hour.",
+  "reference_sql": "SELECT u.city, u.plan, EXTRACT(HOUR FROM t.request_ts) AS hour, COUNT(*) AS trip_count FROM users u JOIN trips t ON u.user_id = t.user_id GROUP BY u.city, u.plan, hour ORDER BY u.city, u.plan, hour",
+  "order_matters": true,
+  "hint_notes": "Key idea is to extract the hour from timestamp and group by city, plan, and hour. Common mistake is forgetting to handle NULL values in complete_ts or incorrectly joining tables.",
+  "id": "sql-x001",
+  "area": "sql"
+}

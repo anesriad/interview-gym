@@ -1,0 +1,19 @@
+{
+  "id": "py-105",
+  "area": "python",
+  "topic": "basics: comprehensions",
+  "difficulty": "very easy",
+  "title": "Clean and square",
+  "prompt": "Given a list of numbers, return a new list with the **squares of only the positive numbers**, keeping their order.\n\n**Example**: `clean_square([-2, 3, 0, 5])` → `[9, 25]`\n\nRefresher goal: write it as a single list comprehension with a condition.",
+  "starter_code": "def clean_square(nums):\n    pass\n",
+  "function_name": "clean_square",
+  "tests": [
+    {"args": [[-2, 3, 0, 5]], "expected": [9, 25]},
+    {"args": [[]], "expected": []},
+    {"args": [[-1, -2]], "expected": []},
+    {"args": [[1, 2, 3]], "expected": [1, 4, 9]},
+    {"args": [[0]], "expected": []}
+  ],
+  "reference_solution": "def clean_square(nums):\n    return [x * x for x in nums if x > 0]\n",
+  "hint_notes": "[expr for x in xs if cond]. Zero is not positive — small edge check."
+}

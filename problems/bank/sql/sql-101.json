@@ -1,0 +1,12 @@
+{
+  "id": "sql-101",
+  "area": "sql",
+  "topic": "basics: select/filter",
+  "difficulty": "very easy",
+  "title": "Latest signups in Berlin",
+  "prompt": "Return the **5 most recent signups in Berlin**.\n\nTwo columns: `user_id`, `signup_date`. Newest first; break date ties by `user_id` ascending.\n\nRefresher goals: `WHERE`, `ORDER BY … DESC`, `LIMIT`.",
+  "starter_code": "-- Tables: users, trips, payments, content, sessions_watch\n-- Write your query below\n\n",
+  "reference_sql": "SELECT user_id, signup_date FROM users WHERE city = 'Berlin' ORDER BY signup_date DESC, user_id ASC LIMIT 5",
+  "order_matters": true,
+  "hint_notes": "WHERE + ORDER BY DESC + LIMIT. Tie-break needs a second ORDER BY key."
+}

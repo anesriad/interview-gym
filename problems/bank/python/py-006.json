@@ -1,0 +1,19 @@
+{
+  "id": "py-006",
+  "area": "python",
+  "topic": "trees/graphs",
+  "difficulty": "medium",
+  "title": "Course schedule (cycle detection)",
+  "prompt": "There are `n` courses labeled `0 … n-1`. `prereqs` is a list of pairs `[a, b]` meaning you must take course `b` **before** course `a`.\n\nReturn `True` if it's possible to finish all courses, `False` otherwise (i.e. the prerequisite graph has a cycle).\n\n**Examples**:\n- `can_finish(2, [[1, 0]])` → `True`\n- `can_finish(2, [[1, 0], [0, 1]])` → `False`",
+  "starter_code": "def can_finish(n, prereqs):\n    pass\n",
+  "function_name": "can_finish",
+  "tests": [
+    {"args": [2, [[1, 0]]], "expected": true},
+    {"args": [2, [[1, 0], [0, 1]]], "expected": false},
+    {"args": [4, [[1, 0], [2, 1], [3, 2]]], "expected": true},
+    {"args": [3, []], "expected": true},
+    {"args": [5, [[0, 1], [1, 2], [2, 3], [3, 1]]], "expected": false}
+  ],
+  "reference_solution": "def can_finish(n, prereqs):\n    from collections import deque\n    adj = [[] for _ in range(n)]\n    indeg = [0] * n\n    for a, b in prereqs:\n        adj[b].append(a)\n        indeg[a] += 1\n    q = deque(i for i in range(n) if indeg[i] == 0)\n    seen = 0\n    while q:\n        u = q.popleft()\n        seen += 1\n        for v in adj[u]:\n            indeg[v] -= 1\n            if indeg[v] == 0:\n                q.append(v)\n    return seen == n\n",
+  "hint_notes": "Topological sort (Kahn's) or DFS with 3 colors. Tags: cycle-detection-approach, graph-representation."
+}

@@ -1,0 +1,19 @@
+{
+  "id": "py-008",
+  "area": "python",
+  "topic": "dynamic programming",
+  "difficulty": "medium",
+  "title": "Longest increasing subsequence",
+  "prompt": "Given a list of integers `nums`, return the length of the longest **strictly increasing subsequence** (elements keep their order but need not be contiguous).\n\n**Example**: `[10, 9, 2, 5, 3, 7, 101, 18]` → `4` (`[2, 3, 7, 101]`)\n\nO(n²) DP is a solid answer; mention the O(n log n) patience-sorting variant for bonus points.",
+  "starter_code": "def length_of_lis(nums):\n    pass\n",
+  "function_name": "length_of_lis",
+  "tests": [
+    {"args": [[10, 9, 2, 5, 3, 7, 101, 18]], "expected": 4},
+    {"args": [[0, 1, 0, 3, 2, 3]], "expected": 4},
+    {"args": [[7, 7, 7, 7]], "expected": 1},
+    {"args": [[]], "expected": 0},
+    {"args": [[4, 10, 4, 3, 8, 9]], "expected": 3}
+  ],
+  "reference_solution": "def length_of_lis(nums):\n    import bisect\n    tails = []\n    for x in nums:\n        i = bisect.bisect_left(tails, x)\n        if i == len(tails):\n            tails.append(x)\n        else:\n            tails[i] = x\n    return len(tails)\n",
+  "hint_notes": "dp[i] = LIS ending at i, or bisect on tails. Strictness matters ([7,7,7,7]→1). Tags: dp-state-definition, strict-vs-nonstrict."
+}

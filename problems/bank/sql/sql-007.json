@@ -1,0 +1,12 @@
+{
+  "id": "sql-007",
+  "area": "sql",
+  "topic": "window functions",
+  "difficulty": "medium",
+  "title": "Each user's favorite genre",
+  "prompt": "Using `sessions_watch` joined to `content`, find each user's **favorite genre** — the genre they've watched the most total minutes of.\n\nReturn:\n- `user_id`\n- `genre`\n- `total_minutes` — their minutes in that genre\n\nOne row per user who has watched anything. Break ties by genre name **alphabetically**.",
+  "starter_code": "-- Tables: users, trips, payments, content, sessions_watch\n-- Write your query below\n\n",
+  "reference_sql": "SELECT user_id, genre, total_minutes FROM (SELECT s.user_id, c.genre, SUM(s.minutes_watched) AS total_minutes, ROW_NUMBER() OVER (PARTITION BY s.user_id ORDER BY SUM(s.minutes_watched) DESC, c.genre ASC) AS rn FROM sessions_watch s JOIN content c ON c.content_id = s.content_id GROUP BY s.user_id, c.genre) WHERE rn = 1",
+  "order_matters": false,
+  "hint_notes": "Aggregate to user×genre, then ROW_NUMBER per user over the aggregate. Window over aggregation trips people up. Tags: window-over-aggregate, sql-window-vs-groupby."
+}

@@ -1,0 +1,34 @@
+{
+  "title": "Identifying High-Risk Customers Through Statistical Anomaly Detection",
+  "topic": "stats/experimentation",
+  "difficulty": "medium",
+  "prompt": "Using the churn dataset, identify customers who are statistically unlikely to churn based on their monthly charge compared to their plan type. Define two variables:\n\n1. `high_risk_customers`: a pandas Series of customer_ids for customers whose monthly_charge is more than 2 standard deviations above the mean monthly_charge for their plan type (basic, standard, or premium)\n\n2. `risk_summary`: a pandas DataFrame with columns ['plan', 'mean_charge', 'std_charge', 'threshold'] showing the statistical threshold for each plan that defines high-risk customers.\n\nUse random_state=42 for any random operations to ensure reproducibility.",
+  "starter_code": "# df is preloaded\n# Define high_risk_customers and risk_summary as specified\n\n",
+  "checks": [
+    {
+      "name": "high_risk_customers length",
+      "expr": "len(high_risk_customers)",
+      "expected": 74,
+      "tol": 0.005
+    },
+    {
+      "name": "risk_summary shape",
+      "expr": "risk_summary.shape",
+      "expected": [
+        3,
+        4
+      ],
+      "tol": 0.005
+    },
+    {
+      "name": "threshold for premium plan",
+      "expr": "round(float(risk_summary[risk_summary['plan'] == 'premium']['threshold']), 2)",
+      "expected": 120.19,
+      "tol": 0.005
+    }
+  ],
+  "reference_solution": "plan_stats = df.groupby('plan')['monthly_charge'].agg(['mean', 'std']).reset_index()\nplan_stats.columns = ['plan', 'mean_charge', 'std_charge']\nplan_stats['threshold'] = plan_stats['mean_charge'] + 2 * plan_stats['std_charge']\nrisk_summary = plan_stats[['plan', 'mean_charge', 'std_charge', 'threshold']]\n\nhigh_risk_customers = df[df.apply(lambda row: row['monthly_charge'] > risk_summary[risk_summary['plan'] == row['plan']]['threshold'].iloc[0], axis=1)]['customer_id']",
+  "hint_notes": "You need to calculate the mean and standard deviation of monthly charges for each plan type. Then, determine what constitutes an outlier (2 standard deviations above the mean) for each plan. Be careful with handling NaN values in monthly_charge when grouping by plan.",
+  "id": "ml-x001",
+  "area": "ml"
+}

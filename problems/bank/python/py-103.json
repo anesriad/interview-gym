@@ -1,0 +1,19 @@
+{
+  "id": "py-103",
+  "area": "python",
+  "topic": "basics: lists",
+  "difficulty": "very easy",
+  "title": "Biggest gap",
+  "prompt": "Given a non-empty list of numbers, return the difference between the **largest and smallest** value — without using `max()` or `min()` (find them with a loop; this is the refresher).\n\n**Example**: `biggest_gap([3, 9, 1, 5])` → `8`",
+  "starter_code": "def biggest_gap(nums):\n    pass\n",
+  "function_name": "biggest_gap",
+  "tests": [
+    {"args": [[3, 9, 1, 5]], "expected": 8},
+    {"args": [[7]], "expected": 0},
+    {"args": [[-5, 5]], "expected": 10},
+    {"args": [[2, 2, 2]], "expected": 0},
+    {"args": [[10, 1, 10]], "expected": 9}
+  ],
+  "reference_solution": "def biggest_gap(nums):\n    lo = hi = nums[0]\n    for x in nums[1:]:\n        if x < lo: lo = x\n        if x > hi: hi = x\n    return hi - lo\n",
+  "hint_notes": "Initialize lo/hi from nums[0], not 0 — the all-negative case exposes that bug."
+}

@@ -1,0 +1,20 @@
+{
+  "id": "py-201",
+  "area": "python",
+  "topic": "arrays/hashing",
+  "difficulty": "medium",
+  "title": "Netflix: count viewing sessions",
+  "prompt": "*Real interview classic at streaming/ride-hailing companies: sessionization.*\n\nYou get raw playback events as `[user_id, timestamp_minutes]` pairs, **not necessarily sorted**. Two consecutive events from the same user belong to the same viewing session if the gap between them is `<= gap` minutes; a bigger gap starts a new session.\n\nWrite `count_sessions(events, gap)` returning the **total number of sessions across all users**.\n\n**Example**: `count_sessions([[1, 0], [1, 10], [1, 50]], 30)` → `2` *(0→10 same session; 10→50 is a 40-min gap → new session)*\n\nFollow-up an interviewer would ask: what's your complexity, and what breaks at 100M events?",
+  "starter_code": "def count_sessions(events, gap):\n    pass\n",
+  "function_name": "count_sessions",
+  "tests": [
+    {"args": [[[1, 0], [1, 10], [1, 50]], 30], "expected": 2},
+    {"args": [[[1, 0], [2, 5]], 30], "expected": 2},
+    {"args": [[], 30], "expected": 0},
+    {"args": [[[1, 0], [1, 31]], 30], "expected": 2},
+    {"args": [[[1, 0], [1, 30]], 30], "expected": 1},
+    {"args": [[[1, 100], [1, 0], [2, 0], [1, 40]], 30], "expected": 4}
+  ],
+  "reference_solution": "def count_sessions(events, gap):\n    from collections import defaultdict\n    times = defaultdict(list)\n    for u, t in events:\n        times[u].append(t)\n    total = 0\n    for ts in times.values():\n        ts.sort()\n        total += 1 + sum(1 for a, b in zip(ts, ts[1:]) if b - a > gap)\n    return total\n",
+  "hint_notes": "Group by user, sort timestamps, count gaps > threshold (+1 per user). Boundary: gap equal to threshold stays same session. Tags: sessionization-pattern, boundary-condition, forgot-to-sort."
+}

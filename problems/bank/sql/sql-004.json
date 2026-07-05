@@ -1,0 +1,12 @@
+{
+  "id": "sql-004",
+  "area": "sql",
+  "topic": "window functions",
+  "difficulty": "medium",
+  "title": "Month-over-month revenue growth",
+  "prompt": "Compute monthly revenue from **completed** trips, and each month's growth vs the previous month.\n\nReturn three columns:\n\n- `month` — the first day of the month (DATE), e.g. `2025-03-01`\n- `revenue` — sum of `fare_usd`, rounded to 2 decimals\n- `growth_pct` — percent change vs the previous month, rounded to 1 decimal; `NULL` for the first month\n\nOrder by `month` ascending.\n\n*Hint on dates: `DATE_TRUNC('month', complete_ts)::DATE` gives the month bucket.*",
+  "starter_code": "-- Tables: users, trips, payments, content, sessions_watch\n-- Write your query below\n\n",
+  "reference_sql": "WITH m AS (SELECT DATE_TRUNC('month', complete_ts)::DATE AS month, ROUND(SUM(fare_usd),2) AS revenue FROM trips WHERE status='completed' GROUP BY 1) SELECT month, revenue, ROUND(100.0*(revenue - LAG(revenue) OVER (ORDER BY month))/LAG(revenue) OVER (ORDER BY month), 1) AS growth_pct FROM m ORDER BY month",
+  "order_matters": true,
+  "hint_notes": "LAG over month. Watch for: integer division, not handling the NULL first month, grouping by raw timestamp instead of truncated month."
+}

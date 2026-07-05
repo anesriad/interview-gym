@@ -1,0 +1,19 @@
+{
+  "id": "py-005",
+  "area": "python",
+  "topic": "trees/graphs",
+  "difficulty": "medium",
+  "title": "Number of islands",
+  "prompt": "Given a 2D grid of `1` (land) and `0` (water), return the number of **islands** — groups of land cells connected horizontally or vertically (not diagonally).\n\n**Example**:\n```\n[[1, 1, 0],\n [0, 1, 0],\n [0, 0, 1]]  →  2\n```\n\nYou may modify the grid in place.",
+  "starter_code": "def num_islands(grid):\n    pass\n",
+  "function_name": "num_islands",
+  "tests": [
+    {"args": [[[1, 1, 0], [0, 1, 0], [0, 0, 1]]], "expected": 2},
+    {"args": [[[1, 0, 1, 0]]], "expected": 2},
+    {"args": [[[0]]], "expected": 0},
+    {"args": [[[1, 1], [1, 1]]], "expected": 1},
+    {"args": [[[1, 0, 0], [0, 1, 0], [0, 0, 1]]], "expected": 3}
+  ],
+  "reference_solution": "def num_islands(grid):\n    if not grid:\n        return 0\n    R, C = len(grid), len(grid[0])\n    def sink(r, c):\n        if 0 <= r < R and 0 <= c < C and grid[r][c] == 1:\n            grid[r][c] = 0\n            for dr, dc in ((1,0),(-1,0),(0,1),(0,-1)):\n                sink(r+dr, c+dc)\n    n = 0\n    for r in range(R):\n        for c in range(C):\n            if grid[r][c] == 1:\n                n += 1\n                sink(r, c)\n    return n\n",
+  "hint_notes": "Flood fill (DFS/BFS) per unvisited land cell. Tags: no-visited-tracking, diagonal-adjacency-confusion."
+}

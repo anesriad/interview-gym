@@ -1,0 +1,12 @@
+{
+  "id": "sql-102",
+  "area": "sql",
+  "topic": "basics: aggregation",
+  "difficulty": "very easy",
+  "title": "Users per plan",
+  "prompt": "How many users are on each **plan**?\n\nTwo columns: `plan`, `n_users`. Order by `n_users` descending.\n\nRefresher goals: `COUNT(*)`, `GROUP BY`.",
+  "starter_code": "-- Tables: users, trips, payments, content, sessions_watch\n-- Write your query below\n\n",
+  "reference_sql": "SELECT plan, COUNT(*) AS n_users FROM users GROUP BY plan ORDER BY n_users DESC",
+  "order_matters": true,
+  "hint_notes": "Plain GROUP BY + COUNT(*). If they SELECT a non-grouped column, teach the GROUP BY rule."
+}

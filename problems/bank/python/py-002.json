@@ -1,0 +1,19 @@
+{
+  "id": "py-002",
+  "area": "python",
+  "topic": "arrays/hashing",
+  "difficulty": "medium",
+  "title": "Top-k frequent elements",
+  "prompt": "Given a list of integers `nums` and an integer `k`, return the `k` most frequent values.\n\nOrder the result by **frequency descending**, breaking ties by **value ascending**.\n\n**Example**: `top_k_frequent([1, 1, 1, 2, 2, 3], 2)` → `[1, 2]`\n\nCan you beat O(n log n)? (Discussing bucket sort earns points even if you submit the sort version.)",
+  "starter_code": "def top_k_frequent(nums, k):\n    pass\n",
+  "function_name": "top_k_frequent",
+  "tests": [
+    {"args": [[1, 1, 1, 2, 2, 3], 2], "expected": [1, 2]},
+    {"args": [[4, 4, 5, 5, 6], 2], "expected": [4, 5]},
+    {"args": [[7], 1], "expected": [7]},
+    {"args": [[2, 3, 2, 3, 4, 4], 3], "expected": [2, 3, 4]},
+    {"args": [[5, 5, 5, 1, 1, 2], 2], "expected": [5, 1]}
+  ],
+  "reference_solution": "from collections import Counter\n\ndef top_k_frequent(nums, k):\n    c = Counter(nums)\n    return [v for v, _ in sorted(c.items(), key=lambda t: (-t[1], t[0]))[:k]]\n",
+  "hint_notes": "Counter + sort by (-count, value). Bucket-sort alternative is O(n). Tag sloppy tie handling: no-edge-case-check."
+}

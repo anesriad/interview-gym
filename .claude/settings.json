@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3:*)",
+      "Bash(python:*)",
+      "Bash(python3.13:*)",
+      "Bash(duckdb:*)",
+      "Bash(sqlite3:*)",
+      "Bash(git ls-files:*)",
+      "Bash(gh repo view:*)"
+    ]
+  }
+}

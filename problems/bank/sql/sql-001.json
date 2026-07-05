@@ -1,0 +1,12 @@
+{
+  "id": "sql-001",
+  "area": "sql",
+  "topic": "joins/aggregation",
+  "difficulty": "easy",
+  "title": "Revenue by city",
+  "prompt": "For each **city**, compute stats on **completed** trips only.\n\nReturn three columns:\n\n- `city`\n- `num_trips` — number of completed trips\n- `total_revenue` — sum of `fare_usd`, rounded to 2 decimals\n\nOrder by `total_revenue` descending.",
+  "starter_code": "-- Tables: users, trips, payments, content, sessions_watch\n-- Write your query below\n\n",
+  "reference_sql": "SELECT city, COUNT(*) AS num_trips, ROUND(SUM(fare_usd), 2) AS total_revenue FROM trips WHERE status = 'completed' GROUP BY city ORDER BY total_revenue DESC",
+  "order_matters": true,
+  "hint_notes": "Filter status='completed' in WHERE (not HAVING); simple GROUP BY on city. Common mistake: forgetting the filter or using HAVING."
+}

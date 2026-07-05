@@ -1,0 +1,24 @@
+{
+  "id": "ml-003",
+  "area": "ml",
+  "topic": "feature engineering",
+  "difficulty": "medium",
+  "title": "Which numeric feature drives churn?",
+  "prompt": "Using the preloaded **`df`**: among the numeric features `tenure_months`, `monthly_charge`, `support_calls`, find which correlates most strongly with `churned`.\n\nSteps:\n1. Median-impute `monthly_charge` first (as in real pipelines \u2014 no leakage worries here, it's all training data).\n2. Compute Pearson correlation of each of the three features with `churned`.\n\nDefine:\n- `top_feature` \u2014 name (string) of the feature with the **largest absolute** correlation\n- `top_corr` \u2014 that feature's correlation (signed, not absolute), rounded to 3 decimals",
+  "starter_code": "# df is preloaded\n\ntop_feature = ...\ntop_corr = ...\n",
+  "checks": [
+    {
+      "name": "top_feature",
+      "expr": "str(top_feature)",
+      "expected": "tenure_months"
+    },
+    {
+      "name": "top_corr",
+      "expr": "round(float(top_corr), 3)",
+      "expected": -0.21,
+      "tol": 0.001
+    }
+  ],
+  "reference_solution": "df['monthly_charge'] = df['monthly_charge'].fillna(df['monthly_charge'].median())\nfeats = ['tenure_months', 'monthly_charge', 'support_calls']\ncorrs = df[feats + ['churned']].corr()['churned'][feats]\ntop_feature = str(corrs.abs().idxmax())\ntop_corr = round(float(corrs[top_feature]), 3)\n",
+  "hint_notes": "df.corr() or series.corr(); compare by absolute value but report signed. Tags: abs-vs-signed-correlation, correlation-not-causation (probe verbally)."
+}

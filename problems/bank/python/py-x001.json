@@ -1,0 +1,56 @@
+{
+  "title": "Minimum Window Substring",
+  "topic": "two pointers",
+  "difficulty": "hard",
+  "prompt": "Given two strings `s` and `t`, return the minimum window substring of `s` that contains all characters of `t` (including duplicates). If there is no such substring, return the empty string `\"\"`. \n\n**Example**: \nInput: s = \"ADOBECODEBANC\", t = \"ABC\"\nOutput: \"BANC\"\nExplanation: The minimum window substring \"BANC\" includes 'A', 'B', and 'C' from string t.\n\n**Constraints**:\n- 1 <= s.length, t.length <= 10^5\n- s and t consist of uppercase and lowercase English letters.\n\n**Follow up**: Could you find an algorithm that runs in O(m + n) time?",
+  "starter_code": "def min_window_substring(s: str, t: str) -> str:\n    pass\n",
+  "function_name": "min_window_substring",
+  "tests": [
+    {
+      "args": [
+        "ADOBECODEBANC",
+        "ABC"
+      ],
+      "expected": "BANC"
+    },
+    {
+      "args": [
+        "a",
+        "a"
+      ],
+      "expected": "a"
+    },
+    {
+      "args": [
+        "a",
+        "aa"
+      ],
+      "expected": ""
+    },
+    {
+      "args": [
+        "ab",
+        "b"
+      ],
+      "expected": "b"
+    },
+    {
+      "args": [
+        "abc",
+        "cba"
+      ],
+      "expected": "abc"
+    },
+    {
+      "args": [
+        "",
+        "a"
+      ],
+      "expected": ""
+    }
+  ],
+  "reference_solution": "def min_window_substring(s: str, t: str) -> str:\n    if not s or not t:\n        return \"\"\n    \n    # Count characters in t\n    target_count = {}\n    for char in t:\n        target_count[char] = target_count.get(char, 0) + 1\n    \n    left = 0\n    required_chars = len(target_count)\n    formed_chars = 0\n    window_count = {}\n    min_len = float('inf')\n    result = \"\"\n    \n    for right in range(len(s)):\n        # Add character to window\n        char = s[right]\n        window_count[char] = window_count.get(char, 0) + 1\n        \n        # Check if this character matches the required count\n        if char in target_count and window_count[char] == target_count[char]:\n            formed_chars += 1\n        \n        # Try to minimize window by moving left pointer\n        while formed_chars == required_chars:\n            # Update result if current window is smaller\n            if right - left + 1 < min_len:\n                min_len = right - left + 1\n                result = s[left:right+1]\n            \n            # Remove leftmost character from window\n            left_char = s[left]\n            window_count[left_char] -= 1\n            if left_char in target_count and window_count[left_char] < target_count[left_char]:\n                formed_chars -= 1\n            \n            left += 1\n    \n    return result",
+  "hint_notes": "Use sliding window technique with two pointers. Maintain counts of characters in both target string and current window. Expand right pointer to include new characters, then shrink left pointer when all required characters are included. Key insight: use a counter to track how many unique characters have met their required frequency.",
+  "id": "py-x001",
+  "area": "python"
+}

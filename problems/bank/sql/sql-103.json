@@ -1,0 +1,12 @@
+{
+  "id": "sql-103",
+  "area": "sql",
+  "topic": "basics: aggregation",
+  "difficulty": "very easy",
+  "title": "Average trip, city by city",
+  "prompt": "For **completed** trips, compute per city:\n\n- `city`\n- `avg_km` — average `distance_km`, rounded to 2 decimals\n- `avg_fare` — average `fare_usd`, rounded to 2 decimals\n\nOrder by `city` alphabetically.\n\nRefresher goals: `AVG`, `ROUND`, filtering before grouping.",
+  "starter_code": "-- Tables: users, trips, payments, content, sessions_watch\n-- Write your query below\n\n",
+  "reference_sql": "SELECT city, ROUND(AVG(distance_km), 2) AS avg_km, ROUND(AVG(fare_usd), 2) AS avg_fare FROM trips WHERE status = 'completed' GROUP BY city ORDER BY city",
+  "order_matters": true,
+  "hint_notes": "WHERE status filter + AVG + ROUND. Including cancelled trips shifts the averages — check that."
+}

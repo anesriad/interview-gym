@@ -1,0 +1,29 @@
+{
+  "id": "ml-004",
+  "area": "ml",
+  "topic": "model selection/eval",
+  "difficulty": "medium",
+  "title": "Churn model: beat the baseline properly",
+  "prompt": "Train a churn classifier on the preloaded **`df`** with this exact recipe (so results are reproducible):\n\n1. Median-impute `monthly_charge`.\n2. Features `X`: `tenure_months`, `monthly_charge`, `support_calls` + one-hot dummies of `plan` and `contract` (`pd.get_dummies`). Target `y = churned`.\n3. `train_test_split(X, y, test_size=0.25, random_state=42, stratify=y)`.\n4. `LogisticRegression(max_iter=1000)` fit on train.\n\nDefine:\n- `auc` \u2014 ROC AUC on the **test** set using predicted probabilities (`predict_proba`)\n- `baseline_acc` \u2014 accuracy on the test set of always predicting \"no churn\", rounded to 3 decimals\n\nWhy do we look at AUC instead of accuracy here?",
+  "starter_code": "from sklearn.model_selection import train_test_split\nfrom sklearn.linear_model import LogisticRegression\nfrom sklearn.metrics import roc_auc_score\n\n# df is preloaded\n\nauc = ...\nbaseline_acc = ...\n",
+  "checks": [
+    {
+      "name": "auc beats coin flip decisively (>= 0.65)",
+      "expr": "bool(auc >= 0.65)",
+      "expected": true
+    },
+    {
+      "name": "auc is honest (< 0.9 \u2014 if higher you probably leaked)",
+      "expr": "bool(auc < 0.9)",
+      "expected": true
+    },
+    {
+      "name": "baseline_acc",
+      "expr": "round(float(baseline_acc), 3)",
+      "expected": 0.829,
+      "tol": 0.001
+    }
+  ],
+  "reference_solution": "from sklearn.model_selection import train_test_split\nfrom sklearn.linear_model import LogisticRegression\nfrom sklearn.metrics import roc_auc_score\n\ndf['monthly_charge'] = df['monthly_charge'].fillna(df['monthly_charge'].median())\nX = pd.concat([df[['tenure_months', 'monthly_charge', 'support_calls']], pd.get_dummies(df[['plan', 'contract']])], axis=1)\ny = df['churned']\nXtr, Xte, ytr, yte = train_test_split(X, y, test_size=0.25, random_state=42, stratify=y)\nm = LogisticRegression(max_iter=1000).fit(Xtr, ytr)\nauc = roc_auc_score(yte, m.predict_proba(Xte)[:, 1])\nbaseline_acc = round(float((yte == 0).mean()), 3)\n",
+  "hint_notes": "Class imbalance makes accuracy misleading; AUC threshold-free. Leakage trap: including customer_id or churned in X. Tags: accuracy-on-imbalanced-data, leakage-in-features."
+}

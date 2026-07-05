@@ -1,0 +1,11 @@
+pandas
+numpy
+duckdb
+jupysql
+duckdb-engine
+ipykernel
+matplotlib
+scikit-learn
+scipy
+fastapi
+uvicorn[standard]
