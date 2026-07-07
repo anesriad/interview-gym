@@ -1,0 +1,11 @@
+{
+  "title": "User Engagement and Spending Patterns",
+  "topic": "joins/aggregation",
+  "difficulty": "medium",
+  "prompt": "Identify the top 5 users by total spending (including trips and payments) who have completed at least 3 trips in 2025. For each user, output their user_id, total_spending (sum of trip fares and payment amounts), number_of_completed_trips, and their city. Order the results by total_spending descending.",
+  "reference_sql": "SELECT u.user_id, SUM(COALESCE(t.fare_usd, 0) + COALESCE(p.amount_usd, 0)) AS total_spending, COUNT(t.trip_id) AS number_of_completed_trips, u.city FROM users u JOIN trips t ON u.user_id = t.user_id LEFT JOIN payments p ON t.trip_id = p.trip_id WHERE t.status = 'completed' AND t.complete_ts >= '2025-01-01' AND t.complete_ts < '2026-01-01' GROUP BY u.user_id, u.city HAVING COUNT(t.trip_id) >= 3 ORDER BY total_spending DESC LIMIT 5",
+  "order_matters": true,
+  "hint_notes": "Key idea: Join users, trips, and payments tables; aggregate spending by user; filter for completed trips in 2025; ensure at least 3 trips; order by spending. Common mistake: Forgetting to include trips with no payments (LEFT JOIN) or not filtering correctly on trip status and date range.",
+  "id": "sql-x003",
+  "area": "sql"
+}

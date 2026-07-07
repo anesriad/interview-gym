@@ -1,0 +1,11 @@
+{
+  "id": "ai-024",
+  "area": "ai",
+  "topic": "Cost & Latency",
+  "difficulty": "medium",
+  "title": "How do batching and caching affect your latency budget?",
+  "prompt": "How do batching and caching affect your latency budget?\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use 💡 Hint, 🧠 AI feedback, or 📗 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "Caching is almost universally beneficial: if 30% of queries are semantically similar (common in production), a semantic cache cuts average latency and cost by 30%. Exact-match caching is simple; semantic caching (matching similar queries via embeddings) catches more duplicates but adds complexity. Batching increases throughput but adds latency per request because each waits for the batch to fill — only use for background/async tasks, never for real-time user requests.\n\n**Takeaway:** Cache aggressively for real-time requests. Batch for background tasks only. Design cache keys carefully.",
+  "hint_notes": "Cache aggressively for real-time requests. Batch for background tasks only. Design cache keys carefully."
+}

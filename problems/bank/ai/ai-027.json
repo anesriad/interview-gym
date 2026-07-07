@@ -1,0 +1,11 @@
+{
+  "id": "ai-027",
+  "area": "ai",
+  "topic": "System Design",
+  "difficulty": "medium",
+  "title": "What's your fallback when an LLM call fails?",
+  "prompt": "What's your fallback when an LLM call fails?\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use 💡 Hint, 🧠 AI feedback, or 📗 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "Layer your fallbacks: retry with exponential backoff (1s, 2s, 4s — handles transient errors), fall back to a cheaper/local model (Ollama as backup for Claude API), serve a cached response for similar queries, then show retrieved source documents directly with a disclaimer. Implement circuit breaker pattern for sustained failures — stop calling a failing API entirely during cooldown.\n\n**Takeaway:** Design for failure from day one. Graceful degradation is more valuable than 99.9% uptime.",
+  "hint_notes": "Design for failure from day one. Graceful degradation is more valuable than 99.9% uptime."
+}

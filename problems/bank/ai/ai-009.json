@@ -1,0 +1,11 @@
+{
+  "id": "ai-009",
+  "area": "ai",
+  "topic": "Prompting & Context Engineering",
+  "difficulty": "medium",
+  "title": "When do you pass more context vs retrieve it?",
+  "prompt": "When do you pass more context vs retrieve it?\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use 💡 Hint, 🧠 AI feedback, or 📗 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "Pass directly when the context is small (<2K tokens), stable (doesn't change often), and always relevant regardless of the query — things like user preferences, system configuration, persona instructions, and formatting rules. Retrieve when the knowledge base is large, only subsets are relevant per query, or information changes frequently.\n\n**Takeaway:** Small + always relevant = direct. Large + query-dependent = retrieve. Most systems use both.",
+  "hint_notes": "Small + always relevant = direct. Large + query-dependent = retrieve. Most systems use both."
+}

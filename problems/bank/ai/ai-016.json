@@ -1,0 +1,11 @@
+{
+  "id": "ai-016",
+  "area": "ai",
+  "topic": "MLOps & LLMOps",
+  "difficulty": "medium",
+  "title": "What are you actually monitoring in a production LLM system?",
+  "prompt": "What are you actually monitoring in a production LLM system?\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use 💡 Hint, 🧠 AI feedback, or 📗 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "Monitor the full pipeline, not just the LLM: latency by stage (P50/P95/P99 for embedding, retrieval, generation), token usage and cost per request, error rates by type (timeout, rate limit, invalid format), retrieval quality metrics, output quality (hallucination rate, faithfulness scores via Opik), cache hit rates, and user feedback signals (thumbs up/down, conversation abandonment).\n\n**Takeaway:** Monitor the full pipeline. Most issues are retrieval and infrastructure, not the model itself.",
+  "hint_notes": "Monitor the full pipeline. Most issues are retrieval and infrastructure, not the model itself."
+}

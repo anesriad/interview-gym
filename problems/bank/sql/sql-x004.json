@@ -1,0 +1,11 @@
+{
+  "title": "Most Valuable Customers by City and Plan",
+  "topic": "joins/aggregation",
+  "difficulty": "medium",
+  "prompt": "Identify the top 3 most valuable customers (by total fare paid) in each city and plan combination. For each of these customers, show their user_id, city, plan, and total fare paid. Order the results by city, plan, and total fare paid descending.",
+  "reference_sql": "WITH customer_fares AS (\n    SELECT\n        u.user_id,\n        u.city,\n        u.plan,\n        SUM(t.fare_usd) AS total_fare\n    FROM users u\n    JOIN trips t ON u.user_id = t.user_id\n    WHERE t.status = 'completed'\n    GROUP BY u.user_id, u.city, u.plan\n), ranked_customers AS (\n    SELECT\n        user_id,\n        city,\n        plan,\n        total_fare,\n        ROW_NUMBER() OVER (PARTITION BY city, plan ORDER BY total_fare DESC) AS rank\n    FROM customer_fares\n)\nSELECT\n    user_id,\n    city,\n    plan,\n    total_fare\nFROM ranked_customers\nWHERE rank <= 3\nORDER BY city, plan, total_fare DESC;",
+  "order_matters": true,
+  "hint_notes": "Key idea is to aggregate fare by user, city and plan; use window function to rank within city-plan combinations. Common mistake is forgetting to filter for completed trips or not using proper partitioning in the window function.",
+  "id": "sql-x004",
+  "area": "sql"
+}

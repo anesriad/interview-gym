@@ -10,7 +10,7 @@ from pathlib import Path
 from . import llm, runner, runner_py
 
 BANK = Path(__file__).resolve().parents[2] / "problems" / "bank"
-AREAS = ["sql", "python", "ml", "design"]
+AREAS = ["sql", "python", "ml", "design", "ai"]
 RETRIES = 3
 
 # job state polled by the frontend
@@ -73,6 +73,14 @@ Output ONLY a JSON object with exactly these keys:
 "starter_code": str (markdown skeleton with those numbered section headers),
 "reference_solution": str (a grading RUBRIC in prose: what a strong answer must cover, the key numbers, the classic mistakes),
 "hint_notes": str}""",
+    "ai": """Write ONE new AI-engineering interview question about LLMs in production — pick ONE angle: LLM fundamentals (tokenization, embeddings, fine-tuning), prompting/context engineering, RAG systems, LLMOps (monitoring, CI/CD, rollback, hallucination detection), cost & latency optimization, AI system design decisions, or a realistic production scenario.
+Output ONLY a JSON object with exactly these keys:
+{"title": str (the question itself, one sentence),
+"topic": one of ["LLM Fundamentals","Prompting & Context Engineering","RAG Systems","MLOps & LLMOps","Cost & Latency","System Design","Real-World Scenarios"],
+"difficulty": "easy"|"medium"|"hard",
+"prompt": str (the question, plus at most 2 sentences of scenario context),
+"reference_solution": str (a model answer: one substantial, technically precise paragraph, then a final line "**Takeaway:** <one-sentence rule of thumb>"),
+"hint_notes": str (one-line key idea for a coach)}""",
 }
 
 
@@ -84,7 +92,7 @@ def _extract_json(text):
 
 
 def _next_id(area):
-    prefix = {"sql": "sql", "python": "py", "ml": "ml", "design": "design"}[area]
+    prefix = {"sql": "sql", "python": "py", "ml": "ml", "design": "design", "ai": "ai"}[area]
     nums = [int(m.group(1)) for f in BANK.glob(f"{area}/{prefix}-x*.json")
             if (m := re.match(rf"{prefix}-x(\d+)", f.stem))]
     return f"{prefix}-x{(max(nums) + 1) if nums else 1:03d}"
@@ -106,6 +114,10 @@ def _verify(area, p):
 
     if area == "design":
         return (len(p.get("prompt", "")) > 200 and len(p.get("reference_solution", "")) > 200), "prompt or rubric too thin"
+
+    if area == "ai":
+        ok = len(p.get("prompt", "")) > 40 and len(p.get("reference_solution", "")) > 250
+        return ok, "question or model answer too thin"
 
     # python / ml: run reference, auto-fill expected values, then re-grade
     probe = runner_py._invoke({

@@ -4,11 +4,14 @@ import { api } from "./api";
 import TopTools, { setChatContext } from "./Tools";
 
 const DIFF_COLOR = { "very easy": "#5eead4", easy: "var(--green)", medium: "var(--yellow)", hard: "var(--red)" };
+const DIFF_ORDER = { "very easy": 0, easy: 1, medium: 2, hard: 3 };
 const STATUS_ICON = { solved: "✓", attempted: "◐", unsolved: "" };
+const AREA_LABEL = { ai: "AI / LLM", design: "SYSTEM DESIGN" };
 
 export default function ProblemList() {
   const [problems, setProblems] = useState([]);
   const [area, setArea] = useState("all");
+  const [sort, setSort] = useState(0); // 0 = default order, 1 = easiest first, 2 = hardest first
   const [gen, setGen] = useState(null); // job status while generating
 
   const refresh = () => api.problems().then(setProblems).catch(console.error);
@@ -40,7 +43,12 @@ export default function ProblemList() {
   };
 
   const areas = ["all", ...new Set(problems.map((p) => p.area))];
-  const shown = problems.filter((p) => area === "all" || p.area === area);
+  let shown = problems.filter((p) => area === "all" || p.area === area);
+  if (sort) {
+    shown = [...shown].sort((a, b) =>
+      (sort === 1 ? 1 : -1) * ((DIFF_ORDER[a.difficulty] ?? 9) - (DIFF_ORDER[b.difficulty] ?? 9))
+    );
+  }
   const solved = problems.filter((p) => p.status === "solved").length;
 
   return (
@@ -65,7 +73,7 @@ export default function ProblemList() {
             <span>✨ Problem generator {gen.running && <span className="gen-spin">— working, ~1 min per area</span>}</span>
             {!gen.running && <button className="mentor-close" onClick={() => setGen(null)}>✕</button>}
           </div>
-          <div className="gen-bar"><div className="gen-fill" style={{ width: `${Math.min(100, (gen.added?.length ?? 0) * 25 + (gen.running ? 5 : 0))}%` }} /></div>
+          <div className="gen-bar"><div className="gen-fill" style={{ width: `${Math.min(100, (gen.added?.length ?? 0) * 20 + (gen.running ? 5 : 0))}%` }} /></div>
           <div className="gen-log">
             {gen.log?.slice(-6).map((l, i) => <div key={i}>{l}</div>)}
           </div>
@@ -75,9 +83,17 @@ export default function ProblemList() {
       <div className="filters">
         {areas.map((a) => (
           <button key={a} className={`chip ${a === area ? "chip-on" : ""}`} onClick={() => setArea(a)}>
-            {a.toUpperCase()}
+            {AREA_LABEL[a] ?? a.toUpperCase()}
           </button>
         ))}
+        <span className="spacer" />
+        <button
+          className={`chip ${sort ? "chip-on" : ""}`}
+          onClick={() => setSort((sort + 1) % 3)}
+          title="Sort by difficulty"
+        >
+          Difficulty {sort === 1 ? "↑" : sort === 2 ? "↓" : "↕"}
+        </button>
       </div>
 
       <div className="plist">

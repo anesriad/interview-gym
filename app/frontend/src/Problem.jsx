@@ -57,6 +57,7 @@ export default function Problem() {
       setProblem(p);
       setCode(p.draft ?? p.starter_code ?? "");
       setOut(null);
+      setDone(false);
     });
     api.schema().then(setSchema);
   }, [id]);
@@ -73,7 +74,28 @@ export default function Problem() {
     return () => clearInterval(t);
   }, [id]);
 
-  const isDesign = problem?.area === "design";
+  const isDesign = ["design", "ai"].includes(problem?.area); // text answers: no run/submit
+  const hasAnswer = problem?.area === "ai";
+  const [done, setDone] = useState(false);
+
+  const markDone = useCallback(async () => {
+    try {
+      await api.markDone(id, codeRef.current);
+      setDone(true);
+    } catch (e) {
+      setMentor({ title: "Mark done", text: `⚠️ ${e.message}` });
+    }
+  }, [id]);
+
+  const showAnswer = useCallback(async () => {
+    setMentor({ loading: "Answer" });
+    try {
+      const r = await api.answer(id);
+      setMentor({ title: "📗 Answer", text: r.text });
+    } catch (e) {
+      setMentor({ title: "📗 Answer", text: `⚠️ ${e.message}` });
+    }
+  }, [id]);
 
   const run = useCallback(async () => {
     if (isDesign) return;
@@ -196,7 +218,16 @@ export default function Problem() {
                 </button>
               </>
             )}
-            {isDesign && <span className="muted">Design answer — markdown; get critique with 🧠 AI feedback</span>}
+            {isDesign && (
+              <>
+                <button className={`btn ${done ? "btn-done" : "btn-primary"}`} onClick={markDone} disabled={done}>
+                  {done ? "✓ Done" : "✓ Mark as done"}
+                </button>
+                <span className="muted">
+                  {hasAnswer ? "Written answer — markdown" : "Design answer — markdown; get critique with 🧠 AI feedback"}
+                </span>
+              </>
+            )}
             <span className="spacer" />
             <button className="btn btn-mentor" onClick={() => setRulesOpen(true)}>
               📖 Rules
@@ -207,6 +238,11 @@ export default function Problem() {
             <button className="btn btn-mentor" onClick={() => askMentor("feedback")} disabled={!!mentor?.loading}>
               🧠 AI feedback
             </button>
+            {hasAnswer && (
+              <button className="btn btn-mentor" onClick={showAnswer} disabled={!!mentor?.loading}>
+                📗 Show answer
+              </button>
+            )}
             {out?.kind === "submit" && !out.error && (
               <span className={out.passed ? "verdict pass" : "verdict fail"}>
                 {out.passed
@@ -237,7 +273,9 @@ export default function Problem() {
           <div className="results">
             {!out && (
               <span className="muted">
-                {isDesign
+                {hasAnswer
+                  ? "Write your answer as you'd say it in an interview, then get 🧠 AI feedback — or reveal the model answer with 📗 Show answer."
+                  : isDesign
                   ? "Sketch requirements → API → data model → scale → tradeoffs in the editor, then ask for AI feedback."
                   : problem.area === "sql" ? "Run your query to see results." : "Run your code to see output."}
               </span>

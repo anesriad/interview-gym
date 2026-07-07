@@ -1,0 +1,11 @@
+{
+  "id": "ai-004",
+  "area": "ai",
+  "topic": "LLM Fundamentals",
+  "difficulty": "medium",
+  "title": "When do you pick LoRA over full fine-tuning?",
+  "prompt": "When do you pick LoRA over full fine-tuning?\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use 💡 Hint, 🧠 AI feedback, or 📗 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "LoRA when: dataset is modest (hundreds to low thousands of examples), you want single-GPU efficiency, you need to serve multiple adapted versions from one base model, or you're adapting style/behavior rather than fundamentally changing capabilities. Full fine-tuning only when: very large dataset (100K+), need maximum performance shift, and have the compute budget for multi-GPU training.\n\n**Takeaway:** Default to LoRA/QLoRA unless you have a very large dataset and compelling reason for full fine-tuning.",
+  "hint_notes": "Default to LoRA/QLoRA unless you have a very large dataset and compelling reason for full fine-tuning."
+}

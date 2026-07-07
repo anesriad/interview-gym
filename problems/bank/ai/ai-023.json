@@ -1,0 +1,11 @@
+{
+  "id": "ai-023",
+  "area": "ai",
+  "topic": "Cost & Latency",
+  "difficulty": "medium",
+  "title": "When do you pick hosted APIs over open-source models?",
+  "prompt": "When do you pick hosted APIs over open-source models?\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use 💡 Hint, 🧠 AI feedback, or 📗 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "APIs when: you need best-available quality, have no GPU infrastructure, need to move fast (no model management), or your volume is low enough that per-token pricing is cheaper than running servers. Open-source when: data privacy requirements (GDPR, healthcare), cost predictability at scale (above ~1M requests/month self-hosting usually wins), fine-tuning needs, or local development.\n\n**Takeaway:** Use both: open-source for dev and privacy, APIs for production quality. Document the tradeoffs.",
+  "hint_notes": "Use both: open-source for dev and privacy, APIs for production quality. Document the tradeoffs."
+}

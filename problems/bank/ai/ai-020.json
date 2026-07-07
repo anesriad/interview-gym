@@ -1,0 +1,11 @@
+{
+  "id": "ai-020",
+  "area": "ai",
+  "topic": "MLOps & LLMOps",
+  "difficulty": "medium",
+  "title": "How do you catch hallucinations before users do?",
+  "prompt": "How do you catch hallucinations before users do?\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use 💡 Hint, 🧠 AI feedback, or 📗 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "Defense in depth: retrieval grounding (instruct model to only use retrieved context, say 'I don't know' when information is missing), LLM-as-Judge faithfulness scoring on every response via Opik, consistency checking (multiple generations of the same query — divergent answers signal uncertainty), citation verification (programmatically check that cited sources contain claimed information), and automated golden dataset testing on each deployment.\n\n**Takeaway:** Combine grounding, automated evaluation, and graceful degradation. Admitting uncertainty beats confident hallucination.",
+  "hint_notes": "Combine grounding, automated evaluation, and graceful degradation. Admitting uncertainty beats confident hallucination."
+}

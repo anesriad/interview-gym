@@ -1,0 +1,31 @@
+{
+  "title": "Monthly Charge Distribution Analysis by Plan Type",
+  "topic": "stats/experimentation",
+  "difficulty": "medium",
+  "prompt": "Analyze whether monthly charge distributions differ significantly across plan types using statistical hypothesis testing.\n\nDefine the following variables in your solution:\n- `charges_basic` (list/series of monthly charges for basic plans, excluding NaNs)\n- `charges_premium` (list/series of monthly charges for premium plans, excluding NaNs)\n- `p_value` (float, p-value from two-sample t-test comparing basic vs premium charges)\n\nUse random_state=42 for any sampling or splitting operations to ensure reproducibility.\n\nThe dataframe `df` is already preloaded with the required columns.",
+  "starter_code": "# df is preloaded\n# Define these variables:\n# charges_basic = ...\n# charges_premium = ...\n# p_value = ...\n",
+  "checks": [
+    {
+      "name": "charges_basic length",
+      "expr": "len(charges_basic)",
+      "expected": 1496,
+      "tol": 0.005
+    },
+    {
+      "name": "charges_premium length",
+      "expr": "len(charges_premium)",
+      "expected": 554,
+      "tol": 0.005
+    },
+    {
+      "name": "p_value is float",
+      "expr": "isinstance(p_value, (int, float))",
+      "expected": true,
+      "tol": 0.005
+    }
+  ],
+  "reference_solution": "import pandas as pd\nfrom scipy import stats\n\ndf_clean = df.dropna(subset=['monthly_charge'])\ncharges_basic = df_clean[df_clean['plan'] == 'basic']['monthly_charge'].values\ncharges_premium = df_clean[df_clean['plan'] == 'premium']['monthly_charge'].values\np_value = stats.ttest_ind(charges_basic, charges_premium, equal_var=False).pvalue",
+  "hint_notes": "Use scipy.stats.ttest_ind to compare the two charge distributions. Remember to clean the data by removing rows with NaN monthly charges before splitting into groups.",
+  "id": "ml-x003",
+  "area": "ml"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "ai-021",
+  "area": "ai",
+  "topic": "Cost & Latency",
+  "difficulty": "medium",
+  "title": "Where does token usage usually hide in a pipeline?",
+  "prompt": "Where does token usage usually hide in a pipeline?\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use 💡 Hint, 🧠 AI feedback, or 📗 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "System prompts are the biggest hidden cost — sent with every request, often 35%+ of total input tokens. A 1000-token system prompt at 10K requests/day = 10M input tokens daily just for the prompt. Other hiding spots: verbose retrieved context that isn't trimmed (do you need top-5 chunks or would top-3 give 95% quality?), few-shot examples, LLM-as-Judge evaluation calls (doubles LLM cost if run on 100% of responses), and retry logic that silently multiplies everything.\n\n**Takeaway:** System prompt, retrieved context, and retries are the three biggest hidden costs. Audit and measure.",
+  "hint_notes": "System prompt, retrieved context, and retries are the three biggest hidden costs. Audit and measure."
+}

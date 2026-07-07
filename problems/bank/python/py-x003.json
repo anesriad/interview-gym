@@ -1,0 +1,88 @@
+{
+  "title": "Product of Array Except Self",
+  "topic": "arrays",
+  "difficulty": "medium",
+  "prompt": "Given an integer array `nums`, return an array `answer` such that `answer[i]` equals the product of all elements in `nums` except `nums[i]`. You must solve this without using division and in O(n) time complexity.\n\nExample:\nInput: nums = [1,2,3,4]\nOutput: [24,12,8,6]\nExplanation: For index 0, 2*3*4=24; for index 1, 1*3*4=12; etc.\n\nNote: The input array will always have at least 2 elements.",
+  "starter_code": "def product_except_self(nums):\n    pass\n",
+  "function_name": "product_except_self",
+  "tests": [
+    {
+      "args": [
+        [
+          1,
+          2,
+          3,
+          4
+        ]
+      ],
+      "expected": [
+        24,
+        12,
+        8,
+        6
+      ]
+    },
+    {
+      "args": [
+        [
+          2,
+          3,
+          4,
+          5
+        ]
+      ],
+      "expected": [
+        60,
+        40,
+        30,
+        24
+      ]
+    },
+    {
+      "args": [
+        [
+          1,
+          0,
+          3,
+          4
+        ]
+      ],
+      "expected": [
+        0,
+        12,
+        0,
+        0
+      ]
+    },
+    {
+      "args": [
+        [
+          -1,
+          2,
+          -3,
+          4
+        ]
+      ],
+      "expected": [
+        -24,
+        12,
+        -8,
+        6
+      ]
+    },
+    {
+      "args": [
+        [
+          5
+        ]
+      ],
+      "expected": [
+        1
+      ]
+    }
+  ],
+  "reference_solution": "def product_except_self(nums):\n    n = len(nums)\n    result = [1] * n\n    \n    # First pass: compute left products\n    for i in range(1, n):\n        result[i] = result[i-1] * nums[i-1]\n    \n    # Second pass: multiply by right products\n    right_product = 1\n    for i in range(n-1, -1, -1):\n        result[i] *= right_product\n        right_product *= nums[i]\n    \n    return result",
+  "hint_notes": "Key idea is to compute prefix and suffix products separately. Common mistake: using division or nested loops which would give O(n\u00b2) complexity. The solution must use two passes through the array.",
+  "id": "py-x003",
+  "area": "python"
+}

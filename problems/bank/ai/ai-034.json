@@ -1,0 +1,11 @@
+{
+  "id": "ai-034",
+  "area": "ai",
+  "topic": "Real-World Scenarios",
+  "difficulty": "medium",
+  "title": "How do you debug an LLM giving wrong outputs?",
+  "prompt": "How do you debug an LLM giving wrong outputs?\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use 💡 Hint, 🧠 AI feedback, or 📗 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "Trace the full pipeline with Opik: (1) Was the input parsed correctly? (2) Did retrieval return relevant documents? This is the most common failure point in RAG. (3) Was the prompt assembled correctly — context placed right, instructions clear, not exceeding context window? (4) Did the model have the right information but reason incorrectly? (5) Did output parsing extract the answer correctly? The bug is almost never in the model itself — it's in what you fed it.\n\n**Takeaway:** Debug the pipeline, not the model. Tracing tools like Opik make the real problem visible instantly.",
+  "hint_notes": "Debug the pipeline, not the model. Tracing tools like Opik make the real problem visible instantly."
+}

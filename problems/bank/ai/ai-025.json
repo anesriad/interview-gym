@@ -1,0 +1,11 @@
+{
+  "id": "ai-025",
+  "area": "ai",
+  "topic": "Cost & Latency",
+  "difficulty": "medium",
+  "title": "What's the first thing you look at when a pipeline is too slow?",
+  "prompt": "What's the first thing you look at when a pipeline is too slow?\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use 💡 Hint, 🧠 AI feedback, or 📗 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "Profile by stage: add timing to embedding, retrieval, LLM generation, and post-processing. Don't assume the bottleneck — measure. Then check in order: is streaming enabled? (shows first token in 200-500ms even if full response takes 5 seconds), is retrieval using metadata pre-filtering? (filter before vector search, not after), is the prompt too long? (fewer input tokens = faster generation), and are you making sequential calls that could be parallelized?\n\n**Takeaway:** Measure first, optimize second. Streaming is usually the single biggest user-facing improvement.",
+  "hint_notes": "Measure first, optimize second. Streaming is usually the single biggest user-facing improvement."
+}

@@ -1,0 +1,11 @@
+{
+  "id": "ai-011",
+  "area": "ai",
+  "topic": "RAG Systems",
+  "difficulty": "medium",
+  "title": "How do you decide on a chunking strategy for your data?",
+  "prompt": "How do you decide on a chunking strategy for your data?\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use 💡 Hint, 🧠 AI feedback, or 📗 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "The strategy depends on document structure and query types. Section-based chunking (split on headers, paragraphs, or topic boundaries) produces topically coherent chunks and works best for structured documents like regulatory text, manuals, and reports. Fixed-size chunking (e.g., 512 tokens with 10-20% overlap) is a simple baseline for unstructured text.\n\n**Takeaway:** Section-based for structured docs, fixed-size for unstructured. Always benchmark against your actual queries.",
+  "hint_notes": "Section-based for structured docs, fixed-size for unstructured. Always benchmark against your actual queries."
+}

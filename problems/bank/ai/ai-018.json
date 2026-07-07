@@ -1,0 +1,11 @@
+{
+  "id": "ai-018",
+  "area": "ai",
+  "topic": "MLOps & LLMOps",
+  "difficulty": "medium",
+  "title": "How do you log prompts and outputs without blowing up storage?",
+  "prompt": "How do you log prompts and outputs without blowing up storage?\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use 💡 Hint, 🧠 AI feedback, or 📗 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "Sample strategically: log 100% of errors and slow requests, 10-20% of normal requests randomly, and any requests flagged by quality monitors. Deduplicate system prompts (identical across requests — store once with a hash, log only the variable parts). Use tiered retention: detailed traces for 14 days, summaries for 90 days, aggregated metrics indefinitely.\n\n**Takeaway:** Log strategically: sample, deduplicate system prompts, set retention tiers, redact PII.",
+  "hint_notes": "Log strategically: sample, deduplicate system prompts, set retention tiers, redact PII."
+}

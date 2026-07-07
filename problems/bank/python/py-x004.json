@@ -1,0 +1,107 @@
+{
+  "title": "Minimum Path Sum in Grid",
+  "topic": "dynamic programming",
+  "difficulty": "medium",
+  "prompt": "Given a m x n grid filled with non-negative numbers, find a path from top left to bottom right that minimizes the sum of all numbers along its path. You can only move either down or right at any point in time.\n\nExample:\nInput: grid = [[1,3,1],[1,5,1],[4,2,1]]\nOutput: 7\nExplanation: Because the path 1\u21923\u21921\u21921\u21921 minimizes the sum.",
+  "starter_code": "def min_path_sum(grid):\n    pass\n",
+  "function_name": "min_path_sum",
+  "tests": [
+    {
+      "args": [
+        [
+          [
+            1,
+            3,
+            1
+          ],
+          [
+            1,
+            5,
+            1
+          ],
+          [
+            4,
+            2,
+            1
+          ]
+        ]
+      ],
+      "expected": 7
+    },
+    {
+      "args": [
+        [
+          [
+            1,
+            2,
+            3
+          ],
+          [
+            4,
+            5,
+            6
+          ]
+        ]
+      ],
+      "expected": 12
+    },
+    {
+      "args": [
+        [
+          [
+            [
+              1
+            ]
+          ]
+        ]
+      ],
+      "expected": [
+        1
+      ]
+    },
+    {
+      "args": [
+        [
+          [
+            1,
+            2
+          ],
+          [
+            1,
+            2
+          ]
+        ]
+      ],
+      "expected": 4
+    },
+    {
+      "args": [
+        [
+          [
+            5,
+            1,
+            2,
+            3
+          ],
+          [
+            4,
+            5,
+            6,
+            7
+          ],
+          [
+            8,
+            9,
+            1,
+            2
+          ]
+        ]
+      ],
+      "expected": 17
+    }
+  ],
+  "reference_solution": "def min_path_sum(grid):\n    if not grid or not grid[0]:\n        return 0\n    m, n = len(grid), len(grid[0])\n    dp = [[0] * n for _ in range(m)]\n    dp[0][0] = grid[0][0]\n    for i in range(1, m):\n        dp[i][0] = dp[i-1][0] + grid[i][0]\n    for j in range(1, n):\n        dp[0][j] = dp[0][j-1] + grid[0][j]\n    for i in range(1, m):\n        for j in range(1, n):\n            dp[i][j] = min(dp[i-1][j], dp[i][j-1]) + grid[i][j]\n    return dp[m-1][n-1]",
+  "hint_notes": "Use dynamic programming where dp[i][j] represents the minimum path sum to reach cell (i,j). The recurrence relation is: dp[i][j] = min(dp[i-1][j], dp[i][j-1]) + grid[i][j]. Common mistake: not handling edge cases like empty grid or single element grid correctly.",
+  "id": "py-x004",
+  "area": "python"
+}

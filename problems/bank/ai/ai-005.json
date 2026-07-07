@@ -1,0 +1,11 @@
+{
+  "id": "ai-005",
+  "area": "ai",
+  "topic": "LLM Fundamentals",
+  "difficulty": "medium",
+  "title": "Why would loss go down while eval quality gets worse?",
+  "prompt": "Why would loss go down while eval quality gets worse?\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use 💡 Hint, 🧠 AI feedback, or 📗 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "This is overfitting — the model memorizes training examples (loss decreases) but loses generalization ability (eval quality drops). It can also signal a mismatch between your loss function and actual quality: cross-entropy treats all tokens equally, but some tokens matter much more than others for answer quality.\n\n**Takeaway:** Loss is a proxy, not the goal. Monitor eval metrics alongside loss. Use early stopping.",
+  "hint_notes": "Loss is a proxy, not the goal. Monitor eval metrics alongside loss. Use early stopping."
+}

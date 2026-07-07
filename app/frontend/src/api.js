@@ -21,5 +21,7 @@ export const api = {
   feedback: (problem_id, code) => post("/feedback", { problem_id, code }),
   chat: (messages, context) => post("/chat", { messages, context }),
   generate: () => post("/generate", {}),
+  answer: (id) => j(`/problems/${id}/answer`),
+  markDone: (problem_id, code) => post("/mark_done", { problem_id, code }),
   generateStatus: () => j("/generate/status"),
 };

@@ -1,0 +1,41 @@
+{
+  "title": "Optimizing Customer Retention Strategy Through Segmentation",
+  "topic": "feature engineering",
+  "difficulty": "medium",
+  "prompt": "You are tasked with creating customer segments to optimize retention strategies. Define a new feature `retention_risk_score` that combines `tenure_months`, `monthly_charge`, and `support_calls` into a single continuous score.\n\n**Recipe**: \n1. Standardize `tenure_months` and `monthly_charge` using sklearn's StandardScaler, keeping the scaled values in variables named `scaled_tenure` and `scaled_charge`\n2. Use `support_calls` as-is (already integer count)\n3. Create a weighted combination: `retention_risk_score = 0.4 * scaled_tenure + 0.4 * scaled_charge + 0.2 * support_calls`\n\nSet random_state=42 for reproducibility where applicable.",
+  "starter_code": "# df is preloaded\n# Define these variables:\n# scaled_tenure\n# scaled_charge\n# retention_risk_score",
+  "checks": [
+    {
+      "name": "scaled_tenure shape",
+      "expr": "scaled_tenure.shape",
+      "expected": [
+        3000
+      ],
+      "tol": 0
+    },
+    {
+      "name": "scaled_charge shape",
+      "expr": "scaled_charge.shape",
+      "expected": [
+        3000
+      ],
+      "tol": 0
+    },
+    {
+      "name": "retention_risk_score first five values",
+      "expr": "retention_risk_score[:5].tolist()",
+      "expected": [
+        0.03001444608202214,
+        1.081233358591375,
+        0.07352926013746913,
+        0.5128173416392379,
+        0.3072163005806109
+      ],
+      "tol": 0.005
+    }
+  ],
+  "reference_solution": "from sklearn.preprocessing import StandardScaler\nscaler = StandardScaler()\nscaled_data = scaler.fit_transform(df[['tenure_months', 'monthly_charge']])\nscaled_tenure = scaled_data[:, 0]\nscaled_charge = scaled_data[:, 1]\nretention_risk_score = 0.4 * scaled_tenure + 0.4 * scaled_charge + 0.2 * df['support_calls']",
+  "hint_notes": "Remember that StandardScaler expects a 2D array, and you need to extract the scaled columns correctly for further computation.",
+  "id": "ml-x002",
+  "area": "ml"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "ai-031",
+  "area": "ai",
+  "topic": "Real-World Scenarios",
+  "difficulty": "medium",
+  "title": "Your embedding model is deprecated. How do you plan the migration?",
+  "prompt": "Your embedding model is deprecated. How do you plan the migration?\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use 💡 Hint, 🧠 AI feedback, or 📗 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "Step 1: Evaluate 3-4 replacement candidates against your golden dataset (you have 3-6 months notice typically). Step 2: Choose based on YOUR domain performance, not leaderboards. Step 3: Re-embed entire corpus in parallel (batch job, might take hours to days). Step 4: Create new vector index alongside old one, run full evaluation suite. Step 5: Atomic swap of index alias. Step 6: Keep old index 30 days for rollback. Total timeline: 2-4 weeks.\n\n**Takeaway:** Architecture for changes from day one: abstract, version, automate, validate, rollback.",
+  "hint_notes": "Architecture for changes from day one: abstract, version, automate, validate, rollback."
+}

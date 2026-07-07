@@ -24,6 +24,10 @@ AREA_CONTEXT = {
     "design": "The user is writing a system-design answer in markdown (possibly with a mermaid "
               "diagram). Judge structure: requirements, API, data model, scale estimates, "
               "bottlenecks, tradeoffs. The reference is a rubric, not code.",
+    "ai": "The user is answering an AI-engineering interview question (LLMs, RAG, LLMOps, "
+          "cost/latency) in markdown, as they would speak in an interview. Judge technical "
+          "accuracy, completeness, and practical judgment against the reference answer — "
+          "which is prose, not code.",
 }
 
 HINT_LEVELS = {
@@ -99,7 +103,7 @@ def generate(task: str) -> str:
 
 
 def _lang(problem):
-    return {"sql": "sql", "design": "markdown"}.get(problem["area"], "python")
+    return {"sql": "sql", "design": "markdown", "ai": "markdown"}.get(problem["area"], "python")
 
 
 def hint(problem: dict, code: str, level: int) -> str:

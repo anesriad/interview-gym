@@ -1,0 +1,11 @@
+{
+  "id": "ai-030",
+  "area": "ai",
+  "topic": "System Design",
+  "difficulty": "medium",
+  "title": "When is 95% reliability good enough, and when is it not?",
+  "prompt": "When is 95% reliability good enough, and when is it not?\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use 💡 Hint, 🧠 AI feedback, or 📗 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "95% means 1 in 20 requests gives a wrong or failed result. For an internal tool used 20 times/day by people who review output: usually fine. For a customer-facing chatbot handling 1000 queries/day: 50 bad answers daily — each a potential complaint or reputational hit. For automated decisions with real consequences (financial, medical, legal): even 99.9% might mean 100 wrong decisions out of 100K. Need human-in-the-loop.\n\n**Takeaway:** Match reliability to consequences. Mild inconvenience = 95%. Real consequences = 99%+ or human oversight.",
+  "hint_notes": "Match reliability to consequences. Mild inconvenience = 95%. Real consequences = 99%+ or human oversight."
+}

@@ -1,0 +1,11 @@
+{
+  "id": "ai-014",
+  "area": "ai",
+  "topic": "RAG Systems",
+  "difficulty": "medium",
+  "title": "How do you evaluate retrieval in a way that matches user experience?",
+  "prompt": "How do you evaluate retrieval in a way that matches user experience?\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use 💡 Hint, 🧠 AI feedback, or 📗 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "Build a golden dataset of 30-50 real queries with annotated ground-truth documents and ideal answers. Layer three evaluation methods: retrieval metrics (Precision@k, MRR, NDCG), end-to-end metrics via LLM-as-Judge (faithfulness, answer relevance, completeness), and periodic human evaluation on production samples.\n\n**Takeaway:** Golden dataset + automated LLM-as-Judge + periodic human review. No single metric is enough.",
+  "hint_notes": "Golden dataset + automated LLM-as-Judge + periodic human review. No single metric is enough."
+}

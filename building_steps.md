@@ -75,6 +75,16 @@ Browser (React + Monaco editor)  ←→  FastAPI backend  ←→  DuckDB db/prac
       survives page navigation/reload; click the timer to stop.
 - [x] **Resizable panels**: drag the divider between prompt/editor and between
       editor/results; sizes remembered.
+- [x] **AI / LLM area**: 34 curated interview questions (LLM fundamentals, prompting,
+      RAG, LLMOps, cost/latency, system design, real-world scenarios) answered in
+      markdown like design problems, plus a **📗 Show answer** button that reveals the
+      reference answer + takeaway (`/api/problems/{id}/answer`, area-gated). The
+      generator also mints new AI/LLM questions (5 areas per ✨ run).
+- [x] **Smarter wrong-answer diagnostics (SQL)**: failure messages explain the likely
+      cause — grouping grain, join fan-out, zero rows from over-filtering, dropped
+      rows from INNER vs LEFT, rounding near-misses, first mismatching cell.
+- [x] **QoL**: ✓ Mark as done on text problems (design/ai) so they count as solved;
+      difficulty sort toggle on the list; area chips renamed AI / LLM + SYSTEM DESIGN.
 - [x] **Design problems (first slice)**: area `design` = markdown write-up in the
       editor (mermaid welcome), no Run/Submit; 🧠 AI feedback grades against a rubric
       stored in the problem file. Excalidraw whiteboard still planned (phase 5).

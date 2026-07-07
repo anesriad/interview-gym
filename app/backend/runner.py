@@ -54,6 +54,29 @@ def _norm_rows(rows):
     return [tuple(_norm_cell(c) for c in row) for row in rows]
 
 
+def _mismatch_detail(u, r):
+    """Same shape, wrong values: say where and, if it smells like rounding, say so."""
+    numeric_close = True
+    for ru, rr in zip(u, r):
+        for a, b in zip(ru, rr):
+            if a == b:
+                continue
+            if isinstance(a, (int, float)) and isinstance(b, (int, float)) and not isinstance(a, bool):
+                if abs(a - b) > 0.51:
+                    numeric_close = False
+            else:
+                numeric_close = False
+    if numeric_close:
+        return "Values are very close but not exact — check your rounding (round the aggregate, not each row) and decimal places."
+    for i, (ru, rr) in enumerate(zip(u, r)):
+        for j, (a, b) in enumerate(zip(ru, rr)):
+            if a != b and not (isinstance(a, (int, float)) and isinstance(b, (int, float))
+                               and not isinstance(a, bool) and abs(a - b) <= 1e-4):
+                return (f"Right shape, wrong values — first difference at row {i + 1}, column {j + 1} "
+                        f"(yours: {a!r}). Ask 🧠 AI feedback to interpret your approach.")
+    return "Row values don't match the expected result."
+
+
 def grade_sql(user_sql: str, reference_sql: str, order_matters: bool = False):
     """Run both queries; compare results (values only, column names ignored)."""
     user = run_sql(user_sql, limit=None)
@@ -70,12 +93,21 @@ def grade_sql(user_sql: str, reference_sql: str, order_matters: bool = False):
 
     detail = None
     if not passed:
-        if len(user["rows"]) != len(ref["rows"]):
-            detail = f"Expected {len(ref['rows'])} row(s), got {len(user['rows'])}."
+        nu, nr = len(user["rows"]), len(ref["rows"])
+        if nu != nr:
+            detail = f"Expected {nr} row(s), your query returned {nu}."
+            if nu > nr * 3:
+                detail += " That's a much finer grain than asked — are you grouping by extra columns (or missing the GROUP BY entirely)?"
+            elif nu > nr:
+                detail += " A few extra rows — check for a join fan-out or a missing filter."
+            elif nu == 0:
+                detail += " Zero rows — your WHERE clause probably filters everything out."
+            else:
+                detail += " Missing rows — check your filters, or a JOIN dropping rows (INNER vs LEFT)."
         elif len(user["columns"]) != len(ref["columns"]):
-            detail = f"Expected {len(ref['columns'])} column(s), got {len(user['columns'])}."
+            detail = f"Expected {len(ref['columns'])} column(s), got {len(user['columns'])}. Column names don't matter, but the count and order do."
         else:
-            detail = "Row values don't match the expected result."
+            detail = _mismatch_detail(u, r)
     if len(user["rows"]) > ROW_LIMIT:  # cap what goes back to the UI
         user = {**user, "rows": user["rows"][:ROW_LIMIT], "truncated": True}
     return {"passed": passed, "error": None, "detail": detail, "result": user, "expected": ref}

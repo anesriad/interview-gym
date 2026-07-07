@@ -1,0 +1,11 @@
+{
+  "id": "ai-001",
+  "area": "ai",
+  "topic": "LLM Fundamentals",
+  "difficulty": "medium",
+  "title": "What is tokenization, and why does it affect cost and quality?",
+  "prompt": "What is tokenization, and why does it affect cost and quality?\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use 💡 Hint, 🧠 AI feedback, or 📗 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "Tokenization splits text into sub-word units that the model processes. APIs charge per token, so tokenization directly determines cost. Common English words map to single tokens, but rare terms, technical jargon, non-English text, and numbers get split into many sub-tokens — inflating cost significantly. A 500-word English prompt might be 650 tokens, but the same content in Japanese could be 1,200+.\n\n**Takeaway:** Tokenization shapes cost, quality, and reasoning. Test your domain vocabulary against the tokenizer early.",
+  "hint_notes": "Tokenization shapes cost, quality, and reasoning. Test your domain vocabulary against the tokenizer early."
+}

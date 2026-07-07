@@ -1,0 +1,11 @@
+{
+  "id": "ai-006",
+  "area": "ai",
+  "topic": "Prompting & Context Engineering",
+  "difficulty": "medium",
+  "title": "When does few-shot beat zero-shot, and when does it hurt?",
+  "prompt": "When does few-shot beat zero-shot, and when does it hurt?\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use 💡 Hint, 🧠 AI feedback, or 📗 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "Few-shot wins for format-sensitive tasks where the model needs to see the exact expected structure: JSON extraction, classification with specific labels, consistent tone matching. It works by pattern-matching — the model infers behavior from the examples rather than instructions.\n\n**Takeaway:** Few-shot for format/classification, zero-shot with instructions for reasoning. Test both, measure.",
+  "hint_notes": "Few-shot for format/classification, zero-shot with instructions for reasoning. Test both, measure."
+}

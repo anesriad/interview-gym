@@ -1,0 +1,11 @@
+{
+  "id": "ai-032",
+  "area": "ai",
+  "topic": "Real-World Scenarios",
+  "difficulty": "medium",
+  "title": "How would you deploy a fine-tuned model safely?",
+  "prompt": "How would you deploy a fine-tuned model safely?\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use 💡 Hint, 🧠 AI feedback, or 📗 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "Shadow deployment first: run the fine-tuned model on production traffic but don't serve its responses, just compare with the base model. Then gradual rollout: 5% → 25% → 50% → 100% over days, monitoring quality metrics at each stage. Keep the base model warm for instant rollback. Never decommission the base model until the fine-tuned version has been stable for weeks.\n\n**Takeaway:** Shadow mode → small traffic → gradual increase → full rollout, with evaluation and rollback at every step.",
+  "hint_notes": "Shadow mode → small traffic → gradual increase → full rollout, with evaluation and rollback at every step."
+}

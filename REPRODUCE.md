@@ -67,7 +67,7 @@ This starts the FastAPI backend (`:8000`) + Vite frontend (`:5173`) and opens yo
 
 ## 7. Two-minute smoke test
 
-1. Home screen shows ~38 problems with a solved counter.
+1. Home screen shows ~85 problems with a solved counter.
 2. Open a "very easy" SQL problem → **Run** shows a result table → **Submit** shows ✓ Accepted.
 3. Click 💡 Hint (Ollama must be running: `ollama serve` if it isn't already).
 4. Click ✨ New problems and watch the generator log add one verified problem per area.

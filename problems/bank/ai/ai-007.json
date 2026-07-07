@@ -1,0 +1,11 @@
+{
+  "id": "ai-007",
+  "area": "ai",
+  "topic": "Prompting & Context Engineering",
+  "difficulty": "medium",
+  "title": "Why is output not always deterministic at temperature 0?",
+  "prompt": "Why is output not always deterministic at temperature 0?\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use 💡 Hint, 🧠 AI feedback, or 📗 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "Temperature 0 means greedy decoding (always pick the highest-probability token), but the probabilities themselves can vary between runs. GPU floating-point arithmetic is not perfectly deterministic — parallel operations can execute in different orders, and floating-point addition isn't perfectly associative at extreme precision.\n\n**Takeaway:** Temperature 0 = deterministic strategy, not deterministic output. Use caching for true consistency.",
+  "hint_notes": "Temperature 0 = deterministic strategy, not deterministic output. Use caching for true consistency."
+}

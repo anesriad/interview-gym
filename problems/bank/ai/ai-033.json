@@ -1,0 +1,11 @@
+{
+  "id": "ai-033",
+  "area": "ai",
+  "topic": "Real-World Scenarios",
+  "difficulty": "medium",
+  "title": "Costs are too high. Where do you look first?",
+  "prompt": "Costs are too high. Where do you look first?\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use 💡 Hint, 🧠 AI feedback, or 📗 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "Audit in order of impact: (1) System prompt size — compress from 1200 to 600 tokens = 17% input cost reduction. (2) Retrieved chunks — top-5 to top-3 with minimal quality drop = 15% savings. (3) Add semantic caching — 25% cache hit rate = 25% fewer LLM calls. (4) Model routing — send simple queries to cheaper models. (5) Evaluation sampling — evaluate 10-20% instead of 100%. These five changes can cut costs 50-70%.\n\n**Takeaway:** Compress system prompt, reduce chunks, add caching. That's 80% of savings.",
+  "hint_notes": "Compress system prompt, reduce chunks, add caching. That's 80% of savings."
+}

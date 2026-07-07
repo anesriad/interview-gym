@@ -1,0 +1,11 @@
+{
+  "id": "ai-022",
+  "area": "ai",
+  "topic": "Cost & Latency",
+  "difficulty": "medium",
+  "title": "When is quantization worth the added complexity?",
+  "prompt": "When is quantization worth the added complexity?\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use 💡 Hint, 🧠 AI feedback, or 📗 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "Worth it when self-hosting models: 4-bit quantization lets you run a 14B model on your 48GB M4 Pro instead of being limited to 7B models at full precision. INT8 quantization typically loses 1-2% quality, INT4 loses 3-5% on benchmarks. Not worth it when using hosted APIs (the provider handles optimization) or when quality degradation is unacceptable for your specific task.\n\n**Takeaway:** Quantize for self-hosting efficiency. INT8 for quality, INT4 for capability at constrained memory.",
+  "hint_notes": "Quantize for self-hosting efficiency. INT8 for quality, INT4 for capability at constrained memory."
+}

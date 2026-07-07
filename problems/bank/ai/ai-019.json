@@ -1,0 +1,11 @@
+{
+  "id": "ai-019",
+  "area": "ai",
+  "topic": "MLOps & LLMOps",
+  "difficulty": "medium",
+  "title": "What's your approach to rolling back a bad prompt change?",
+  "prompt": "What's your approach to rolling back a bad prompt change?\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use 💡 Hint, 🧠 AI feedback, or 📗 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "Version control all prompts in git alongside code. Use feature flags to route traffic percentages between prompt versions. Set up Opik alerts on quality metrics (faithfulness, relevance) that fire within minutes of deployment. Maintain a 'last known good' configuration. Rollback = flip the feature flag back, which takes seconds.\n\n**Takeaway:** Prompt changes = code deployments. Version control, gradual rollout, automated monitoring, instant rollback.",
+  "hint_notes": "Prompt changes = code deployments. Version control, gradual rollout, automated monitoring, instant rollback."
+}

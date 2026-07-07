@@ -1,0 +1,11 @@
+{
+  "id": "ai-002",
+  "area": "ai",
+  "topic": "LLM Fundamentals",
+  "difficulty": "medium",
+  "title": "Why do two embedding models give different results for the same text?",
+  "prompt": "Why do two embedding models give different results for the same text?\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use 💡 Hint, 🧠 AI feedback, or 📗 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "Different training data, architectures, dimensions, and training objectives produce fundamentally different vector spaces. A model trained on scientific papers clusters technical content differently than one trained on social media. A 384-dimension model (MiniLM) compresses meaning differently than a 1536-dimension model (OpenAI ada-002).\n\n**Takeaway:** Never assume one embedding model is best. Benchmark on your domain. Plan for model changes from the start.",
+  "hint_notes": "Never assume one embedding model is best. Benchmark on your domain. Plan for model changes from the start."
+}

@@ -1,0 +1,11 @@
+{
+  "id": "ai-008",
+  "area": "ai",
+  "topic": "Prompting & Context Engineering",
+  "difficulty": "medium",
+  "title": "How do you make a system prompt robust across different users?",
+  "prompt": "How do you make a system prompt robust across different users?\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use 💡 Hint, 🧠 AI feedback, or 📗 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "Layer multiple defenses: clear role definition (what the system is and isn't), explicit input handling instructions (how to handle ambiguous, off-topic, or adversarial queries), strict output format specs, and edge case instructions. Use XML tags to separate system instructions from user input — this reduces prompt injection risk.\n\n**Takeaway:** A robust prompt is tested against diverse personas, not just written once. Build a test suite and iterate.",
+  "hint_notes": "A robust prompt is tested against diverse personas, not just written once. Build a test suite and iterate."
+}

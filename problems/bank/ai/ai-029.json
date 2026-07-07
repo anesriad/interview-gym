@@ -1,0 +1,11 @@
+{
+  "id": "ai-029",
+  "area": "ai",
+  "topic": "System Design",
+  "difficulty": "medium",
+  "title": "How do you make an LLM system more predictable?",
+  "prompt": "How do you make an LLM system more predictable?\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use 💡 Hint, 🧠 AI feedback, or 📗 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "Constrain every layer. Structured output (force JSON schemas, constrained generation, enum values). Lower temperature for factual tasks (0-0.3). Input normalization (clean, validate, standardize before the model sees it). Output validation (parse, check required fields, verify value ranges before returning to user). Narrower scope ('answer questions about UK visas using provided documents' is more predictable than 'help with anything').\n\n**Takeaway:** Predictability comes from constraining input, output, and the model's decision space.",
+  "hint_notes": "Predictability comes from constraining input, output, and the model's decision space."
+}

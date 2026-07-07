@@ -1,0 +1,11 @@
+{
+  "id": "ai-013",
+  "area": "ai",
+  "topic": "RAG Systems",
+  "difficulty": "medium",
+  "title": "Why might retrieval metrics look good but answers still feel wrong?",
+  "prompt": "Why might retrieval metrics look good but answers still feel wrong?\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use 💡 Hint, 🧠 AI feedback, or 📗 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "Retrieval metrics (Precision@k, MRR) measure whether the right documents were found, not whether the LLM used them correctly. You can retrieve perfect chunks and still get a bad answer if the model hallucinate facts not in the context, mixes up information from multiple chunks, gives a generic answer instead of using specific retrieved data, or answers a different question than what was asked.\n\n**Takeaway:** Good retrieval is necessary but not sufficient. Evaluate the final answer with faithfulness metrics.",
+  "hint_notes": "Good retrieval is necessary but not sufficient. Evaluate the final answer with faithfulness metrics."
+}

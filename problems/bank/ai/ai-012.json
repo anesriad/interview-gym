@@ -1,0 +1,11 @@
+{
+  "id": "ai-012",
+  "area": "ai",
+  "topic": "RAG Systems",
+  "difficulty": "medium",
+  "title": "What criteria actually matter when choosing a vector DB?",
+  "prompt": "What criteria actually matter when choosing a vector DB?\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use 💡 Hint, 🧠 AI feedback, or 📗 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "Query latency at your actual scale (under 100K vectors, almost anything works), metadata filtering capabilities (filter by document type, date, permissions before vector search), hybrid search support (BM25 keyword + vector search combined), cost at your data volume, and operational complexity (managed vs self-hosted).\n\n**Takeaway:** Choose based on scale, hybrid search, and metadata filtering. The DB is rarely the bottleneck.",
+  "hint_notes": "Choose based on scale, hybrid search, and metadata filtering. The DB is rarely the bottleneck."
+}

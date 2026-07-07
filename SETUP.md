@@ -1,4 +1,9 @@
-# One-time setup
+# One-time setup (legacy notebook workflow)
+
+> **Note:** the primary way to practice is now the web app — see [README.md](README.md)
+> and [REPRODUCE.md](REPRODUCE.md), then `./start.sh`. This file describes the older
+> VSCode-notebook workflow, which still works for `/practice` + `/review` sessions
+> with Claude Code.
 
 Do these once, then you never touch them again.
 

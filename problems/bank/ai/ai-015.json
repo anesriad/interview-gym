@@ -1,0 +1,11 @@
+{
+  "id": "ai-015",
+  "area": "ai",
+  "topic": "RAG Systems",
+  "difficulty": "medium",
+  "title": "What's your plan when the embedding model needs to change?",
+  "prompt": "What's your plan when the embedding model needs to change?\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use 💡 Hint, 🧠 AI feedback, or 📗 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "Architect for it from day one: abstract the embedding layer behind an interface, version your vector indices (never mix vectors from different models), and build a migration pipeline that re-embeds the corpus, creates a new index, validates against your golden dataset, and swaps indices atomically with zero downtime.\n\n**Takeaway:** Treat embedding changes like database migrations: planned, automated, tested, reversible.",
+  "hint_notes": "Treat embedding changes like database migrations: planned, automated, tested, reversible."
+}

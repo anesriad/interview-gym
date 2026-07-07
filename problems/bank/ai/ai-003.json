@@ -1,0 +1,11 @@
+{
+  "id": "ai-003",
+  "area": "ai",
+  "topic": "LLM Fundamentals",
+  "difficulty": "medium",
+  "title": "What actually changes inside the model during fine-tuning?",
+  "prompt": "What actually changes inside the model during fine-tuning?\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use 💡 Hint, 🧠 AI feedback, or 📗 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "The model's weight parameters are updated through backpropagation on your training data. In full fine-tuning, every parameter changes (expensive, needs multiple GPUs). In LoRA, small adapter matrices are added and trained while original weights stay frozen — typically only 0.1-1% of total parameters. The learning rate is much lower than pre-training (1e-5 vs 1e-3) to avoid catastrophic forgetting.\n\n**Takeaway:** Fine-tuning changes priorities and style, not architecture. Watch for catastrophic forgetting.",
+  "hint_notes": "Fine-tuning changes priorities and style, not architecture. Watch for catastrophic forgetting."
+}

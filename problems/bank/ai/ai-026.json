@@ -1,0 +1,11 @@
+{
+  "id": "ai-026",
+  "area": "ai",
+  "topic": "System Design",
+  "difficulty": "medium",
+  "title": "How do you decide when to use an LLM vs traditional code?",
+  "prompt": "How do you decide when to use an LLM vs traditional code?\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use 💡 Hint, 🧠 AI feedback, or 📗 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "Traditional code for anything deterministic, well-defined, and not requiring natural language understanding: input validation, data lookups, format conversions, routing logic, calculations. LLMs for tasks involving ambiguity, natural language understanding, generation, summarization, or multi-step reasoning that would be impractical to encode as rules.\n\n**Takeaway:** LLMs = reasoning engine. Traditional code = everything deterministic. Surround the LLM with code.",
+  "hint_notes": "LLMs = reasoning engine. Traditional code = everything deterministic. Surround the LLM with code."
+}

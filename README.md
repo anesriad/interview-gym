@@ -1,6 +1,6 @@
 # 🏋️ Interview Gym
 
-A **local, offline, LeetCode-style practice app** for data science / ML engineer interviews — SQL, Python/DSA, applied ML, and system design — with an AI mentor that runs entirely on your own machine.
+A **local, offline, LeetCode-style practice app** for data science / ML / AI engineer interviews — SQL, Python/DSA, applied ML, system design, and AI/LLM engineering — with an AI mentor that runs entirely on your own machine.
 
 Built for daily grinding: open the app, pick a problem, write code in a real editor, hit **Run**, hit **Submit**, get graded instantly. When you're stuck, ask the built-in mentor for an escalating hint. Everything stays on your laptop; nothing costs tokens.
 
@@ -11,13 +11,14 @@ Interview prep platforms are great until you want: your own dataset flavor, an A
 ## Features
 
 - **LeetCode-style problem screen** — prompt left, Monaco editor right, results below; drag-resizable panels; ⌘↩ Run / ⌘⇧↩ Submit
-- **Four problem areas** — SQL (graded against a hidden reference query), Python/DSA (hidden test cases), applied ML (checks on the variables you define), system design (markdown write-up + AI rubric critique)
-- **38+ verified problems**, from "very easy" refreshers to hard, incl. Netflix-flavored ones
-- **✨ Generate new problems** — one button; the local LLM writes a problem per area and the backend *executes the reference solution to verify it* before it enters the bank
+- **Five problem areas** — SQL (graded against a hidden reference query), Python/DSA (hidden test cases), applied ML (checks on the variables you define), system design (markdown write-up + AI rubric critique), and **AI/LLM engineering** (34 curated interview questions — answer in prose, get critique, then 📗 Show answer reveals the model answer)
+- **85+ verified problems**, from "very easy" refreshers to hard, incl. Netflix-flavored ones; filter by area, sort by difficulty
+- **✨ Generate new problems** — one button; the local LLM writes one problem per area (all five) and the backend *executes the reference solution to verify it* before it enters the bank
+- **Diagnostic wrong answers** — failed SQL submits explain the likely cause (grouping grain, join fan-out, filtered-out rows, rounding) instead of just "wrong"
 - **AI mentor, 100% local** — escalating Socratic hints (never dumps the answer), structured feedback with root-cause tags, and a free-form chat drawer that can see your current code
 - **📖 Rules popup** — 16 instant cheat-sheets (SQL execution order, window functions, NULL traps, Python collections, confusion matrix, leakage…)
 - **🍅 Pomodoro** — 50/10 with gentle sounds, survives reloads
-- **Progress saved automatically** — every attempt, draft autosave, solved/attempted status, all in a local SQLite file
+- **Progress saved automatically** — every attempt, draft autosave, solved/attempted status (text answers use ✓ Mark as done), all in a local SQLite file
 
 ## Stack
 

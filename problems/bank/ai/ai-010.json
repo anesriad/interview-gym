@@ -1,0 +1,11 @@
+{
+  "id": "ai-010",
+  "area": "ai",
+  "topic": "Prompting & Context Engineering",
+  "difficulty": "medium",
+  "title": "When does a system need memory, and what kind?",
+  "prompt": "When does a system need memory, and what kind?\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use 💡 Hint, 🧠 AI feedback, or 📗 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "A system needs memory when conversations span multiple turns, when user preferences should persist across sessions, or when state evolves over time. Three types: conversation buffer (full recent history in context — simple but expensive as conversations grow), summarized memory (compress old turns into summaries), and database-backed long-term memory (vector store over past interactions, retrieved when relevant).\n\n**Takeaway:** Memory adds complexity and cost. Only add when the use case genuinely requires continuity.",
+  "hint_notes": "Memory adds complexity and cost. Only add when the use case genuinely requires continuity."
+}

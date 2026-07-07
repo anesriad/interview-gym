@@ -1,0 +1,11 @@
+{
+  "id": "ai-017",
+  "area": "ai",
+  "topic": "MLOps & LLMOps",
+  "difficulty": "medium",
+  "title": "How is CI/CD for LLMs different from traditional ML?",
+  "prompt": "How is CI/CD for LLMs different from traditional ML?\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use 💡 Hint, 🧠 AI feedback, or 📗 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "The biggest difference is that prompt changes are the most frequent 'deployment' — they're instant but can have dramatic effects. Unlike traditional ML where you compare accuracy on a test set, LLM outputs are free text that can't be evaluated with simple metrics. You need LLM-as-Judge evaluations and human review workflows in your CI pipeline. Cost is also a deployment variable — a prompt change that improves quality 5% but doubles token usage might not be worth deploying.\n\n**Takeaway:** LLM CI/CD is about prompt management. Include cost in deployment decisions. Build for instant rollback.",
+  "hint_notes": "LLM CI/CD is about prompt management. Include cost in deployment decisions. Build for instant rollback."
+}

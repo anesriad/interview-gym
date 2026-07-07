@@ -1,0 +1,31 @@
+{
+  "title": "Predicting Churn with Feature Importance Analysis",
+  "topic": "feature engineering",
+  "difficulty": "medium",
+  "prompt": "Using the provided churn dataset, build a predictive model to identify which features are most important in predicting customer churn. Your task is to:\n\n1. Create a new feature called `charge_per_tenure` which is the ratio of monthly charge to tenure months (handle division by zero appropriately)\n2. Encode categorical variables using one-hot encoding\n3. Train a Random Forest classifier with random_state=42\n4. Extract and return the feature importances as a pandas Series sorted in descending order\n\nDefine exactly these variables in your solution: `df`, `X`, `y`, `model`, `feature_importances`\n\nUse only the following columns for modeling: `tenure_months`, `monthly_charge`, `plan`, `support_calls`, `contract`, `charge_per_tenure`",
+  "starter_code": "# df is preloaded\n# Define these variables:\n# X = features dataframe (after preprocessing)\n# y = target series\n# model = trained Random Forest classifier\n# feature_importances = pandas Series of feature importances sorted descending\n\n",
+  "checks": [
+    {
+      "name": "importance shape",
+      "expr": "len(feature_importances)",
+      "expected": 7,
+      "tol": 0.005
+    },
+    {
+      "name": "max importance",
+      "expr": "feature_importances.iloc[0]",
+      "expected": 0.3216691253279535,
+      "tol": 0.005
+    },
+    {
+      "name": "sum of importances",
+      "expr": "feature_importances.sum()",
+      "expected": 1.0,
+      "tol": 0.005
+    }
+  ],
+  "reference_solution": "df['charge_per_tenure'] = df['monthly_charge'] / (df['tenure_months'] + 1e-8)\nX = df[['tenure_months', 'monthly_charge', 'plan', 'support_calls', 'contract', 'charge_per_tenure']].copy()\nX = pd.get_dummies(X, columns=['plan', 'contract'], drop_first=True)\ny = df['churned']\nfrom sklearn.ensemble import RandomForestClassifier\nmodel = RandomForestClassifier(n_estimators=100, random_state=42)\nmodel.fit(X, y)\nfeature_importances = pd.Series(model.feature_importances_, index=X.columns).sort_values(ascending=False)",
+  "hint_notes": "Remember to handle potential division by zero when creating charge_per_tenure. The one-hot encoding should use drop_first=True to avoid multicollinearity. Ensure you're using the same random_state for reproducibility.",
+  "id": "ml-x004",
+  "area": "ml"
+}

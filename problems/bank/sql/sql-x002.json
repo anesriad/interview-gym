@@ -1,0 +1,11 @@
+{
+  "title": "Trip Completion Rate by City and Plan",
+  "topic": "joins/aggregation",
+  "difficulty": "medium",
+  "prompt": "Calculate the trip completion rate (percentage of completed trips) for each city and user plan combination. The result should include columns: city, plan, total_trips, completed_trips, cancellation_rate (formatted as percentage with 2 decimal places). Order the results by city ascending, then by plan ascending.\n\nExample output:\n| city   | plan     | total_trips | completed_trips | cancellation_rate |\n|--------|----------|-------------|-----------------|-------------------|\n| Berlin | free     | 100         | 85              | 15.00             |\n| Berlin | premium  | 50          | 48              | 4.00              |\n| London | standard | 200         | 190             | 5.00              |",
+  "reference_sql": "SELECT\n    t.city,\n    u.plan,\n    COUNT(*) AS total_trips,\n    SUM(CASE WHEN t.status = 'completed' THEN 1 ELSE 0 END) AS completed_trips,\n    ROUND((1.0 - CAST(SUM(CASE WHEN t.status = 'completed' THEN 1 ELSE 0 END) AS FLOAT) / COUNT(*)) * 100, 2) AS cancellation_rate\nFROM trips t\nJOIN users u ON t.user_id = u.user_id\nGROUP BY t.city, u.plan\nORDER BY t.city, u.plan",
+  "order_matters": true,
+  "hint_notes": "Key idea is to join trips with users to get plan information, then aggregate by city and plan. Common mistake is forgetting to handle NULL values in status field or not correctly calculating the cancellation rate as percentage of total trips.",
+  "id": "sql-x002",
+  "area": "sql"
+}

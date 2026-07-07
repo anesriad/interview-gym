@@ -19,8 +19,8 @@ def main():
         p = json.loads(f.read_text())
         pid = p["id"]
 
-        if p["area"] == "design":
-            print(f"{pid}: OK (design — not executable)")
+        if p["area"] in ("design", "ai"):
+            print(f"{pid}: OK ({p['area']} — not executable)")
             continue
 
         if p["area"] == "sql":

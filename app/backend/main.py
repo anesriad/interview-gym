@@ -13,6 +13,8 @@ from pydantic import BaseModel
 from . import generator, llm, runner, runner_py, store
 
 PRIVATE_FIELDS = ("reference_sql", "reference_solution", "hint_notes", "tests", "checks", "function_name")
+TEXT_AREAS = ("design", "ai")  # markdown answers: no run/submit; mentor critique instead
+SHOW_ANSWER_AREAS = ("ai",)  # areas with a reveal-the-model-answer button
 
 ROOT = Path(__file__).resolve().parents[2]
 BANK = ROOT / "problems" / "bank"
@@ -91,8 +93,8 @@ def run_code(body: CodeIn):
     if not p:
         raise HTTPException(404, "problem not found")
     store.save_draft(body.problem_id, body.code)
-    if p["area"] == "design":
-        raise HTTPException(400, "Design problems aren't executed — use AI feedback.")
+    if p["area"] in TEXT_AREAS:
+        raise HTTPException(400, "Text problems aren't executed — use AI feedback.")
     if p["area"] == "sql":
         return runner.run_sql(body.code)
     return runner_py.run_python(body.code, p)
@@ -104,8 +106,8 @@ def submit(body: CodeIn):
     if not p:
         raise HTTPException(404, "problem not found")
     store.save_draft(body.problem_id, body.code)
-    if p["area"] == "design":
-        raise HTTPException(400, "Design problems aren't graded — use AI feedback.")
+    if p["area"] in TEXT_AREAS:
+        raise HTTPException(400, "Text problems aren't graded — use AI feedback.")
     if p["area"] == "sql":
         graded = runner.grade_sql(body.code, p["reference_sql"], p.get("order_matters", False))
         graded.pop("expected", None)  # don't leak the full expected table
@@ -140,8 +142,8 @@ def get_feedback(body: CodeIn):
     if not p:
         raise HTTPException(404, "problem not found")
     store.save_draft(body.problem_id, body.code)
-    if p["area"] == "design":
-        summary = "(design write-up — nothing is executed; judge the text/diagram itself)"
+    if p["area"] in TEXT_AREAS:
+        summary = "(written answer — nothing is executed; judge the text itself)"
     elif p["area"] == "sql":
         res = runner.run_sql(body.code)
         if res["ok"]:
@@ -185,6 +187,29 @@ def generate_start():
 @app.get("/api/generate/status")
 def generate_status():
     return generator.JOB
+
+
+@app.post("/api/mark_done")
+def mark_done(body: CodeIn):
+    """Text problems (design / ai) have no automated grading — the user self-certifies."""
+    p = _load_problems().get(body.problem_id)
+    if not p:
+        raise HTTPException(404, "problem not found")
+    if p["area"] not in TEXT_AREAS:
+        raise HTTPException(400, "use Submit for graded problems")
+    store.save_draft(body.problem_id, body.code)
+    store.save_attempt(body.problem_id, body.code, True)
+    return {"ok": True}
+
+
+@app.get("/api/problems/{pid}/answer")
+def show_answer(pid: str):
+    p = _load_problems().get(pid)
+    if not p:
+        raise HTTPException(404, "problem not found")
+    if p["area"] not in SHOW_ANSWER_AREAS:
+        raise HTTPException(400, "this problem type doesn't reveal answers")
+    return {"text": p["reference_solution"]}
 
 
 @app.get("/api/problems/{pid}/attempts")

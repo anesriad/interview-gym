@@ -1,0 +1,11 @@
+{
+  "id": "ai-028",
+  "area": "ai",
+  "topic": "System Design",
+  "difficulty": "medium",
+  "title": "SQL, NoSQL, or vector DB for this problem, and why?",
+  "prompt": "SQL, NoSQL, or vector DB for this problem, and why?\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use 💡 Hint, 🧠 AI feedback, or 📗 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "Choose based on access patterns, not hype. SQL (PostgreSQL) for structured, relational data with ACID needs: user profiles, session data, billing, metadata. NoSQL (MongoDB, DynamoDB) for flexible schemas and high write throughput: raw documents, event logs. Vector DB (OpenSearch, Qdrant) for similarity search over embeddings: RAG retrieval, semantic search. Most production AI systems use 2-3 together.\n\n**Takeaway:** Pick based on access patterns. Most AI systems need 2-3 data stores, each for what it does best.",
+  "hint_notes": "Pick based on access patterns. Most AI systems need 2-3 data stores, each for what it does best."
+}
