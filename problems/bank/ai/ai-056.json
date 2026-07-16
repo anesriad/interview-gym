@@ -1,0 +1,11 @@
+{
+  "id": "ai-056",
+  "area": "ai",
+  "topic": "MLOps & LLMOps",
+  "difficulty": "medium",
+  "title": "Why is the prompt layer treated as a first-class engineering artifact rather than just a string constant?",
+  "prompt": "Why is the prompt layer treated as a first-class engineering artifact rather than just a string constant?\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use \ud83d\udca1 Hint, \ud83e\udde0 AI feedback, or \ud83d\udcd7 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "The prompt is the primary control surface defining behavior, rules, formatting, and tone \u2014 it has more influence on quality than any other component. First-class practice looks like: version control (stored in source git repos, tracked, reviewable, reversible), testing gates (must pass automated evaluation suites before deployment), code reviews (required peer review because edits alter system behavior), and staged rollout (deployed via dev \u2192 staging \u2192 prod canary pipelines, same as code). What goes wrong without it: editing prompts directly in a prod database causes silent regressions that only surface via user complaints a week later; duplicated system prompts across features drift out of sync when safety rules change in one place but not another; and unversioned prompts that fail after a model update leave teams with no way to debug the root cause.\n\n**Takeaway:** A prompt edit is a behavior change with the same blast radius as a code change, so it needs the same version control, review, and staged rollout discipline \u2014 treating it as a loose string invites silent, hard-to-debug regressions.",
+  "hint_notes": "Prompts get version control, eval-suite gates, peer review, and staged rollout \u2014 the same discipline as code, because an edit is a behavior change."
+}

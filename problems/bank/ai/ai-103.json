@@ -1,0 +1,11 @@
+{
+  "id": "ai-103",
+  "area": "ai",
+  "topic": "Monitoring & Reliability",
+  "difficulty": "medium",
+  "title": "Your Grafana dashboard shows p50 latency is stable but p99 has been creeping up over two weeks with no deploys in that window. Walk through how you'd investigate.",
+  "prompt": "Your Grafana dashboard shows p50 latency is stable but p99 has been creeping up over two weeks with no deploys in that window. Walk through how you'd investigate.\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use \ud83d\udca1 Hint, \ud83e\udde0 AI feedback, or \ud83d\udcd7 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "A stable p50 with a growing p99, no deploys, and rising traffic over the same window points toward resource contention or a queueing effect that only bites the tail \u2014 most requests are fine but a growing subset are queuing behind something. I'd check queue depth or thread pool saturation over the same period, CPU/GPU utilization trend rather than a snapshot, whether slow requests correlate with a specific feature like larger payloads, and downstream dependency latency for its own slow creep.\n\n**Takeaway:** p50 staying flat tells you the typical request is unaffected, ruling out a broad regression and pointing at something that only affects a subset \u2014 if the p99 growth curve tracks traffic growth proportionally, it's capacity; if it's steeper or uncorrelated, suspect a regression or resource leak.",
+  "hint_notes": "Flat p50 + rising p99 + rising traffic = tail-only contention/queueing, not a broad regression. Check queue depth, utilization trend, payload-size correlation, downstream latency. p99 tracking traffic proportionally = capacity; steeper = leak/regression."
+}

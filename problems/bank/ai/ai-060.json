@@ -1,0 +1,11 @@
+{
+  "id": "ai-060",
+  "area": "ai",
+  "topic": "MLOps & LLMOps",
+  "difficulty": "medium",
+  "title": "Why do RAG systems introduce retrieval errors that don't exist in plain chatbots, and how do you isolate the root cause?",
+  "prompt": "Why do RAG systems introduce retrieval errors that don't exist in plain chatbots, and how do you isolate the root cause?\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use \ud83d\udca1 Hint, \ud83e\udde0 AI feedback, or \ud83d\udcd7 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "A chatbot has one failure mode \u2014 bad generation. RAG has two: bad generation AND bad retrieval context, and they look identical from the outside. Why retrieval failures are non-obvious: the model generates confidently from whatever context it receives, without ever flagging that the retrieved context itself was irrelevant or incorrect. The 3-step isolation process: Step 1 \u2014 log what was retrieved; this is the foundation of RAG debugging, so you must log retrieved chunk IDs and similarity scores alongside every response. Step 2 \u2014 manual injection test; bypass retrieval by manually injecting the correct knowledge chunks into the prompt \u2014 if the response is now correct, retrieval failed; if it's still wrong, generation failed. Step 3 \u2014 dedicated retrieval eval; evaluate recall@k independently of generation quality to fix chunking, embeddings, or index parameters specifically.\n\n**Takeaway:** Never debug a RAG failure by staring at the final output alone \u2014 log retrieval, then use manual injection to separate a retrieval bug from a generation bug before touching either layer.",
+  "hint_notes": "3-step isolation: log retrieved chunks+scores, manually inject correct context to isolate retrieval vs generation, then run a dedicated recall@k eval."
+}

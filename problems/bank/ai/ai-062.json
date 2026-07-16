@@ -1,0 +1,11 @@
+{
+  "id": "ai-062",
+  "area": "ai",
+  "topic": "MLOps & LLMOps",
+  "difficulty": "medium",
+  "title": "How does context window management differ across a chatbot, a RAG system, and an agent?",
+  "prompt": "How does context window management differ across a chatbot, a RAG system, and an agent?\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use \ud83d\udca1 Hint, \ud83e\udde0 AI feedback, or \ud83d\udcd7 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "Deciding what information to keep in a fixed-size context window scales dramatically in difficulty as system complexity grows. Chatbot (history management): the window fills with conversation history; simple management is to keep the last N turns or summarize older turns into a running summary, with the system prompt and current message always getting priority. RAG system (budget-aware retrieval): the window contains history plus multiple retrieved chunks plus the query; you must re-rank chunks, limit their count to prevent overflow, and balance retrieved content against conversation history \u2014 retrieval itself has to be context-budget-aware. Agent (multi-step accumulation): the window accumulates tool schemas, tool results from previous steps, history, and reasoning, which can become enormous across a 10-step task; strategies include tool description pruning, result summarization, and periodic progress summarization.\n\n**Takeaway:** Each layer adds a new category of content competing for the same fixed budget \u2014 chat history, then retrieved chunks, then tool outputs \u2014 so context management has to get progressively more aggressive as system complexity grows.",
+  "hint_notes": "Chatbot manages history; RAG additionally manages retrieved-chunk budget; agents additionally manage accumulating tool schemas/results \u2014 each layer adds a new competitor for the same fixed window."
+}

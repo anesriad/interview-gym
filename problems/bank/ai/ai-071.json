@@ -1,0 +1,11 @@
+{
+  "id": "ai-071",
+  "area": "ai",
+  "topic": "Memory, Databases & Caching for GenAI",
+  "difficulty": "medium",
+  "title": "How would you structure a database schema to support document ingestion for a RAG pipeline?",
+  "prompt": "How would you structure a database schema to support document ingestion for a RAG pipeline?\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use \ud83d\udca1 Hint, \ud83e\udde0 AI feedback, or \ud83d\udcd7 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "Separate parent document metadata from chunk embeddings to support atomic invalidation, deduplication, and ACL filters. A `documents` table holds `id`, `file_hash`, `status`, and `version`; a separate `document_chunks` table holds `id`, a `document_id` foreign key back to `documents`, `chunk_index`, `embedding_model`, `embedding_version`, and `vector_store_id`. Why this schema works: cascade invalidation \u2014 linking chunks to `document_id` lets you supersede all of a document's chunks atomically the moment the source document updates; embedding model tracking \u2014 recording `embedding_model` allows incremental migrations when you upgrade to a new embedding model or dimension size; ACL governance \u2014 join against a separate `document_permissions` table at retrieval time to enforce per-user read access on top of the vector search.\n\n**Takeaway:** Never store chunk embeddings as the only source of truth \u2014 a parent `documents` table with a foreign-keyed `document_chunks` table gives you atomic document-level updates, embedding-model migration tracking, and ACL enforcement, none of which a flat chunk table can support cleanly.",
+  "hint_notes": "Two tables: documents (id, file_hash, status, version) and document_chunks (fk to documents, embedding_model/version, vector_store_id) \u2014 enables atomic invalidation, embedding migrations, and ACL joins."
+}

@@ -101,6 +101,7 @@ function ChatDrawer({ onClose }) {
   const [input, setInput] = useState("");
   const [busy, setBusy] = useState(false);
   const [useCtx, setUseCtx] = useState(true);
+  const [width, setWidth] = useState(() => +localStorage.getItem("chatW") || 400);
   const endRef = useRef();
 
   useEffect(() => { endRef.current?.scrollIntoView(); }, [msgs, busy]);
@@ -119,8 +120,21 @@ function ChatDrawer({ onClose }) {
     } finally { setBusy(false); }
   };
 
+  const dragWidth = (e) => {
+    e.preventDefault();
+    const move = (ev) => {
+      const w = Math.min(900, Math.max(300, window.innerWidth - ev.clientX));
+      setWidth(w);
+      localStorage.setItem("chatW", w);
+    };
+    const up = () => { window.removeEventListener("mousemove", move); window.removeEventListener("mouseup", up); };
+    window.addEventListener("mousemove", move);
+    window.addEventListener("mouseup", up);
+  };
+
   return (
-    <div className="chat-drawer">
+    <div className="chat-drawer" style={{ width: `${width}px` }}>
+      <div className="chat-resize" onMouseDown={dragWidth} title="Drag to resize" />
       <div className="chat-head">
         <span>💬 Mentor chat <span className="muted">(local LLM)</span></span>
         <span>
@@ -141,15 +155,21 @@ function ChatDrawer({ onClose }) {
         {busy && <div className="chat-msg assistant muted">thinking…</div>}
         <div ref={endRef} />
       </div>
-      <label className="chat-ctx muted">
+      <label className="chat-ctx muted" title="Sends the current problem's prompt and your editor code as context to the mentor">
         <input type="checkbox" checked={useCtx} onChange={(e) => setUseCtx(e.target.checked)} />
         include current problem &amp; my code
+        {useCtx && !chatContext && <span className="chat-ctx-warn"> (no problem open right now)</span>}
       </label>
-      <textarea
-        className="chat-input" rows={2} value={input} placeholder="Ask… (Enter to send)"
-        onChange={(e) => setInput(e.target.value)}
-        onKeyDown={(e) => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); send(); } }}
-      />
+      <div className="chat-input-row">
+        <textarea
+          className="chat-input" rows={2} value={input} placeholder="Ask… (Enter to send)"
+          onChange={(e) => setInput(e.target.value)}
+          onKeyDown={(e) => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); send(); } }}
+        />
+        <button className="btn btn-primary chat-send" onClick={send} disabled={busy || !input.trim()}>
+          {busy ? "…" : "Send"}
+        </button>
+      </div>
     </div>
   );
 }

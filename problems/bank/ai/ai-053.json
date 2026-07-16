@@ -1,0 +1,11 @@
+{
+  "id": "ai-053",
+  "area": "ai",
+  "topic": "MLOps & LLMOps",
+  "difficulty": "medium",
+  "title": "How do regulatory and compliance requirements change with LLM systems compared to traditional ML?",
+  "prompt": "How do regulatory and compliance requirements change with LLM systems compared to traditional ML?\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use \ud83d\udca1 Hint, \ud83e\udde0 AI feedback, or \ud83d\udcd7 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "LLM systems introduce complex legal and regulatory challenges around transparency, liability, and data privacy. Explainability is harder: LLMs lack decision rules, so in regulated domains like FCRA or HIPAA, the AI can only inform decisions that humans actually make and document. Training data liability: web-scraped training data may contain copyrighted or personal information, and GDPR's right to erasure is difficult to honor once information is baked into model weights. PII in prompts/logs: user prompts routinely contain PII, so debugging logs become sensitive PII data stores requiring encryption and retention limits. Hallucination liability: confidently false advice in medical, legal, or financial contexts creates severe liability without grounding and citations to back claims. EU AI Act compliance: high-risk AI applications \u2014 hiring, credit, law enforcement \u2014 require strict documentation, transparency, and human oversight from day one, not bolted on afterward.\n\n**Takeaway:** LLM-specific risk surfaces \u2014 hallucination, PII-laden prompts, and weight-level data liability \u2014 require compliance controls that don't have direct analogues in traditional ML governance.",
+  "hint_notes": "Five distinct risk surfaces: explainability, training data liability, PII in logs, hallucination liability, and jurisdiction-specific regulation like the EU AI Act."
+}

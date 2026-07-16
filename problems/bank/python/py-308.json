@@ -1,0 +1,19 @@
+{
+  "id": "py-308",
+  "area": "python",
+  "topic": "recursion",
+  "difficulty": "easy",
+  "title": "Flatten a Nested List",
+  "prompt": "Given an arbitrarily nested list of integers `nested`, return a single **flat list** of all the integers, in order.\n\n**Example**: `flatten([1, [2, [3, 4], 5], 6])` → `[1, 2, 3, 4, 5, 6]`\n\nThis is directly relevant to cleaning up messy JSON-like data — recurse whenever you hit a nested list, use `isinstance` to tell an int apart from a list.",
+  "starter_code": "def flatten(nested):\n    pass\n",
+  "function_name": "flatten",
+  "tests": [
+    {"args": [[1, [2, [3, 4], 5], 6]], "expected": [1, 2, 3, 4, 5, 6]},
+    {"args": [[]], "expected": []},
+    {"args": [[1, 2, 3]], "expected": [1, 2, 3]},
+    {"args": [[[[[1]]]]], "expected": [1]},
+    {"args": [[1, [], [2, []], 3]], "expected": [1, 2, 3]}
+  ],
+  "reference_solution": "def flatten(nested):\n    result = []\n    for item in nested:\n        if isinstance(item, list):\n            result.extend(flatten(item))\n        else:\n            result.append(item)\n    return result\n",
+  "hint_notes": "isinstance(item, list) branches recursion vs base case. Empty nested lists ([]) should just contribute nothing, not break the recursion — make sure the base case handles that. Tag: recursive-flatten-isinstance."
+}

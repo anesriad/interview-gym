@@ -1,0 +1,11 @@
+{
+  "id": "ai-077",
+  "area": "ai",
+  "topic": "Memory, Databases & Caching for GenAI",
+  "difficulty": "medium",
+  "title": "How would you evaluate retrieval quality in a vector database system before it ever reaches production?",
+  "prompt": "How would you evaluate retrieval quality in a vector database system before it ever reaches production?\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use \ud83d\udca1 Hint, \ud83e\udde0 AI feedback, or \ud83d\udcd7 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "Systematic golden-dataset evaluation prevents RAG regressions when changing chunking, embedding models, or index parameters. Recall@K measures the fraction of relevant documents present in the top-K results, telling you whether the true evidence was retrieved at all. MRR (Mean Reciprocal Rank) measures the rank of the first relevant hit, penalizing systems where the correct document is technically retrieved but buried deep in the results. NDCG@K uses ranked, graded relevance scores, specifically rewarding systems that place the single best document at position 1 rather than just anywhere in the top-K. Complement these offline benchmarks with online production telemetry: track user query reformulations and citation click-through rates, since immediate user rephrasing is a strong signal of poor top-K retrieval that offline metrics alone might miss.\n\n**Takeaway:** Use Recall@K, MRR, and NDCG@K together against a golden dataset before shipping a retrieval change, and pair that with online signals like query reformulation rate, since offline metrics can look fine while real users still keep rephrasing their queries.",
+  "hint_notes": "Recall@K = is it retrieved at all; MRR = how buried is the first correct hit; NDCG@K = is the best doc actually at rank 1. Pair with online query-reformulation and citation click-through as production telemetry."
+}

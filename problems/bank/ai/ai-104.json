@@ -1,0 +1,11 @@
+{
+  "id": "ai-104",
+  "area": "ai",
+  "topic": "Monitoring & Reliability",
+  "difficulty": "medium",
+  "title": "Explain what Datadog APM traces give you that raw Prometheus metrics can't, in the context of a multi-service ML inference pipeline.",
+  "prompt": "Explain what Datadog APM traces give you that raw Prometheus metrics can't, in the context of a multi-service ML inference pipeline.\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use \ud83d\udca1 Hint, \ud83e\udde0 AI feedback, or \ud83d\udcd7 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "Metrics give you aggregate numbers \u2014 \"this endpoint is slow.\" Traces give you a breakdown of where the time went within one specific request, across every hop it crossed. In a multi-service pipeline, you need a trace to break 800ms into its component parts, something metrics per service can only approximate, never prove, for a specific request. Metrics are aggregated by design, they can tell you a service is generally slow but can't reconstruct the causal path of one request through several services.\n\n**Takeaway:** I'd use head-based sampling at a low rate for normal traffic but force full sampling on slow or error requests, since those are the ones worth having a trace for.",
+  "hint_notes": "Metrics = aggregate per-service numbers. Traces = per-request breakdown across every hop (span). Use low-rate head-based sampling normally, but force full sampling on slow/error requests where a trace actually matters."
+}

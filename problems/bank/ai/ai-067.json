@@ -1,0 +1,11 @@
+{
+  "id": "ai-067",
+  "area": "ai",
+  "topic": "Memory, Databases & Caching for GenAI",
+  "difficulty": "medium",
+  "title": "What strategies allow an AI system to remember important facts while discarding irrelevant conversational context?",
+  "prompt": "What strategies allow an AI system to remember important facts while discarding irrelevant conversational context?\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use \ud83d\udca1 Hint, \ud83e\udde0 AI feedback, or \ud83d\udcd7 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "Distinguish high-value signal from conversational chatter using explicit extraction, decay functions, and async consolidation. Explicit importance signals: extract statements containing phrases like \"I always prefer\" or \"remember that\" directly into structured JSON tables (user_preferences, established_facts, user_decisions) rather than leaving them buried in raw dialogue. Decay-based forgetting: weight vector retrieval scores by semantic similarity multiplied by recency decay, so older notes that haven't been accessed recently naturally fade in retrieval ranking without being explicitly deleted. Async consolidation: periodically deduplicate memory and mark old preferences as \"superseded\" when a user's stated direction changes, so the system doesn't act on stale, contradicted facts.\n\n**Takeaway:** Combine explicit extraction (catch stated preferences directly), implicit decay (let unused facts fade naturally in ranking), and periodic consolidation (resolve contradictions) rather than trying to remember everything verbatim forever.",
+  "hint_notes": "3 mechanisms: explicit-signal extraction into structured JSON, similarity\u00d7recency-decay weighting on retrieval, and async dedup/supersession of contradicted facts."
+}

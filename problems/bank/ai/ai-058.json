@@ -1,0 +1,11 @@
+{
+  "id": "ai-058",
+  "area": "ai",
+  "topic": "MLOps & LLMOps",
+  "difficulty": "medium",
+  "title": "Trace the execution path end-to-end for a single user request across the model, prompt, retrieval, and orchestration layers.",
+  "prompt": "Trace the execution path end-to-end for a single user request across the model, prompt, retrieval, and orchestration layers.\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use \ud83d\udca1 Hint, \ud83e\udde0 AI feedback, or \ud83d\udcd7 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "Example: an enterprise assistant query, \"What's our policy on parental leave for part-time employees?\" (1) Orchestration input \u2014 receives the request, checks auth/rate limits, loads chat history, and routes it to RAG. (2) Retrieval processing \u2014 expands synonyms, embeds the query, vector-searches top-k chunks, and filters by ACLs. (3) Prompt assembly \u2014 combines the system prompt, the query, history, and the retrieved document chunks with citations. (4) Model inference \u2014 the model synthesizes the policy chunks into a coherent, accurate answer citing source docs. (5) Post-processing \u2014 validates format and citations, logs the response, updates history, and delivers the answer to the user. (6) Async monitoring \u2014 asynchronously runs quality evaluators, computes token costs, and checks anomaly detectors.\n\n**Takeaway:** A single user turn touches all four layers in sequence, plus an async monitoring step that runs after the response is already delivered \u2014 any of those six stages is a place a failure can be introduced.",
+  "hint_notes": "6-stage trace: orchestration input \u2192 retrieval processing \u2192 prompt assembly \u2192 model inference \u2192 post-processing \u2192 async monitoring."
+}

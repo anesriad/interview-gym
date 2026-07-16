@@ -1,0 +1,11 @@
+{
+  "id": "ai-070",
+  "area": "ai",
+  "topic": "Memory, Databases & Caching for GenAI",
+  "difficulty": "medium",
+  "title": "What advantages do purpose-built vector databases provide compared to bolting vector search onto a traditional database?",
+  "prompt": "What advantages do purpose-built vector databases provide compared to bolting vector search onto a traditional database?\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use \ud83d\udca1 Hint, \ud83e\udde0 AI feedback, or \ud83d\udcd7 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "Purpose-built vector infrastructure delivers specialized approximate search algorithms and distributed embedding management that general-purpose databases weren't designed for. Optimized ANN search: hardware-tuned HNSW, DiskANN, and IVF indexes can achieve sub-50ms latency across 100M+ vectors. Single-stage hybrid: they execute combined semantic vector similarity plus structured metadata pre-filtering in a single pipeline pass rather than two separate round-trips. Lifecycle management: built-in sharding, replication, dynamic quantization, and incremental background graph updates are handled natively. Horizontal scale: distributed graph partitioning is designed specifically for high-dimensional floating-point vectors, which don't shard the same way relational rows do.\n\n**Takeaway:** The advantage isn't just \"faster search\" \u2014 it's that ANN index structures, hybrid pre-filtering, and vector-specific sharding are purpose-built rather than approximated on top of a general-purpose engine, which matters once you're past the scale where pgvector is comfortable.",
+  "hint_notes": "4 advantages over general-purpose DBs: hardware-tuned ANN indexes, single-stage hybrid (vector+metadata) filtering, built-in index lifecycle management, and vector-native sharding."
+}

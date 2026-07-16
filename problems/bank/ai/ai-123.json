@@ -1,0 +1,11 @@
+{
+  "id": "ai-123",
+  "area": "ai",
+  "topic": "Debugging & Failures",
+  "difficulty": "medium",
+  "title": "Your feature engineering pipeline runs successfully (exit code 0) every day, but a downstream analyst notices the row count has been quietly dropping by about 2% per day for two weeks. What do you check first?",
+  "prompt": "Your feature engineering pipeline runs successfully (exit code 0) every day, but a downstream analyst notices the row count has been quietly dropping by about 2% per day for two weeks. What do you check first?\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use \ud83d\udca1 Hint, \ud83e\udde0 AI feedback, or \ud83d\udcd7 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "I'd check the join logic first, specifically whether a join type changed or was always more restrictive than intended, because a steady daily percentage drop points toward something compounding gradually rather than a one-time break. I'd pull row counts at every stage of the pipeline to isolate exactly where rows start disappearing, check the join type between the tables involved, and check whether one source table is growing at a different rate than the other, which makes an inner join drop a naturally increasing share of rows even with no code change.\n\n**Takeaway:** Exit code 0 only tells you the process didn't crash, it says nothing about correctness \u2014 a metric tracking row count as a percentage of the previous run, alerted on a rolling baseline, would have caught this on day one instead of two weeks in.",
+  "hint_notes": "A steady daily % drop points to join logic, not a one-time bug \u2014 check join type and whether source tables are now growing at different rates (an inner join naturally drops a growing share of rows as tables diverge). Exit 0 says nothing about correctness."
+}

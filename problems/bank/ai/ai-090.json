@@ -1,0 +1,11 @@
+{
+  "id": "ai-090",
+  "area": "ai",
+  "topic": "Experiment Tracking",
+  "difficulty": "medium",
+  "title": "You're comparing two training runs and one shows better validation accuracy, but the comparison is misleading. What are the most common ways experiment comparisons end up comparing apples to oranges?",
+  "prompt": "You're comparing two training runs and one shows better validation accuracy, but the comparison is misleading. What are the most common ways experiment comparisons end up comparing apples to oranges?\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use \ud83d\udca1 Hint, \ud83e\udde0 AI feedback, or \ud83d\udcd7 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "The most common cause is a mismatched validation set. Two runs can both report \"accuracy,\" but if one was evaluated against an easier or differently sampled split, the numbers aren't comparable no matter how close they look on a dashboard. Beyond that: different random seeds landing on lucky splits, a shared feature pipeline silently updated between runs, and time-based leakage where one run's validation set overlaps temporally with training data in a way the other's doesn't. Tracking tools show you the metric, they don't verify the conditions producing it were held constant \u2014 that verification is the engineer's job.\n\n**Takeaway:** I'd version the train/validation split itself as a hashed artifact logged with every run, so it's mechanically checkable whether two runs used identical splits rather than trusting memory.",
+  "hint_notes": "4 common causes: mismatched validation splits, lucky random seeds, a silently-updated shared feature pipeline, time-based leakage differences. Fix: version the split itself as a hashed artifact per run."
+}

@@ -1,0 +1,11 @@
+{
+  "id": "ai-101",
+  "area": "ai",
+  "topic": "Monitoring & Reliability",
+  "difficulty": "medium",
+  "title": "What's the difference between monitoring and observability in an ML production system, and why does an ML platform need both?",
+  "prompt": "What's the difference between monitoring and observability in an ML production system, and why does an ML platform need both?\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use \ud83d\udca1 Hint, \ud83e\udde0 AI feedback, or \ud83d\udcd7 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "Monitoring is watching known signals against known thresholds \u2014 dashboards for CPU, latency, error rate, things you already decided matter. Observability is having enough raw signal that when something breaks in a way you never anticipated, you can actually go ask new questions of the system and find the answer without shipping new instrumentation first. An ML platform needs both because ML failures are frequently invisible to standard monitoring \u2014 a model can be up, fast, and error-free while being completely wrong, and that failure mode never shows up on a green CPU dashboard.\n\n**Takeaway:** Monitoring answers \"is the thing I already knew to watch OK,\" observability answers \"why is this wrong when I had no idea to watch for it\" \u2014 a wrong-but-confident prediction returns 200 and looks completely healthy at the infra level.",
+  "hint_notes": "Monitoring = dashboards against known thresholds. Observability = enough raw signal to answer unanticipated questions. ML needs both because a model can be up/fast/error-free while being completely wrong \u2014 invisible to infra monitoring."
+}

@@ -1,0 +1,11 @@
+{
+  "id": "ai-102",
+  "area": "ai",
+  "topic": "Monitoring & Reliability",
+  "difficulty": "medium",
+  "title": "Design a Prometheus + Grafana monitoring stack for a real-time inference service. What exact metrics would you expose from the model server?",
+  "prompt": "Design a Prometheus + Grafana monitoring stack for a real-time inference service. What exact metrics would you expose from the model server?\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use \ud83d\udca1 Hint, \ud83e\udde0 AI feedback, or \ud83d\udcd7 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "I'd expose the standard golden signals plus ML-specific ones, deliberately separated in the dashboard layout. Infra layer: request latency as a histogram, request/error counts labeled by status code and model version, requests in flight, queue depth, and resource metrics. Model-quality layer: prediction score distribution as a histogram, per-model-version prediction volume, and feature computation latency tracked separately from model inference latency. Separating infra from model-quality metrics means on-call can glance at the dashboard and immediately know whether they're dealing with an infrastructure problem or a model behavior problem.\n\n**Takeaway:** Use histograms over summaries for latency since Prometheus histograms aggregate percentiles server-side across a fleet, and never label by user_id or request_id since that causes cardinality explosion.",
+  "hint_notes": "Two dashboard layers: infra (latency histogram, error counts by version, queue depth) and model-quality (prediction score distribution, per-version volume, feature-vs-inference latency split). Use histograms; never label by user_id/request_id."
+}

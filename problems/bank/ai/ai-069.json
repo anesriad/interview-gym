@@ -1,0 +1,11 @@
+{
+  "id": "ai-069",
+  "area": "ai",
+  "topic": "Memory, Databases & Caching for GenAI",
+  "difficulty": "medium",
+  "title": "When designing a GenAI system, how do you decide between relational, document, and vector databases?",
+  "prompt": "When designing a GenAI system, how do you decide between relational, document, and vector databases?\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use \ud83d\udca1 Hint, \ud83e\udde0 AI feedback, or \ud83d\udcd7 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "Modern GenAI systems use a polyglot persistence architecture combining structured SQL with semantic vector indexes rather than picking one database for everything. Relational (PostgreSQL with pgvector) is optimal for ACID-requiring workloads \u2014 users, billing, audit logs, metadata filters. Document stores (MongoDB, DynamoDB) suit schema-flexible workloads like agent execution traces and logs, where the shape of records varies. Vector databases (Pinecone, Qdrant, Milvus) are built for large-scale approximate nearest neighbor search. In practice, PostgreSQL plus pgvector handles up to roughly 10M vectors alongside structured metadata just fine \u2014 dedicated vector databases only start to earn their operational cost once datasets exceed tens of millions of embeddings.\n\n**Takeaway:** Don't default to a dedicated vector DB just because you're doing RAG \u2014 PostgreSQL+pgvector covers a large range of real-world scale, and a polyglot split (relational for structured/ACID data, document for flexible traces, vector for ANN search) usually beats forcing everything into one system.",
+  "hint_notes": "Relational (pgvector) for ACID + up to ~10M vectors; document DB for schema-flexible traces/logs; dedicated vector DB only once you exceed tens of millions of embeddings."
+}

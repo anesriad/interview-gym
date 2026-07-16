@@ -1,0 +1,11 @@
+{
+  "id": "ai-063",
+  "area": "ai",
+  "topic": "MLOps & LLMOps",
+  "difficulty": "medium",
+  "title": "For a customer support use case, how would you decide between building a chatbot, a RAG system, or an agent?",
+  "prompt": "For a customer support use case, how would you decide between building a chatbot, a RAG system, or an agent?\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use \ud83d\udca1 Hint, \ud83e\udde0 AI feedback, or \ud83d\udcd7 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "The decision comes down to actual business requirements and risk tolerance, not which technology sounds most impressive. Key decision criteria: does it need to look up specific company info \u2014 policies and specs require RAG, since a plain chatbot will hallucinate or give generic answers; does it need to take real-world actions \u2014 checking orders, processing returns, or updating CRMs require agents with tool access; what's the tolerance for errors \u2014 as error stakes increase (a wrong return versus just bad text), human-in-the-loop validation becomes critical; what's the query complexity \u2014 90% simple FAQs point to RAG, while frequent multi-step resolutions point to agent-style reasoning.\n\n**Takeaway:** Start with RAG \u2014 it handles the majority of support queries well without the operational complexity of agents. Add tool-calling incrementally only once specific action requirements actually justify that added complexity.",
+  "hint_notes": "Decision tree: need company-specific facts \u2192 RAG; need real-world actions \u2192 agent; error tolerance and query complexity determine how much of that you actually need. Default to starting with RAG."
+}

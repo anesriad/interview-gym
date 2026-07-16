@@ -1,0 +1,11 @@
+{
+  "id": "ai-082",
+  "area": "ai",
+  "topic": "MLOps Foundations",
+  "difficulty": "medium",
+  "title": "This kit is scoped to classical ML \u2014 tabular models, ranking, forecasting, computer vision, recommender systems. What actually changes in day-to-day MLOps work compared to operating LLM-based systems?",
+  "prompt": "This kit is scoped to classical ML \u2014 tabular models, ranking, forecasting, computer vision, recommender systems. What actually changes in day-to-day MLOps work compared to operating LLM-based systems?\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use \ud83d\udca1 Hint, \ud83e\udde0 AI feedback, or \ud83d\udcd7 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "The biggest shift is the cost and evaluation profile. Classical ML training is usually the expensive, spiky part \u2014 you train periodically, then serve a lightweight model cheaply \u2014 and evaluation is a clean, deterministic metric like AUC or RMSE against labeled ground truth. LLM systems flip that: training is someone else's problem, but inference is the ongoing expensive cost, and evaluation is messy since there's often no single ground truth for \"was this response good.\" Classical MLOps spends real energy on feature stores and point-in-time correctness, since a tabular model's inputs are structured features where leakage or staleness directly breaks the model. LLMOps spends more energy on prompt management, token cost tracking, and LLM-as-judge evaluation.\n\n**Takeaway:** The core distinction: a classical model is a compact function you trained yourself; an LLM system is orchestrating calls to a model you didn't train.",
+  "hint_notes": "Classical ML: training is the expensive/spiky cost, eval is deterministic (AUC/RMSE). LLM systems: inference is the ongoing cost, eval is messy/no-ground-truth, and you didn't even train the model."
+}

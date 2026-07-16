@@ -1,0 +1,12 @@
+{
+  "id": "sql-306",
+  "area": "sql",
+  "topic": "joins/aggregation",
+  "difficulty": "medium",
+  "title": "Enterprise accounts: current plan and total paid",
+  "prompt": "Find every account **currently on the `enterprise` plan** (i.e. the subscription row where `end_date IS NULL` has `plan = 'enterprise'`), along with their total paid revenue across all invoices.\n\nThis requires joining **three tables**: `accounts`, `subscriptions`, and `invoices`.\n\nReturn `account_id`, `account_name`, `plan`, and `total_paid` (sum of `amount_usd` where `status = 'paid'`, rounded to 2 decimals).\n\nOrder by `total_paid` descending.\n\nRefresher goal: reason out loud about join order and what a mismatched join key does to row counts — a 3-table join is where join-fan-out mistakes usually first show up.",
+  "starter_code": "-- Tables: accounts, subscriptions, invoices\n-- Write your query below\n\n",
+  "reference_sql": "SELECT a.account_id, a.account_name, s.plan, ROUND(SUM(i.amount_usd), 2) AS total_paid FROM accounts a JOIN subscriptions s ON s.account_id = a.account_id AND s.end_date IS NULL JOIN invoices i ON i.account_id = a.account_id AND i.status = 'paid' WHERE s.plan = 'enterprise' GROUP BY a.account_id, a.account_name, s.plan ORDER BY total_paid DESC",
+  "order_matters": true,
+  "hint_notes": "Join subscriptions filtered to end_date IS NULL (the current stint) to get one plan row per account — join invoices filtered to status='paid' separately. Common mistake: joining subscriptions without the end_date IS NULL filter, which fans out one account into multiple rows (one per historical plan stint) and inflates the SUM."
+}

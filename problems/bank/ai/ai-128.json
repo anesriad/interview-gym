@@ -1,0 +1,11 @@
+{
+  "id": "ai-128",
+  "area": "ai",
+  "topic": "Company Rounds",
+  "difficulty": "medium",
+  "title": "How do you do capacity planning for a shared training cluster used by hundreds of internal teams with wildly different job sizes?",
+  "prompt": "How do you do capacity planning for a shared training cluster used by hundreds of internal teams with wildly different job sizes?\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use \ud83d\udca1 Hint, \ud83e\udde0 AI feedback, or \ud83d\udcd7 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "At high utilization with tripled queue times, I'd suspect a fairness or scheduling problem before assuming it's purely a capacity shortage. I'd move to a fair-share scheduler with priority tiers and quotas rather than static per-team allocation, track utilization against queue depth per team to find who's actually starving whom, and forecast growth from historical submission trends plus direct roadmap input from the largest teams. Buying more hardware without fixing a fairness problem just delays the same symptom until usage grows into the new capacity.\n\n**Takeaway:** I'd enforce per-team quotas and gang scheduling limits, routing large exploratory jobs through lower-priority preemptible queues, and treat any VP's request for guaranteed capacity as something explicitly charged back and capped, not a quiet tax on everyone else.",
+  "hint_notes": "Suspect fairness/scheduling before pure capacity shortage. Move to fair-share scheduler with priority tiers + quotas, track per-team utilization vs queue depth to find who's starving whom. More hardware alone just delays the same symptom."
+}

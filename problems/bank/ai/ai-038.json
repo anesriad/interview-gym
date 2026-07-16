@@ -1,0 +1,11 @@
+{
+  "id": "ai-038",
+  "area": "ai",
+  "topic": "RAG Evaluation",
+  "difficulty": "medium",
+  "title": "Explain Precision@K in RAG retrieval evaluation with an example.",
+  "prompt": "Explain Precision@K in RAG retrieval evaluation with an example.\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use \ud83d\udca1 Hint, \ud83e\udde0 AI feedback, or \ud83d\udcd7 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "Precision@K measures how many of the retrieved chunks are actually useful \u2014 \"did we retrieve mostly relevant stuff or junk?\" It's relevant retrieved chunks divided by K. Example: for \"capital of France?\" if the retriever returns the top 3 as C1 (Paris is capital of France, relevant), C2 (France population, not relevant), and C3 (Eiffel Tower tourism, not relevant), only 1 of 3 is relevant, so Precision@3 = 1/3 = 0.33.\n\n**Takeaway:** High precision means cleaner context for the LLM; low precision means noisy context that can confuse the model even if the right answer is technically present somewhere in the retrieved set.",
+  "hint_notes": "Precision@K = relevant retrieved chunks / K. Recall asks \"did we get it,\" precision asks \"how much noise came with it.\""
+}

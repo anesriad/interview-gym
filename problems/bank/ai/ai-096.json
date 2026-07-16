@@ -1,0 +1,11 @@
+{
+  "id": "ai-096",
+  "area": "ai",
+  "topic": "CI/CD/CT for ML",
+  "difficulty": "medium",
+  "title": "What's the difference between continuous training (CT) and continuous deployment (CD) in an MLOps context, and can you have one without the other?",
+  "prompt": "What's the difference between continuous training (CT) and continuous deployment (CD) in an MLOps context, and can you have one without the other?\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use \ud83d\udca1 Hint, \ud83e\udde0 AI feedback, or \ud83d\udcd7 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "Continuous training is automatically retraining a model on a schedule or trigger, like nightly or whenever fresh data crosses a threshold. Continuous deployment is automatically pushing whatever passes validation straight to production traffic with no human step. They sound related but answer different questions: CT is about keeping the model fresh, CD is about how fast a validated change reaches users. You can absolutely have one without the other \u2014 a team can retrain nightly but require a compliance sign-off before anything deploys, meaning CT without CD.\n\n**Takeaway:** Freshness risk and release risk are different risks with different owners and tolerances, so decoupling them lets an organization move fast on the low-risk side while staying careful on the high-risk side. Coupling CT directly to CD with no gate means any bad data day goes straight to production traffic with zero check.",
+  "hint_notes": "CT = automatic retraining on schedule/trigger. CD = automatic push-to-prod of anything that passes validation. They're independent \u2014 you can retrain nightly (CT) while still requiring manual sign-off before deploy (no CD)."
+}

@@ -1,0 +1,17 @@
+{
+  "id": "py-309",
+  "area": "python",
+  "topic": "string parsing",
+  "difficulty": "easy",
+  "title": "Parse Log Lines into Structured Records",
+  "prompt": "Given a log line like `\"2026-07-16 09:22:48 ERROR user=42 msg=timeout\"`, parse it into a dict with keys `timestamp`, `level`, `user`, and `msg`.\n\n- `timestamp` is the date + time (`\"2026-07-16 09:22:48\"`) as a single string.\n- `level` is the log level (`\"ERROR\"`, `\"INFO\"`, etc.).\n- `user` and `msg` come from the trailing `key=value` pairs — `user` should be an **int**, `msg` a **string**.\n\n**Example**: `parse_log(\"2026-07-16 09:22:48 ERROR user=42 msg=timeout\")` → `{\"timestamp\": \"2026-07-16 09:22:48\", \"level\": \"ERROR\", \"user\": 42, \"msg\": \"timeout\"}`\n\nThis is the kind of \"boring but real\" parsing task applied roles actually test — `.split()` is enough here, no need for regex.",
+  "starter_code": "def parse_log(line):\n    pass\n",
+  "function_name": "parse_log",
+  "tests": [
+    {"args": ["2026-07-16 09:22:48 ERROR user=42 msg=timeout"], "expected": {"timestamp": "2026-07-16 09:22:48", "level": "ERROR", "user": 42, "msg": "timeout"}},
+    {"args": ["2026-01-01 00:00:00 INFO user=1 msg=started"], "expected": {"timestamp": "2026-01-01 00:00:00", "level": "INFO", "user": 1, "msg": "started"}},
+    {"args": ["2025-12-31 23:59:59 WARN user=999 msg=disk_low"], "expected": {"timestamp": "2025-12-31 23:59:59", "level": "WARN", "user": 999, "msg": "disk_low"}}
+  ],
+  "reference_solution": "def parse_log(line):\n    parts = line.split()\n    timestamp = parts[0] + ' ' + parts[1]\n    level = parts[2]\n    kv = dict(p.split('=', 1) for p in parts[3:])\n    return {\n        'timestamp': timestamp,\n        'level': level,\n        'user': int(kv['user']),\n        'msg': kv['msg'],\n    }\n",
+  "hint_notes": "Split on whitespace first: parts[0]+parts[1] = timestamp, parts[2] = level, the rest are key=value pairs. Split each key=value pair on '=' with maxsplit=1 in case a value itself ever contains '='. Tag: split-based-log-parsing."
+}

@@ -1,0 +1,11 @@
+{
+  "id": "ai-097",
+  "area": "ai",
+  "topic": "Model Serving",
+  "difficulty": "medium",
+  "title": "When would you choose gRPC over REST for a model serving API, and when does REST actually win?",
+  "prompt": "When would you choose gRPC over REST for a model serving API, and when does REST actually win?\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use \ud83d\udca1 Hint, \ud83e\udde0 AI feedback, or \ud83d\udcd7 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "Choose gRPC when you control both the client and server, need high throughput at low latency, and want streaming support built in \u2014 it uses protobuf, a compact binary format that serializes faster and smaller than JSON, over HTTP/2's multiplexed connections. Choose REST when your consumers include ad hoc tools, browsers, or outside teams who just want to curl an endpoint or explore it from a notebook without special tooling. The efficiency gRPC buys you comes at the cost of accessibility \u2014 protobuf and HTTP/2 are great for machine-to-machine calls between services you own, but they require generated stub code and gRPC-aware infrastructure.\n\n**Takeaway:** In practice, a hybrid often wins: gRPC internally between services you control, REST or a gateway translation layer for ad hoc or browser-facing access.",
+  "hint_notes": "gRPC: you control both ends, need high throughput/low latency/streaming \u2014 costs accessibility (needs stub codegen). REST: ad hoc/browser/external consumers who just want to curl it. Hybrid (gRPC internal, REST gateway) often wins."
+}

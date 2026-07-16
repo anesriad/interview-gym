@@ -1,0 +1,11 @@
+{
+  "id": "ai-088",
+  "area": "ai",
+  "topic": "Experiment Tracking",
+  "difficulty": "medium",
+  "title": "Explain what MLflow autologging actually captures versus what it misses, and describe a real case where relying on autologging alone gave your team an incomplete experiment record.",
+  "prompt": "Explain what MLflow autologging actually captures versus what it misses, and describe a real case where relying on autologging alone gave your team an incomplete experiment record.\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use \ud83d\udca1 Hint, \ud83e\udde0 AI feedback, or \ud83d\udcd7 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "Autologging only captures what happens inside the boundaries of the specific API calls it hooks into, like `model.fit()` for sklearn. It logs hyperparameters, standard training metrics, and the trained model object. It does not capture anything happening before or after that call: custom preprocessing, feature selection, data augmentation, or any manual decision made outside the framework's fit call. A feature selection step that ran before `fit()` is invisible to autolog unless someone explicitly logs it. Three months later, someone trying to reproduce a result has the hyperparameters and metrics but is missing which features were selected \u2014 often the single biggest lever on performance.\n\n**Takeaway:** Autolog reduces boilerplate for the common case, it doesn't guarantee full reproducibility; treating it as a complete solution is how teams end up with records that look complete but are missing the steps that made a run special.",
+  "hint_notes": "Autolog only captures what's inside the hooked API call (e.g. model.fit()) \u2014 preprocessing, feature selection, and manual decisions before/after that call are invisible unless explicitly logged."
+}

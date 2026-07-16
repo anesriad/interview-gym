@@ -1,0 +1,11 @@
+{
+  "id": "ai-068",
+  "area": "ai",
+  "topic": "Memory, Databases & Caching for GenAI",
+  "difficulty": "medium",
+  "title": "How would you design memory systems for multi-user AI applications where sessions must remain isolated?",
+  "prompt": "How would you design memory systems for multi-user AI applications where sessions must remain isolated?\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use \ud83d\udca1 Hint, \ud83e\udde0 AI feedback, or \ud83d\udcd7 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "Multi-tenant isolation requires mandatory hard filtering at the database access layer \u2014 never rely solely on LLM prompt instructions to keep one user's data from another. A defense-in-depth isolation stack has three layers: tenant-scoped schema, where every database row and every vector metadata payload must contain an indexed user_id and tenant_id, enforced as a mandatory filter parameter in every retrieval call, not an optional one the LLM could omit; Redis cache namespacing, where keys are strictly namespaced as session:{user_id}:{session_id}:state to prevent key collisions across users; and system prompt scoping, where the system prompt additionally instructs the LLM to only assist the current user ID \u2014 but this is an added guardrail on top of infrastructure enforcement, not a substitute for it.\n\n**Takeaway:** Isolation has to be enforced at the infrastructure layer as a mandatory, non-optional filter \u2014 a prompt instruction telling the model to only use one user's data is a nice-to-have backstop, never the actual security boundary.",
+  "hint_notes": "Infrastructure-layer mandatory filters (indexed user_id/tenant_id on every row and query) are the real boundary; prompt-level scoping is a backstop, not the enforcement mechanism."
+}

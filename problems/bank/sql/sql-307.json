@@ -1,0 +1,12 @@
+{
+  "id": "sql-307",
+  "area": "sql",
+  "topic": "window functions",
+  "difficulty": "medium",
+  "title": "Month-over-month paid revenue change",
+  "prompt": "Using **paid** invoices, compute total revenue per month, then compute the **change in revenue versus the previous month**.\n\nReturn `month`, `revenue_usd` (rounded to 2 decimals), and `mom_change_usd` (`revenue_usd` minus the prior month's `revenue_usd`, rounded to 2 decimals — `NULL` for the first month, since it has no prior month).\n\nOrder by `month` ascending.\n\nRefresher goal: `LAG()` for period-over-period comparisons — write it from memory without hesitation.",
+  "starter_code": "-- Tables: accounts, subscriptions, invoices\n-- Write your query below using LAG()\n\n",
+  "reference_sql": "SELECT month, revenue_usd, ROUND(revenue_usd - LAG(revenue_usd) OVER (ORDER BY month), 2) AS mom_change_usd FROM (SELECT DATE_TRUNC('month', issued_date) AS month, ROUND(SUM(amount_usd), 2) AS revenue_usd FROM invoices WHERE status = 'paid' GROUP BY DATE_TRUNC('month', issued_date)) ORDER BY month",
+  "order_matters": true,
+  "hint_notes": "Aggregate to one row per month first, then LAG(revenue_usd) OVER (ORDER BY month) in an outer query to reference the prior row. LAG on a raw (non-aggregated) query would compare individual invoices, not monthly totals — aggregate first, then window over the aggregate."
+}

@@ -1,0 +1,11 @@
+{
+  "id": "ai-093",
+  "area": "ai",
+  "topic": "Testing ML Systems",
+  "difficulty": "medium",
+  "title": "Your training pipeline calls an internal Model Registry API to fetch the current production model version before comparing a challenger against it. How do you unit test the comparison logic without hitting the real registry service?",
+  "prompt": "Your training pipeline calls an internal Model Registry API to fetch the current production model version before comparing a challenger against it. How do you unit test the comparison logic without hitting the real registry service?\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use \ud83d\udca1 Hint, \ud83e\udde0 AI feedback, or \ud83d\udcd7 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "I'd mock the registry client at the boundary and test the comparison logic completely in isolation from the network call: wrap the registry call behind a small client interface, mock it to return a fixed known response representing \"current production model,\" and test the comparison logic against several mocked responses \u2014 challenger better, worse, tie, and a malformed response. I'd keep a separate integration test that hits a real staging registry so the mock's assumptions get checked periodically against reality.\n\n**Takeaway:** The real risk is a mock that's never revisited and silently drifts from the real API's response shape, which is exactly what lets a schema change slip through while tests stay green \u2014 pair unit tests with a periodic integration test against staging.",
+  "hint_notes": "Mock the registry client at the boundary, test comparison logic against several mocked response shapes (better/worse/tie/malformed), and keep a separate periodic integration test against staging so the mock doesn't silently drift."
+}

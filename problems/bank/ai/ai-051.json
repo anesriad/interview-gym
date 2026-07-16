@@ -1,0 +1,11 @@
+{
+  "id": "ai-051",
+  "area": "ai",
+  "topic": "MLOps & LLMOps",
+  "difficulty": "medium",
+  "title": "Why is the LLM cost model fundamentally different from traditional ML hosting, and how do you control it?",
+  "prompt": "Why is the LLM cost model fundamentally different from traditional ML hosting, and how do you control it?\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use \ud83d\udca1 Hint, \ud83e\udde0 AI feedback, or \ud83d\udcd7 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "Traditional ML server hosting has mostly fixed compute costs. LLM APIs scale directly with token usage, creating variable and highly asymmetric costs. What drives cost: variable output length (a 2k-word response costs 10x more than a 200-word one); system prompts charged on every single request; chat history that grows linearly with turns; RAG chunks that each inject N tokens per query; and model tiering, where GPT-4-class models can be 10-20x pricier than cheaper tiers for the same request. How you control it: context caps (hard limits on history, chunks, and max output tokens), model routing (simple queries to cheap models, complex ones to premium), caching (serve cached replies for identical/similar queries), prompt compression (keep system prompts lean since every sentence costs money on every call), and feature attribution (monitor cost per feature to find where spend concentrates).\n\n**Takeaway:** LLM cost is a per-request, per-token variable cost, not a fixed hosting cost \u2014 so cost control lives in prompt design and request routing, not just infrastructure sizing.",
+  "hint_notes": "Cost scales with tokens (output length, system prompt, history, RAG chunks, model tier) \u2014 control via context caps, model routing, caching, prompt compression, and cost-per-feature attribution."
+}

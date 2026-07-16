@@ -1,0 +1,11 @@
+{
+  "id": "ai-094",
+  "area": "ai",
+  "topic": "CI/CD/CT for ML",
+  "difficulty": "medium",
+  "title": "Your team just moved from manual model deployment to a GitHub Actions pipeline. What stages does an ML CI/CD pipeline need that a normal software CI/CD pipeline doesn't?",
+  "prompt": "Your team just moved from manual model deployment to a GitHub Actions pipeline. What stages does an ML CI/CD pipeline need that a normal software CI/CD pipeline doesn't?\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use \ud83d\udca1 Hint, \ud83e\udde0 AI feedback, or \ud83d\udcd7 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "A normal software pipeline mostly verifies code correctness: lint, unit test, build, deploy. An ML pipeline needs all of that plus stages that verify the data and resulting model are actually good, because the same code can produce a great model or a broken one depending entirely on the data it trains on. On top of the usual stages I'd add: a data validation stage checking schema, ranges, and missing values before anything expensive runs; a training stage producing a versioned model artifact; a model evaluation stage against a held-out or golden dataset; a comparison stage against the current production model; and only then a gradual deployment stage.\n\n**Takeaway:** Software CI/CD assumes correctness is a property of code \u2014 ML correctness is a property of code plus data plus statistical behavior, which can only be evaluated by actually running the pipeline against real data.",
+  "hint_notes": "Add to standard lint/test/build/deploy: data validation, versioned training artifact, held-out-set model evaluation, comparison against current prod model, then gradual deployment \u2014 because correctness depends on data, not just code."
+}

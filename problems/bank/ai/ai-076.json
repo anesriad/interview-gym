@@ -1,0 +1,11 @@
+{
+  "id": "ai-076",
+  "area": "ai",
+  "topic": "Memory, Databases & Caching for GenAI",
+  "difficulty": "medium",
+  "title": "What architectural factors influence vector search latency at scale, beyond the ANN algorithm itself?",
+  "prompt": "What architectural factors influence vector search latency at scale, beyond the ANN algorithm itself?\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use \ud83d\udca1 Hint, \ud83e\udde0 AI feedback, or \ud83d\udcd7 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "End-to-end RAG latency is governed by embedding inference, index memory residency, and payload fetch round-trips \u2014 not just the ANN search step itself. Embedding API latency: query embedding generation, typically 50-150ms, frequently dominates total RAG latency over the ANN search that follows it. Index placement: in-memory HNSW responds in under 10ms, while disk-backed SSD search adds real NVMe read latency on top. Pre vs post filtering: metadata post-filtering (search first, then filter) ruins recall because you may filter away most of the top-k results after the fact \u2014 single-stage pre-filtering integrated into the HNSW traversal maintains both speed and recall. Payload hydration: store chunk text directly alongside the vector, or batch-fetch chunk content from SQL, to prevent an N+1 round-trip pattern where each retrieved chunk ID triggers a separate document lookup.\n\n**Takeaway:** Before optimizing the ANN index itself, check whether embedding generation, disk-backed index placement, post-filtering recall loss, or N+1 payload fetches are the actual latency source \u2014 the search algorithm is often not the bottleneck.",
+  "hint_notes": "4 latency sources beyond ANN search itself: embedding API call time, in-memory vs disk-backed index, post- vs pre-filtering (recall/speed tradeoff), and N+1 payload hydration round-trips."
+}

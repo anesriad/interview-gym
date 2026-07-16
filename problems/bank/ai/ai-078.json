@@ -1,0 +1,11 @@
+{
+  "id": "ai-078",
+  "area": "ai",
+  "topic": "Memory, Databases & Caching for GenAI",
+  "difficulty": "medium",
+  "title": "What failure scenarios must be considered when deploying vector search in production, given that failures are often silent?",
+  "prompt": "What failure scenarios must be considered when deploying vector search in production, given that failures are often silent?\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use \ud83d\udca1 Hint, \ud83e\udde0 AI feedback, or \ud83d\udcd7 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "Vector search failures are frequently silent \u2014 they degrade RAG accuracy without ever throwing a hard service exception. Four critical production failure modes: embedding API outage \u2014 implement circuit breakers that fall back to lexical BM25 search when the embedding endpoint itself fails, so retrieval degrades gracefully instead of failing entirely; silent index corruption \u2014 reconcile vector counts against SQL row counts daily and maintain automated snapshot backups, since a corrupted index can serve wrong results without ever erroring; memory pressure eviction \u2014 monitor OS-level RSS RAM, since page-swapping index segments out of memory causes 10x latency spikes that look like a mysterious slowdown rather than an obvious failure; cold start thundering herd \u2014 enforce readiness probes so instances fully load their HNSW graphs before serving any traffic, preventing a wave of slow or failed requests right after a deploy or scale-up event.\n\n**Takeaway:** Vector search failures rarely throw exceptions \u2014 they show up as degraded accuracy, latency spikes, or silently wrong results, which is why daily reconciliation, circuit breakers, RAM monitoring, and readiness probes all matter more here than in typical stateless service failure modes.",
+  "hint_notes": "4 silent failure modes: embedding API outage (needs BM25 fallback), index corruption (needs daily SQL reconciliation), memory pressure (causes 10x latency via swapping), cold-start thundering herd (needs readiness probes)."
+}

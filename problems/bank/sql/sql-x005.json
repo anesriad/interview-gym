@@ -1,0 +1,11 @@
+{
+  "title": "Trips and Payments Analysis for Premium Users",
+  "topic": "joins/aggregation",
+  "difficulty": "medium",
+  "prompt": "For each premium user, calculate the total trip distance traveled and the total amount paid across all their trips in July 2025. Output should include `user_id`, `total_distance_km`, and `total_paid_usd`. Order the results by `total_paid_usd` descending.",
+  "reference_sql": "SELECT u.user_id, SUM(t.distance_km) AS total_distance_km, SUM(p.amount_usd) AS total_paid_usd FROM users u JOIN trips t ON u.user_id = t.user_id JOIN payments p ON t.trip_id = p.trip_id WHERE u.plan = 'premium' AND t.request_ts >= '2025-07-01' AND t.request_ts < '2025-08-01' GROUP BY u.user_id ORDER BY total_paid_usd DESC;",
+  "order_matters": true,
+  "hint_notes": "Key idea is to join users, trips, and payments tables correctly; common mistake is forgetting to filter for July 2025 or not grouping by user properly.",
+  "id": "sql-x005",
+  "area": "sql"
+}

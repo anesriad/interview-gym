@@ -1,0 +1,11 @@
+{
+  "id": "ai-106",
+  "area": "ai",
+  "topic": "Model Governance",
+  "difficulty": "medium",
+  "title": "You're designing the governance process for a healthcare risk-scoring model that must comply with HIPAA. Walk through what \"compliance\" actually means at each stage of the ML lifecycle, not just at deployment.",
+  "prompt": "You're designing the governance process for a healthcare risk-scoring model that must comply with HIPAA. Walk through what \"compliance\" actually means at each stage of the ML lifecycle, not just at deployment.\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use \ud83d\udca1 Hint, \ud83e\udde0 AI feedback, or \ud83d\udcd7 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "Compliance isn't a deployment checkbox, it's a different set of controls at every stage. Ingestion needs minimum necessary PHI collected, encryption at rest and in transit, and access limited to legitimate need. Training needs a BAA-covered environment if PHI touches it, ideally de-identified where the model doesn't need identifiers. Deployment needs encrypted inference paths with every PHI access logged, and monitoring needs drift checks designed so you're not re-exposing PHI just to see if the model degraded.\n\n**Takeaway:** PHI touches the system differently at each stage, so a single \"we're HIPAA compliant\" statement usually means someone only checked the deployment box and never looked at the training environment, which is often where the real exposure lives.",
+  "hint_notes": "PHI needs different controls at each stage: minimum-necessary+encryption at ingestion, BAA-covered/de-identified training environment, encrypted+logged inference at deployment, drift monitoring that doesn't re-expose PHI."
+}

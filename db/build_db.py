@@ -22,6 +22,11 @@ PLANS = ["free", "standard", "premium"]
 METHODS = ["card", "wallet", "cash"]
 GENRES = ["Drama", "Comedy", "Action", "Documentary", "Sci-Fi"]
 
+INDUSTRIES = ["retail", "fintech", "healthcare", "media", "logistics"]
+SUB_PLANS = ["starter", "growth", "enterprise"]
+SUB_MRR = {"starter": 49.0, "growth": 199.0, "enterprise": 899.0}
+INVOICE_STATUSES = ["paid", "outstanding", "refunded"]
+
 START = date(2025, 1, 1)
 
 
@@ -87,9 +92,75 @@ def build():
         watch.append((sid, uid, cid, ts, random.randint(1, 160)))
     con.executemany("INSERT INTO sessions_watch VALUES (?,?,?,?,?)", watch)
 
+    # ---- accounts: 200 SaaS accounts signing up across ~500 days ----
+    accounts = []
+    for aid in range(1, 201):
+        created = d(random.randint(0, 500))
+        accounts.append((aid, f"Account {aid}", random.choice(INDUSTRIES), created))
+    con.executemany("INSERT INTO accounts VALUES (?,?,?,?)", accounts)
+
+    # ---- subscriptions: each account has 1-3 plan stints (upgrades/downgrades) ----
+    # exactly one stint per account has end_date = NULL (the current plan).
+    subscriptions = []
+    account_plan_windows = {}  # account_id -> list of (start_date, end_date_or_None)
+    sub_id = 1
+    for aid, _, _, created in accounts:
+        n_stints = random.choices([1, 2, 3], weights=[5, 3, 2])[0]
+        cursor = created
+        plan_idx = random.randint(0, len(SUB_PLANS) - 1)
+        windows = []
+        for i in range(n_stints):
+            plan = SUB_PLANS[min(plan_idx, len(SUB_PLANS) - 1)]
+            stint_days = random.randint(30, 180)
+            is_last = (i == n_stints - 1)
+            end = None if is_last else cursor + timedelta(days=stint_days)
+            mrr = SUB_MRR[plan] * random.uniform(0.95, 1.05)
+            subscriptions.append((sub_id, aid, plan, cursor,
+                                  end, round(mrr, 2)))
+            windows.append((cursor, end))
+            sub_id += 1
+            if end is not None:
+                cursor = end + timedelta(days=1)
+            plan_idx += 1  # tends to upgrade over successive stints
+        account_plan_windows[aid] = windows
+    con.executemany("INSERT INTO subscriptions VALUES (?,?,?,?,?,?)", subscriptions)
+
+    # ---- invoices: ~monthly invoices per account since signup, tied to whichever
+    # plan/mrr was active at issue time; some outstanding or refunded ----
+    invoices = []
+    inv_id = 1
+    today = d(500)
+    for aid, _, _, created in accounts:
+        cursor = created + timedelta(days=30)
+        while cursor <= today:
+            # find the mrr active on this date from this account's subscriptions
+            active_mrr = None
+            for sub in subscriptions:
+                if sub[1] == aid and sub[3] <= cursor and (sub[4] is None or sub[4] >= cursor):
+                    active_mrr = sub[5]
+                    break
+            if active_mrr is None:
+                cursor += timedelta(days=30)
+                continue
+            roll = random.random()
+            if roll < 0.85:
+                status = "paid"
+                paid = cursor + timedelta(days=random.randint(0, 5))
+            elif roll < 0.95:
+                status = "outstanding"
+                paid = None
+            else:
+                status = "refunded"
+                paid = cursor + timedelta(days=random.randint(0, 5))
+            invoices.append((inv_id, aid, cursor, active_mrr, paid, status))
+            inv_id += 1
+            cursor += timedelta(days=30)
+    con.executemany("INSERT INTO invoices VALUES (?,?,?,?,?,?)", invoices)
+
     con.close()
     print(f"Built {DB_PATH}")
-    print("Tables: users(500), trips(4000), payments, content(60), sessions_watch(6000)")
+    print("Tables: users(500), trips(4000), payments, content(60), sessions_watch(6000),")
+    print(f"        accounts(200), subscriptions({len(subscriptions)}), invoices({len(invoices)})")
 
 
 if __name__ == "__main__":

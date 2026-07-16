@@ -1,0 +1,11 @@
+{
+  "id": "ai-120",
+  "area": "ai",
+  "topic": "System Design",
+  "difficulty": "medium",
+  "title": "How would a junior engineer versus a senior engineer differ in designing the retraining cadence for a recommendation model that showed a 3% CTR drop over two weeks?",
+  "prompt": "How would a junior engineer versus a senior engineer differ in designing the retraining cadence for a recommendation model that showed a 3% CTR drop over two weeks?\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use \ud83d\udca1 Hint, \ud83e\udde0 AI feedback, or \ud83d\udcd7 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "The correct instinct is to treat \"retrain immediately\" as a hypothesis to validate, not an automatic action. Before touching the model, I'd check whether the drop is consistent across segments or concentrated somewhere, whether it correlates with a known change like a deploy or data pipeline change, and whether 3% is actually outside normal week-to-week variance. Only after ruling out non-model causes would retraining be the right lever. CTR is a noisy metric with natural variance \u2014 reacting to every dip with a retrain risks chasing noise and masking a real upstream issue.\n\n**Takeaway:** A junior engineer says \"CTR dropped, let's retrain this week\"; a senior engineer first confirms this is staleness and not a pipeline regression or seasonal artifact.",
+  "hint_notes": "Treat \"retrain now\" as a hypothesis, not the default action. Check: is the drop segment-concentrated? does it correlate with a known deploy/pipeline change? is 3% outside normal variance? Only retrain after ruling out non-model causes."
+}

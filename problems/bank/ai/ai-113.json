@@ -1,0 +1,11 @@
+{
+  "id": "ai-113",
+  "area": "ai",
+  "topic": "Cloud MLOps",
+  "difficulty": "medium",
+  "title": "SageMaker Model Registry versus a self-hosted MLflow Model Registry \u2014 when do you pick one over the other?",
+  "prompt": "SageMaker Model Registry versus a self-hosted MLflow Model Registry \u2014 when do you pick one over the other?\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use \ud83d\udca1 Hint, \ud83e\udde0 AI feedback, or \ud83d\udcd7 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "Pick SageMaker Model Registry when you're fully committed to AWS, want tight native integration with SageMaker Pipelines and endpoints, and don't want to operate another piece of infrastructure yourself. Pick a self-hosted MLflow Model Registry when you need cloud portability, you're already using MLflow for experiment tracking, or there's any realistic chance of running workloads outside AWS. SageMaker's registry is managed, so you get approval workflows and lineage back to the training job basically for free, but it's AWS-native by design.\n\n**Takeaway:** If the org goes multi-cloud later, you either run a second registry per cloud, fragmenting lineage, or migrate to something cloud-agnostic, which is a real project, not a config change.",
+  "hint_notes": "SageMaker Registry: managed, AWS-native, free approval-workflow/lineage integration. MLflow Registry: self-hosted, cloud-portable, matches existing MLflow tracking. Going multi-cloud later with SageMaker means a real migration project, not a config change."
+}

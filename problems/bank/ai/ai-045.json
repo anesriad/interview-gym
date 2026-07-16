@@ -1,0 +1,11 @@
+{
+  "id": "ai-045",
+  "area": "ai",
+  "topic": "MLOps & LLMOps",
+  "difficulty": "medium",
+  "title": "What levers do you pull when LLM output quality drops, and why is retraining rarely the first move?",
+  "prompt": "What levers do you pull when LLM output quality drops, and why is retraining rarely the first move?\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use \ud83d\udca1 Hint, \ud83e\udde0 AI feedback, or \ud83d\udcd7 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "In classical ML the answer is often \"get more data and retrain.\" In LLMOps, retraining is the last resort \u2014 leverage favors faster, cheaper interventions, roughly in this order: (1) Prompt engineering \u2014 fixes task rules and ambiguity, takes hours, deploys instantly. (2) Retrieval improvement \u2014 better chunking and embeddings fix what looks like \"model quality\" bugs. (3) Few-shot examples \u2014 adding selected examples fixes specific failure patterns cheaply. (4) Model switch \u2014 moving to a more capable model addresses genuine capability gaps. (5) Fine-tuning \u2014 justified only with hundreds of labeled failure examples and a stable behavior change; expensive, slow, and creates a new artifact to maintain.\n\n**Takeaway:** Most teams using external APIs don't even have access to retrain base models, and fine-tuning's time investment is only justified after cheaper options are exhausted \u2014 always work down the leverage ladder before reaching for retraining.",
+  "hint_notes": "Order of cheapest-to-most-expensive fix: prompt eng \u2192 retrieval \u2192 few-shot \u2192 model switch \u2192 fine-tuning. Retraining/fine-tuning is the last resort, not the default."
+}

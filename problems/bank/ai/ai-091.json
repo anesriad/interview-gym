@@ -1,0 +1,11 @@
+{
+  "id": "ai-091",
+  "area": "ai",
+  "topic": "Testing ML Systems",
+  "difficulty": "medium",
+  "title": "You write a transform_income(df) function that log-scales and clips outliers before training. What unit tests would you write for it before it ever touches a pipeline?",
+  "prompt": "You write a transform_income(df) function that log-scales and clips outliers before training. What unit tests would you write for it before it ever touches a pipeline?\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use \ud83d\udca1 Hint, \ud83e\udde0 AI feedback, or \ud83d\udcd7 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "I'd treat this like any pure function with business logic, and write tests around the boundaries, not just the happy path: a normal-range value to confirm the log scaling math, boundary tests at the exact clip thresholds on both ends, a negative income test since log of a negative number is undefined and this is where these functions usually break silently, a zero and a null/NaN test checked separately, and a dtype test confirming the output stays a float column rather than silently truncating.\n\n**Takeaway:** Feature transformation bugs almost never show up as crashes, they show up as slightly wrong numbers that still look plausible, which is exactly why they survive code review and only get caught once someone notices the model behaving strangely.",
+  "hint_notes": "Test boundaries, not just happy path: normal value, exact clip thresholds, negative input (log undefined), zero, null/NaN, and output dtype. Feature-transform bugs fail silently as plausible-looking wrong numbers."
+}

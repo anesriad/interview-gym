@@ -1,0 +1,19 @@
+{
+  "id": "py-306",
+  "area": "python",
+  "topic": "intervals/heap",
+  "difficulty": "medium",
+  "title": "Meeting Rooms II",
+  "prompt": "Given a list of meeting time intervals `intervals` (each `[start, end]`), find the **minimum number of conference rooms** required so no two overlapping meetings share a room.\n\n**Example**: `min_meeting_rooms([[0,30],[5,10],[15,20]])` → `2`",
+  "starter_code": "def min_meeting_rooms(intervals):\n    pass\n",
+  "function_name": "min_meeting_rooms",
+  "tests": [
+    {"args": [[[0, 30], [5, 10], [15, 20]]], "expected": 2},
+    {"args": [[[7, 10], [2, 4]]], "expected": 1},
+    {"args": [[]], "expected": 0},
+    {"args": [[[1, 5], [2, 6], [3, 7], [4, 8]]], "expected": 4},
+    {"args": [[[1, 5], [5, 10]]], "expected": 1}
+  ],
+  "reference_solution": "import heapq\n\ndef min_meeting_rooms(intervals):\n    if not intervals:\n        return 0\n    intervals = sorted(intervals, key=lambda x: x[0])\n    heap = []  # end times of rooms in use\n    for start, end in intervals:\n        if heap and heap[0] <= start:\n            heapq.heapreplace(heap, end)\n        else:\n            heapq.heappush(heap, end)\n    return len(heap)\n",
+  "hint_notes": "Sort by start time; use a min-heap of end times to track rooms currently in use. If the earliest-ending room frees up before (or exactly when) the next meeting starts, reuse it instead of opening a new room. Tag: interval-heap-reuse."
+}

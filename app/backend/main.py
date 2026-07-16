@@ -1,4 +1,4 @@
-"""Interview Prep app — FastAPI backend.
+"""Interview Gym app — FastAPI backend.
 
 Run:  .venv/bin/uvicorn app.backend.main:app --reload --port 8000
 """
@@ -19,7 +19,7 @@ SHOW_ANSWER_AREAS = ("ai",)  # areas with a reveal-the-model-answer button
 ROOT = Path(__file__).resolve().parents[2]
 BANK = ROOT / "problems" / "bank"
 
-app = FastAPI(title="Interview Prep")
+app = FastAPI(title="Interview Gym")
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://localhost:5173", "http://127.0.0.1:5173"],

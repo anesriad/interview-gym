@@ -1,0 +1,11 @@
+{
+  "id": "ai-049",
+  "area": "ai",
+  "topic": "MLOps & LLMOps",
+  "difficulty": "medium",
+  "title": "Explain \"prompt drift.\" How is it similar to and different from classical data drift?",
+  "prompt": "Explain \"prompt drift.\" How is it similar to and different from classical data drift?\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use \ud83d\udca1 Hint, \ud83e\udde0 AI feedback, or \ud83d\udcd7 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "Prompt drift occurs when user inputs gradually shift away from the distribution your prompt was designed for, degrading quality without any code changes. Similarity to classical data drift: in classical ML, inference data shifts from training distributions over time; similarly, prompts designed for launch traffic underperform as user behavior evolves, new user segments arrive, or edge cases become common. The key difference: in classical ML, drift only happens to inputs while the model stays fixed. In LLMOps, you face drift in inputs AND in underlying model behavior due to provider updates, plus adversarial prompt injections layered on top. Detection and management: track query embedding distributions over time to catch centroid shifts away from your test sets, and run evaluation suites against production prompts monthly even if nothing changed intentionally.\n\n**Takeaway:** Prompt drift is data drift plus model drift plus adversarial drift combined \u2014 which is why LLM systems need recurring evaluation cadence even when nothing was deliberately changed.",
+  "hint_notes": "Classical drift = inputs shift, model fixed. LLM drift = inputs shift + model behavior shifts (provider updates) + adversarial injection \u2014 three drift sources instead of one."
+}

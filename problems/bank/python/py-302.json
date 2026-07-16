@@ -1,0 +1,19 @@
+{
+  "id": "py-302",
+  "area": "python",
+  "topic": "arrays/hashing",
+  "difficulty": "medium",
+  "title": "Group Anagrams",
+  "prompt": "Given a list of strings `strs`, group the anagrams together. Return a list of groups; **within each group, sort the strings**, and **sort the groups** by their first element — this keeps the output deterministic for grading.\n\n**Example**: `group_anagrams([\"eat\",\"tea\",\"tan\",\"ate\",\"nat\",\"bat\"])` → `[[\"ate\",\"eat\",\"tea\"],[\"bat\"],[\"nat\",\"tan\"]]`",
+  "starter_code": "def group_anagrams(strs):\n    pass\n",
+  "function_name": "group_anagrams",
+  "tests": [
+    {"args": [["eat", "tea", "tan", "ate", "nat", "bat"]], "expected": [["ate", "eat", "tea"], ["bat"], ["nat", "tan"]]},
+    {"args": [[""]], "expected": [[""]]},
+    {"args": [["a"]], "expected": [["a"]]},
+    {"args": [["abc", "cba", "bca", "xyz"]], "expected": [["abc", "bca", "cba"], ["xyz"]]},
+    {"args": [[]], "expected": []}
+  ],
+  "reference_solution": "from collections import defaultdict\n\ndef group_anagrams(strs):\n    groups = defaultdict(list)\n    for s in strs:\n        key = ''.join(sorted(s))\n        groups[key].append(s)\n    result = [sorted(g) for g in groups.values()]\n    result.sort(key=lambda g: g[0])\n    return result\n",
+  "hint_notes": "Use the sorted-letters tuple (or string) as a dict key, defaultdict(list) to bucket. Sorting is O(k log k) per string; a letter-count tuple key avoids the sort and is O(k) per string if asked to optimize. Tag: anagram-key-choice."
+}

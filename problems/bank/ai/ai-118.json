@@ -1,0 +1,11 @@
+{
+  "id": "ai-118",
+  "area": "ai",
+  "topic": "System Design",
+  "difficulty": "medium",
+  "title": "A candidate proposes serving recommendations by scoring every catalog item against the user in real time. Walk through why this breaks at scale and redesign it.",
+  "prompt": "A candidate proposes serving recommendations by scoring every catalog item against the user in real time. Walk through why this breaks at scale and redesign it.\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use \ud83d\udca1 Hint, \ud83e\udde0 AI feedback, or \ud83d\udcd7 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "Brute-force scoring means running the full ranking model against every item in the catalog on every request. At 4M SKUs, even at an optimistic 1ms per item, that's 4,000 seconds per request \u2014 not close to viable. The fix is retrieve-then-rank: use an approximate nearest neighbor index over precomputed item embeddings to cheaply narrow millions of items down to a few hundred candidates, then run the expensive ranking model only on that narrowed set. Cost scales linearly with catalog size if you do it naively.\n\n**Takeaway:** Arguing for \"the most accurate approach\" without acknowledging it's not deployable is a red flag; accuracy that can't be served within budget isn't accurate in any way that matters to the business.",
+  "hint_notes": "Brute-force = linear in catalog size (4M SKUs \u00d7 1ms = 4000s/request, not viable). Fix: ANN retrieval over precomputed embeddings narrows to a few hundred candidates, then rank only those \u2014 trades a small recall loss for a massive compute reduction."
+}

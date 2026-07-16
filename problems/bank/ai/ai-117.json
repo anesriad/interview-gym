@@ -1,0 +1,11 @@
+{
+  "id": "ai-117",
+  "area": "ai",
+  "topic": "System Design",
+  "difficulty": "medium",
+  "title": "Design the ML platform behind a mid-size e-commerce site's \"Recommended for You\" homepage rail, serving 8M daily active users with a 150ms p99 latency budget.",
+  "prompt": "Design the ML platform behind a mid-size e-commerce site's \"Recommended for You\" homepage rail, serving 8M daily active users with a 150ms p99 latency budget.\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use \ud83d\udca1 Hint, \ud83e\udde0 AI feedback, or \ud83d\udcd7 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "I'd split this into an offline half and an online half connected by a feature store. Offline, a batch pipeline trains a two-tower retrieval model plus a separate ranking model. At request time, candidate generation takes the user embedding and does an approximate nearest neighbor lookup against a precomputed item index to get a few hundred candidates \u2014 this is what keeps latency sane, since you're not scoring the whole catalog. Ranking then runs that smaller set through a heavier model blending relevance, recency, and inventory signals into a final order.\n\n**Takeaway:** The two-stage retrieve-then-rank pattern exists specifically to hit tight latency budgets at scale \u2014 a candidate who jumps straight to \"train a big neural net and serve it\" is missing the actual hard part: the retrieval architecture and online/offline feature consistency.",
+  "hint_notes": "Offline: train two-tower retrieval model + separate ranking model, connected via feature store. Online: ANN lookup narrows to a few hundred candidates, then a heavier ranking model orders them \u2014 retrieve-then-rank is what makes 150ms achievable at 8M DAU."
+}

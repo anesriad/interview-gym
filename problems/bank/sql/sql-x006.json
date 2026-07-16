@@ -1,0 +1,12 @@
+{
+  "id": "sql-x006",
+  "area": "sql",
+  "topic": "window functions",
+  "difficulty": "medium",
+  "title": "Top two fares per city",
+  "prompt": "For each **city**, find the **top two completed trips by `fare_usd`**.\n\n- If there is a tie in `fare_usd`, break the tie by `trip_id` ascending.\n- Return `city`, `trip_id`, and `fare_usd`.\n\nOrder the results by `city` alphabetically and, within each city, by `fare_usd` descending, then `trip_id` ascending.",
+  "starter_code": "-- Tables: users, trips, payments, content, sessions_watch\n-- Write your query below\n\n",
+  "reference_sql": "SELECT city, trip_id, fare_usd FROM (SELECT city, trip_id, fare_usd, ROW_NUMBER() OVER (PARTITION BY city ORDER BY fare_usd DESC, trip_id ASC) AS rnk FROM trips WHERE status = 'completed') WHERE rnk <= 2 ORDER BY city, fare_usd DESC, trip_id ASC",
+  "order_matters": true,
+  "hint_notes": "Filter to completed trips first, then ROW_NUMBER() PARTITION BY city ORDER BY fare_usd DESC (tie-break trip_id ASC), keep rnk <= 2. Common mistake: filtering rnk in the same query as the window function instead of wrapping it in a subquery/CTE."
+}

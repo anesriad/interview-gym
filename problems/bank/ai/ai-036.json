@@ -1,0 +1,11 @@
+{
+  "id": "ai-036",
+  "area": "ai",
+  "topic": "RAG Evaluation",
+  "difficulty": "easy",
+  "title": "What's the difference between retrieval-level and generation-level metrics in RAG evaluation?",
+  "prompt": "What's the difference between retrieval-level and generation-level metrics in RAG evaluation?\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use \ud83d\udca1 Hint, \ud83e\udde0 AI feedback, or \ud83d\udcd7 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "Retrieval-level metrics measure how good the retriever is at finding useful chunks \u2014 Recall@K, Precision@K, and Context Relevancy. Generation-level metrics measure how good the LLM's answer is once it has that context \u2014 Faithfulness, Answer Relevancy, and Groundedness. A RAG system can fail at either layer independently: retrieval can return the wrong chunks even if the model would have generated a perfect answer given the right ones, or retrieval can be perfect while the model still hallucinates on top of good context.\n\n**Takeaway:** Always evaluate the two layers separately, since a good end-to-end answer can hide a mediocre retriever, and a bad end-to-end answer can hide a great retriever undermined by weak generation.",
+  "hint_notes": "Retrieval-level = did we find the right chunks; generation-level = did the model use them correctly."
+}

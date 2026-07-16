@@ -1,0 +1,11 @@
+{
+  "id": "ai-116",
+  "area": "ai",
+  "topic": "Performance & Cost",
+  "difficulty": "medium",
+  "title": "A batch scoring job that processes 50 million rows nightly is consistently finishing 2 hours late and blowing past its SLA. Walk through how you'd profile and fix it.",
+  "prompt": "A batch scoring job that processes 50 million rows nightly is consistently finishing 2 hours late and blowing past its SLA. Walk through how you'd profile and fix it.\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use \ud83d\udca1 Hint, \ud83e\udde0 AI feedback, or \ud83d\udcd7 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "I'd profile before touching anything, treating the read, transform, and score stages as three separate suspects: instrument each stage separately on a representative sample first, use a profiler on the transform and scoring stages since pure-Python feature transforms over 50 million rows are a classic hidden bottleneck, and check I/O concurrency separately to see if the job is bottlenecked waiting on network or disk rather than CPU. \"It's slow\" always has one of a small number of actual causes: I/O wait, single-threaded CPU-bound Python code, or an algorithmically inefficient step like row-by-row iteration instead of vectorized operations.\n\n**Takeaway:** Guessing and throwing more hardware at it before knowing which wastes time and money \u2014 jumping straight to \"use a bigger instance\" often means fixing the wrong stage while an unvectorized pandas apply call keeps burning time.",
+  "hint_notes": "Profile read/transform/score as 3 separate suspects before touching anything. \"Slow\" always reduces to I/O wait, single-threaded CPU-bound code, or an unvectorized/row-by-row step. Don't scale hardware before knowing which stage is actually the bottleneck."
+}

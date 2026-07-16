@@ -1,0 +1,11 @@
+{
+  "id": "ai-110",
+  "area": "ai",
+  "topic": "ML Security",
+  "difficulty": "medium",
+  "title": "Your recommendation model's click-through rate for a specific category degrades over two weeks, then a security review finds a coordinated group of bot accounts had been injecting biased interaction data. What kind of attack is this and how do you remediate the model?",
+  "prompt": "Your recommendation model's click-through rate for a specific category degrades over two weeks, then a security review finds a coordinated group of bot accounts had been injecting biased interaction data. What kind of attack is this and how do you remediate the model?\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use \ud83d\udca1 Hint, \ud83e\udde0 AI feedback, or \ud83d\udcd7 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "This is data poisoning through implicit feedback, sometimes called a shilling attack. The attacker never touches your training code or infrastructure, they just interact with the product in a way that looks normal but is designed to skew what the model learns \u2014 recommenders are especially vulnerable because they learn from exactly the kind of signal an attacker can cheaply fake: clicks, views, interactions. Remediation has two parts: identify and exclude the bot-driven interactions, then retrain from a clean data snapshot rather than just the most recent window.\n\n**Takeaway:** If poisoned data has fed weeks of retraining cycles, the model's embeddings have already absorbed the bias, so simply filtering bad rows going forward isn't enough \u2014 you typically need to retrain from a known-clean checkpoint, not just filter forward.",
+  "hint_notes": "Shilling attack / implicit-feedback data poisoning \u2014 no code/infra access needed, just fake clicks/views. Remediation: exclude bot interactions AND retrain from a known-clean checkpoint, since filtering forward isn't enough once embeddings absorbed the bias."
+}

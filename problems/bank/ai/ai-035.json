@@ -1,0 +1,11 @@
+{
+  "id": "ai-035",
+  "area": "ai",
+  "topic": "RAG Evaluation",
+  "difficulty": "easy",
+  "title": "What are evaluation metrics in a RAG system, and why do you need them?",
+  "prompt": "What are evaluation metrics in a RAG system, and why do you need them?\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use \ud83d\udca1 Hint, \ud83e\udde0 AI feedback, or \ud83d\udcd7 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "Evaluation metrics measure how good a RAG system actually is by scoring its two \"brains\" separately: the retriever (does it find relevant chunks?) and the generator (does the LLM use those chunks correctly?). Metrics answer three questions: did we retrieve the right information, did the model use it correctly, and did it hallucinate or stay grounded. Without them you're relying on \"it sounds right,\" which doesn't scale and doesn't catch silent quality regressions.\n\n**Takeaway:** You need metrics to reduce hallucinations, improve search quality, compare RAG configurations, and move from a vibes-based read of output quality to a measured one.",
+  "hint_notes": "RAG evaluation splits into retrieval-level metrics (Recall@K, Precision@K, Context Relevancy) and generation-level metrics (Faithfulness, Answer Relevancy, Groundedness)."
+}

@@ -1,0 +1,11 @@
+{
+  "id": "ai-083",
+  "area": "ai",
+  "topic": "Data Engineering",
+  "difficulty": "medium",
+  "title": "Your data engineering team wants to move the training data pipeline from nightly batch CSV drops to a streaming ingestion setup using Kafka. Walk through how you'd design this and what changes downstream.",
+  "prompt": "Your data engineering team wants to move the training data pipeline from nightly batch CSV drops to a streaming ingestion setup using Kafka. Walk through how you'd design this and what changes downstream.\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use \ud83d\udca1 Hint, \ud83e\udde0 AI feedback, or \ud83d\udcd7 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "I'd separate two concerns people often mix together: ingestion and feature computation. Kafka becomes the transport layer carrying events as they happen, but that doesn't automatically mean every downstream feature needs to be computed in real time. Producers publish raw events to Kafka topics, a stream processor consumes them and computes features incrementally with windowed aggregations, and I'd write features to both an online store for serving and an offline store for training. Moving to streaming isn't just plumbing, it changes the computation model. Batch jobs compute over a complete, closed dataset; streaming computes over an open-ended one, so every aggregation now needs an explicit windowing and watermarking strategy.\n\n**Takeaway:** If you don't design for the batch-to-streaming computation shift, you get silently wrong numbers instead of an obvious failure \u2014 keep the old batch pipeline running in parallel for weeks to diff against before cutting over.",
+  "hint_notes": "Separate ingestion (Kafka transport) from feature computation (windowed stream processing). Batch computes over closed datasets; streaming needs explicit windowing/watermarking or you get silently wrong numbers."
+}

@@ -1,0 +1,11 @@
+{
+  "id": "ai-112",
+  "area": "ai",
+  "topic": "Cloud MLOps",
+  "difficulty": "medium",
+  "title": "How do you use Managed Spot Training in SageMaker without losing hours of progress to interruptions?",
+  "prompt": "How do you use Managed Spot Training in SageMaker without losing hours of progress to interruptions?\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use \ud83d\udca1 Hint, \ud83e\udde0 AI feedback, or \ud83d\udcd7 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "The core requirement is checkpointing to durable storage, not local disk. You configure the training job with a checkpoint S3 URI, and your training script needs to actually write checkpoints there periodically and reload from the latest one on startup \u2014 without that, spot training just means sometimes losing hours of a job, which defeats the point. Checkpoint frequently enough that an interruption only costs minutes, but not so frequently that checkpoint I/O becomes a bottleneck. Set `max_wait` meaningfully higher than `max_run` so SageMaker has room to retry.\n\n**Takeaway:** Test the interruption-and-resume path deliberately, since a checkpoint that \"should\" resume correctly but silently resets optimizer state will quietly produce a worse model \u2014 your training script owns what \"progress\" means.",
+  "hint_notes": "Checkpoint to S3 (not local disk) periodically, reload latest checkpoint on startup, set max_wait > max_run. Deliberately test the interruption/resume path \u2014 a checkpoint that silently resets optimizer state quietly produces a worse model."
+}

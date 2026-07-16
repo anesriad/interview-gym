@@ -1,0 +1,11 @@
+{
+  "id": "ai-066",
+  "area": "ai",
+  "topic": "Memory, Databases & Caching for GenAI",
+  "difficulty": "medium",
+  "title": "How would you prevent conversation memory from exceeding the model's context window?",
+  "prompt": "How would you prevent conversation memory from exceeding the model's context window?\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use \ud83d\udca1 Hint, \ud83e\udde0 AI feedback, or \ud83d\udcd7 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "Implement proactive token budgeting and a hierarchical compression strategy before hitting the prompt's context limit \u2014 reserve an output buffer, subtract the tokens already used by the system prompt and current query, and fit the remaining history into whatever budget is left. A 3-tier compression hierarchy handles the actual squeeze: Tier 1, tool output summarization \u2014 replace a 500-token JSON tool return with a 20-token key-findings summary once it's been consumed and doesn't need to stay verbatim. Tier 2, rolling summarization \u2014 every ~20 turns, run a background LLM job that collapses older blocks of conversation into a 1-paragraph summary. Tier 3, truncation gate \u2014 as a last resort, retain only the rolling summary plus the last N turns plus the top-k semantically matched older turns, dropping everything else.\n\n**Takeaway:** Budget tokens explicitly before assembling a prompt, and compress in tiers (tool outputs first, then rolling summaries, then hard truncation) rather than waiting to hit the limit and truncating blindly.",
+  "hint_notes": "Budget = max_tokens - output_reserve - system_prompt - query. Compress via: summarize tool outputs \u2192 rolling summary every N turns \u2192 truncation gate keeping summary+recent+top-k semantic matches."
+}

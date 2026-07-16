@@ -182,11 +182,16 @@ body {
 
 /* chat drawer */
 .chat-drawer {
-  position: fixed; top: 0; right: 0; bottom: 0; width: 400px; z-index: 50;
+  position: fixed; top: 0; right: 0; bottom: 0; z-index: 50;
   display: flex; flex-direction: column;
   background: var(--bg2); border-left: 1px solid var(--border);
   box-shadow: -10px 0 40px rgba(0, 0, 0, 0.45);
 }
+.chat-resize {
+  position: absolute; top: 0; bottom: 0; left: -4px; width: 8px;
+  cursor: col-resize; z-index: 51;
+}
+.chat-resize:hover, .chat-resize:active { background: rgba(108, 158, 255, 0.25); }
 .chat-head {
   display: flex; justify-content: space-between; align-items: center;
   padding: 12px 16px; border-bottom: 1px solid var(--border); font-weight: 600; font-size: 14px;
@@ -200,12 +205,15 @@ body {
 .chat-msg pre { background: var(--bg); padding: 8px; border-radius: 8px; overflow-x: auto; font-size: 12px; }
 .chat-msg code { background: var(--bg); padding: 1px 5px; border-radius: 4px; font-size: 12px; }
 .chat-ctx { display: flex; gap: 6px; align-items: center; padding: 6px 16px; font-size: 12px; }
+.chat-ctx-warn { color: var(--yellow); }
+.chat-input-row { display: flex; gap: 8px; align-items: flex-end; margin: 0 12px 12px; }
 .chat-input {
-  margin: 0 12px 12px; padding: 9px 12px; resize: none;
+  flex: 1; padding: 9px 12px; resize: vertical; min-height: 40px; max-height: 240px;
   background: var(--bg); color: var(--text); border: 1px solid var(--border);
   border-radius: 10px; font-family: inherit; font-size: 13.5px;
 }
 .chat-input:focus { outline: none; border-color: var(--accent); }
+.chat-send { flex: none; }
 
 /* rules modal */
 .modal-overlay {

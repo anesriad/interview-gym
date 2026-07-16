@@ -1,0 +1,11 @@
+{
+  "id": "ai-046",
+  "area": "ai",
+  "topic": "MLOps & LLMOps",
+  "difficulty": "medium",
+  "title": "What does the full lifecycle of an LLM system look like, and where do failures typically cluster?",
+  "prompt": "What does the full lifecycle of an LLM system look like, and where do failures typically cluster?\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use \ud83d\udca1 Hint, \ud83e\udde0 AI feedback, or \ud83d\udcd7 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "The lifecycle is longer than most teams plan for: (1) Scoping \u2014 define testable terms, (2) Prompts \u2014 iterative test case design, (3) Integration \u2014 RAG, tools, memory, (4) Offline eval \u2014 establish baselines, (5) Rollout \u2014 canary and shadow mode, (6) Monitoring \u2014 quality, cost, latency, (7) Iteration \u2014 steady-state tuning, (8) Deprecation \u2014 model migrations. Failures cluster at predictable transition points: at deployment, systems are often built against a happy-path eval set that doesn't reflect real user query variation; at scaling, no monitoring plus a small eval set means the prompt fails once it hits production volume; and with provider updates, the underlying model changes silently degrade quality with no regression detection in place.\n\n**Takeaway:** Treat the eval set and monitoring as living infrastructure across the whole lifecycle, not a one-time gate before launch, since failures tend to show up exactly at the transitions teams stop paying attention to.",
+  "hint_notes": "8 stages: scoping, prompts, integration, offline eval, rollout, monitoring, iteration, deprecation. Failures cluster at deployment, scaling, and silent provider updates."
+}

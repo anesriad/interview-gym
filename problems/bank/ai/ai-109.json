@@ -1,0 +1,11 @@
+{
+  "id": "ai-109",
+  "area": "ai",
+  "topic": "ML Security",
+  "difficulty": "medium",
+  "title": "You want to make it harder for someone to clone your proprietary churn-prediction model just by querying its API. What defenses would you actually deploy, and which ones are mostly theater?",
+  "prompt": "You want to make it harder for someone to clone your proprietary churn-prediction model just by querying its API. What defenses would you actually deploy, and which ones are mostly theater?\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use \ud83d\udca1 Hint, \ud83e\udde0 AI feedback, or \ud83d\udcd7 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "Real defenses: rate limiting and query budgets tuned by cost and diversity, not just raw count; output coarsening \u2014 a risk tier instead of a precise probability, since precise numbers make distillation training efficient; ongoing monitoring for extraction query patterns; and contractual controls like API terms of service, which matter if you ever need to take action. Mostly theater: a one-time \"we added noise\" fix with no ongoing monitoring, since a patient attacker with enough queries can statistically average noise out, and watermarking alone if you never actually check for it.\n\n**Takeaway:** If your model is exposed as a queryable API at all, you cannot make extraction impossible, only more expensive and more detectable \u2014 combine technical controls with legal ones.",
+  "hint_notes": "Real: diversity-aware rate limits, output coarsening (risk tier not raw probability), ongoing extraction-pattern monitoring, contractual ToS. Theater: one-time noise injection (averages out over many queries), watermarking nobody checks."
+}

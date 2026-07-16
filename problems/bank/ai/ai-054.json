@@ -1,0 +1,11 @@
+{
+  "id": "ai-054",
+  "area": "ai",
+  "topic": "MLOps & LLMOps",
+  "difficulty": "medium",
+  "title": "Describe the 4 major layers of an LLM system and how each fails in production.",
+  "prompt": "Describe the 4 major layers of an LLM system and how each fails in production.\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use \ud83d\udca1 Hint, \ud83e\udde0 AI feedback, or \ud83d\udcd7 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "The four layers \u2014 Model, Prompt, Retrieval, and Orchestration \u2014 fail in distinct ways with different operational signals. Model layer: unannounced provider updates, latency spikes under load, rate limits and request queuing, sudden safety-policy refusals. Prompt layer: degradation on real user queries, edge cases ignoring the rules, adversarial prompt injections, ambiguous formatting rules. Retrieval layer: semantically similar but irrelevant chunks, phrasing mismatches that miss the right info, stale or contradictory docs, bad chunk-splitting strategy. Orchestration layer: infinite agent loops, unisolated session context mixing between users, missing retry logic on API errors, hanging requests without timeouts.\n\n**Takeaway:** Each layer needs its own monitoring signal \u2014 a symptom at the surface (a bad answer) could originate from any of the four layers, and you need layer-specific instrumentation to tell them apart.",
+  "hint_notes": "Model = provider/latency issues, Prompt = rule/injection issues, Retrieval = relevance/staleness issues, Orchestration = looping/state/timeout issues."
+}

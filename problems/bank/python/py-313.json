@@ -1,0 +1,18 @@
+{
+  "id": "py-313",
+  "area": "python",
+  "topic": "trees/BFS",
+  "difficulty": "medium",
+  "title": "Binary Tree Level Order Traversal",
+  "prompt": "Given a binary tree encoded as a **level-order list** (`vals`), where `None` marks a missing child (standard LeetCode array encoding — e.g. `[3,9,20,None,None,15,7]`), build the tree and return its values **grouped by level** (BFS).\n\n**Example**: `level_order([3,9,20,None,None,15,7])` → `[[3],[9,20],[15,7]]`\n\nDifferent sub-skill from the DFS-style island/cycle problems already in the bank — use `collections.deque` and track how many nodes are at the current level before you start popping.",
+  "starter_code": "class TreeNode:\n    def __init__(self, val=0, left=None, right=None):\n        self.val = val\n        self.left = left\n        self.right = right\n\ndef level_order(vals):\n    # build the tree from the level-order `vals` list, then BFS by level\n    pass\n",
+  "function_name": "level_order",
+  "tests": [
+    {"args": [[3, 9, 20, null, null, 15, 7]], "expected": [[3], [9, 20], [15, 7]]},
+    {"args": [[]], "expected": []},
+    {"args": [[1]], "expected": [[1]]},
+    {"args": [[1, 2, 3, 4, null, null, 5]], "expected": [[1], [2, 3], [4, 5]]}
+  ],
+  "reference_solution": "from collections import deque\n\nclass TreeNode:\n    def __init__(self, val=0, left=None, right=None):\n        self.val = val\n        self.left = left\n        self.right = right\n\ndef _build(vals):\n    if not vals or vals[0] is None:\n        return None\n    root = TreeNode(vals[0])\n    q = deque([root])\n    i = 1\n    while q and i < len(vals):\n        node = q.popleft()\n        if i < len(vals):\n            v = vals[i]; i += 1\n            if v is not None:\n                node.left = TreeNode(v)\n                q.append(node.left)\n        if i < len(vals):\n            v = vals[i]; i += 1\n            if v is not None:\n                node.right = TreeNode(v)\n                q.append(node.right)\n    return root\n\ndef level_order(vals):\n    root = _build(vals)\n    if not root:\n        return []\n    result = []\n    q = deque([root])\n    while q:\n        level_size = len(q)\n        level = []\n        for _ in range(level_size):\n            node = q.popleft()\n            level.append(node.val)\n            if node.left:\n                q.append(node.left)\n            if node.right:\n                q.append(node.right)\n        result.append(level)\n    return result\n",
+  "hint_notes": "Snapshot len(queue) at the start of each level's loop iteration — that's how many nodes belong to the current level, since new children get appended to the same queue during the loop. Building the tree from a level-order array is itself a BFS with a queue of 'parents waiting for children'. Tag: level-size-snapshot."
+}

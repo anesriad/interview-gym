@@ -1,0 +1,11 @@
+{
+  "id": "ai-057",
+  "area": "ai",
+  "topic": "MLOps & LLMOps",
+  "difficulty": "medium",
+  "title": "How does retrieval layer quality directly affect model output quality in a RAG system?",
+  "prompt": "How does retrieval layer quality directly affect model output quality in a RAG system?\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use \ud83d\udca1 Hint, \ud83e\udde0 AI feedback, or \ud83d\udcd7 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "The model generates responses based primarily on what retrieval provides \u2014 the generation quality ceiling is set directly by retrieval quality. The model can only work with what's inside its context window: wrong context produces a wrong answer, and no relevant context produces either a hallucination or an unhelpful \"I don't know.\" How retrieval failures manifest: a recall failure (missing doc) means the model lacks required facts and either refuses or hallucinates plausible-sounding text; a precision failure (irrelevant doc retrieved) causes the model to synthesize a confusing, blended, misleading answer from contradictory context; stale doc retrieval causes the model to confidently answer based on outdated policy. Why it's easy to miss: retrieval errors look exactly like \"model hallucinations\" if you only inspect outputs \u2014 you must log retrieved chunk IDs and scores alongside every response to diagnose the actual root cause.",
+  "hint_notes": "Generation quality is capped by retrieval quality. Recall failure \u2192 hallucination/refusal, precision failure \u2192 blended misleading answer, staleness \u2192 confidently wrong answer. Always log retrieved chunk IDs."
+}

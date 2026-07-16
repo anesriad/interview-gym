@@ -1,0 +1,11 @@
+{
+  "id": "ai-095",
+  "area": "ai",
+  "topic": "CI/CD/CT for ML",
+  "difficulty": "medium",
+  "title": "Review this GitHub Actions job: it caches the training dataset under a static key that never changes. What's wrong with it, and what production incident is it likely to cause?",
+  "prompt": "Review this GitHub Actions job: it caches the training dataset under a static key that never changes. What's wrong with it, and what production incident is it likely to cause?\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use \ud83d\udca1 Hint, \ud83e\udde0 AI feedback, or \ud83d\udcd7 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "The problem is the cache key never changes, so `actions/cache` restores the exact same dataset file every single run, forever. That means a stable accuracy number in CI isn't measuring anything about current data quality, it's measuring performance against the same frozen snapshot repeatedly. The pipeline is completely blind to how production data has actually moved, which is exactly why production accuracy quietly drops while CI stays green. A cache is meant to speed up unchanged dependencies, not permanently pin your training data.\n\n**Takeaway:** The minimal fix is busting the cache key with a date or content hash suffix plus a freshness assertion; the ideal fix pulls fresh data from the actual feature store on every run with a proper time-based split.",
+  "hint_notes": "A static cache key means CI trains/evaluates on the same frozen data snapshot forever \u2014 accuracy looks stable in CI while it silently drops in prod. Fix: bust the key with a date/hash suffix, or pull fresh data every run."
+}

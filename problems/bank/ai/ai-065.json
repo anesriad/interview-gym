@@ -1,0 +1,11 @@
+{
+  "id": "ai-065",
+  "area": "ai",
+  "topic": "Memory, Databases & Caching for GenAI",
+  "difficulty": "medium",
+  "title": "What architectural challenges arise when storing conversation history for long-running chat sessions?",
+  "prompt": "What architectural challenges arise when storing conversation history for long-running chat sessions?\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use \ud83d\udca1 Hint, \ud83e\udde0 AI feedback, or \ud83d\udcd7 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "Long-running sessions create compounding engineering hurdles around storage throughput, token window saturation, and state tracking. Storage throughput at scale: millions of active turns require relational indexing on (user_id, session_id, turn_number) optimized for high write concurrency and slice reads. Context injection strategy: you can't load 300 turns into a prompt, so combine recency (last 5-10 turns verbatim) with semantic search (top-k relevant older turns) and anchor turns (the first 1-2 turns, which often carry key setup context). Structured session state: beyond raw chat text, store decisions and preferences in structured JSON records injected as dense summaries rather than raw dialogue logs, which are token-expensive and noisy.\n\n**Takeaway:** Never pass raw full history \u2014 store immutable turns in SQL, index embeddings in a vector store, and assemble context dynamically per turn from recency + semantic search + anchors + structured state.",
+  "hint_notes": "3 hurdles: write-throughput at scale, deciding what subset of history to inject per turn (recency + semantic + anchors), and separating structured decisions from raw dialogue."
+}

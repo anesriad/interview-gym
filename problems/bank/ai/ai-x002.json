@@ -1,0 +1,10 @@
+{
+  "title": "How would you design a monitoring system to detect and alert on sudden increases in hallucination rates in a production RAG system?",
+  "topic": "MLOps & LLMOps",
+  "difficulty": "medium",
+  "prompt": "You're tasked with building monitoring for a production RAG system that serves customer support queries. The system has been running smoothly for months, but suddenly users are reporting more inaccurate responses. How would you design a monitoring pipeline to detect this degradation in quality? Consider what metrics to track, how to set thresholds, and what alerting mechanisms to implement.",
+  "reference_solution": "A comprehensive hallucination detection system should monitor multiple signal layers: first, track semantic similarity between generated answers and source documents using embedding cosine similarity (ideally below 0.7 for high-confidence matches); second, implement a binary classifier that flags outputs containing unsupported claims or contradictory information using a combination of rule-based checks and LLM-as-judge prompts; third, monitor response time and token usage patterns that might indicate system instability. Set up automated alerts when hallucination rates exceed baseline by 2-3 standard deviations, while also tracking confidence scores from the generation model to identify early warning signs before user complaints escalate. Implement a feedback loop where flagged outputs are reviewed by human annotators to continuously improve detection thresholds and reduce false positives.\n\n**Takeaway:** Effective hallucination monitoring requires multi-layered detection combining similarity metrics, semantic analysis, and behavioral pattern tracking rather than relying on any single signal.",
+  "hint_notes": "Focus on combining multiple detection signals (similarity scores, confidence levels, response patterns) to avoid false positives while catching genuine degradation",
+  "id": "ai-x002",
+  "area": "ai"
+}

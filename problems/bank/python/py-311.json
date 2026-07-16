@@ -1,0 +1,19 @@
+{
+  "id": "py-311",
+  "area": "python",
+  "topic": "strings/hashing",
+  "difficulty": "very easy",
+  "title": "Valid Anagram",
+  "prompt": "Given two strings `s` and `t`, determine if `t` is an **anagram** of `s` (same letters, same counts, any order).\n\n**Example**: `is_anagram(\"anagram\", \"nagaram\")` → `True`\n\nA good \"state the tradeoff\" warm-up: `Counter` comparison is O(n) time / O(k) space (k = alphabet size); sorting both strings is O(n log n) but needs no extra data structure.",
+  "starter_code": "def is_anagram(s, t):\n    pass\n",
+  "function_name": "is_anagram",
+  "tests": [
+    {"args": ["anagram", "nagaram"], "expected": true},
+    {"args": ["rat", "car"], "expected": false},
+    {"args": ["", ""], "expected": true},
+    {"args": ["a", "ab"], "expected": false},
+    {"args": ["aabbcc", "abcabc"], "expected": true}
+  ],
+  "reference_solution": "from collections import Counter\n\ndef is_anagram(s, t):\n    return Counter(s) == Counter(t)\n",
+  "hint_notes": "Counter(s) == Counter(t) is the O(n) idiomatic answer; sorted(s) == sorted(t) is the O(n log n) alternative that needs no import. Different lengths are an automatic False — Counter comparison already handles that correctly. Tag: counter-vs-sort-tradeoff."
+}

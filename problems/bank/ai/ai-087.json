@@ -1,0 +1,11 @@
+{
+  "id": "ai-087",
+  "area": "ai",
+  "topic": "Experiment Tracking",
+  "difficulty": "medium",
+  "title": "Your team runs an MLflow tracking server backed by a Postgres backend store and S3 artifact store. One morning, mlflow.log_metric() calls start silently failing for a subset of runs while the UI still loads fine. Where do you start debugging?",
+  "prompt": "Your team runs an MLflow tracking server backed by a Postgres backend store and S3 artifact store. One morning, mlflow.log_metric() calls start silently failing for a subset of runs while the UI still loads fine. Where do you start debugging?\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use \ud83d\udca1 Hint, \ud83e\udde0 AI feedback, or \ud83d\udcd7 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "The backend store and artifact store are two separate systems in MLflow doing very different jobs, which is exactly why you can get a partial failure like this. The backend store, Postgres, holds structured tracking data: metrics, params, tags, run status. The artifact store, S3, holds unstructured files. Calling `log_metric()` is a write to Postgres, not S3, so if the UI still loads but only new metric writes fail for a subset of runs, that points to something scoped, not a full outage. I'd start by checking Postgres connection pool exhaustion, since a limited pool under a training sprint spike can cause write-heavy calls to time out while lighter read calls still succeed.\n\n**Takeaway:** I'd also check for lock contention from high-frequency loggers, and whether the affected subset correlates with a specific client version or team.",
+  "hint_notes": "log_metric() writes to the Postgres backend store, not S3. A partial failure with UI still working points to Postgres connection pool exhaustion or lock contention under write load, not a full outage."
+}

@@ -1,0 +1,11 @@
+{
+  "id": "ai-048",
+  "area": "ai",
+  "topic": "MLOps & LLMOps",
+  "difficulty": "medium",
+  "title": "Why can't you use standard ML metrics like accuracy, F1, or RMSE to evaluate LLMs? What replaces them?",
+  "prompt": "Why can't you use standard ML metrics like accuracy, F1, or RMSE to evaluate LLMs? What replaces them?\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use \ud83d\udca1 Hint, \ud83e\udde0 AI feedback, or \ud83d\udcd7 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "Standard ML metrics require a single correct answer. \"Write a helpful summary\" has thousands of valid answers and no canonical label. Accuracy requires canonical ground truth that open-ended prompts like \"explain ML to a 10-year-old\" simply don't have. F1/Precision/Recall measure classification agreement, not complex language quality. RMSE measures numeric prediction error, which is irrelevant to prose. What replaces them: task rubrics that score accuracy, completeness, tone, and format independently; LLM-as-judge, where a trusted model evaluates outputs against rubrics at production scale; human eval as the gold-standard ground truth used to periodically calibrate the automated evaluators; reference metrics like BLEU/ROUGE/BERTScore for translation/summarization specifically; and behavioral metrics \u2014 task completion, retention, and conversion \u2014 that validate actual business utility.\n\n**Takeaway:** LLM evaluation shifts from single-ground-truth metrics to rubric-based, judge-calibrated, and behavior-driven measurement, because open-ended text has no single correct answer to measure distance from.",
+  "hint_notes": "No canonical ground truth for open-ended text \u21d2 use task rubrics + LLM-as-judge (calibrated against periodic human eval), plus reference metrics (BLEU/ROUGE) only where applicable, plus behavioral/business metrics."
+}

@@ -1,0 +1,11 @@
+{
+  "id": "ai-081",
+  "area": "ai",
+  "topic": "MLOps Foundations",
+  "difficulty": "medium",
+  "title": "What's the practical difference between DataOps, MLOps, and LLMOps, and where do their responsibilities overlap?",
+  "prompt": "What's the practical difference between DataOps, MLOps, and LLMOps, and where do their responsibilities overlap?\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use \ud83d\udca1 Hint, \ud83e\udde0 AI feedback, or \ud83d\udcd7 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "DataOps is about the reliability and quality of data pipelines feeding everything downstream \u2014 ingestion, transformation, quality checks, lineage. MLOps is specifically about the lifecycle of trained models built on top of that data: training, evaluation, deployment, monitoring, retraining. LLMOps narrows further into operating large language model systems, which have a different cost profile (inference-heavy, training-light since most teams use foundation models), different evaluation problems (open-ended text instead of a clean accuracy number), and different failure modes like hallucination and prompt injection.\n\n**Takeaway:** They're layers built on top of each other with genuinely different core problems, not three unrelated disciplines. They overlap at pipeline reliability and observability, and again at the infrastructure layer \u2014 serving, CI/CD, and cost management rhyme across all three even though the specifics differ.",
+  "hint_notes": "DataOps = pipeline reliability. MLOps = trained model lifecycle. LLMOps = operating LLM systems specifically (inference-heavy cost, open-ended eval, hallucination/injection failure modes). They overlap at observability and infra."
+}

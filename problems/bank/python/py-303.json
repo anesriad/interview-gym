@@ -1,0 +1,19 @@
+{
+  "id": "py-303",
+  "area": "python",
+  "topic": "linked lists",
+  "difficulty": "medium",
+  "title": "Reverse a Linked List",
+  "prompt": "Given a list of values `vals`, build a singly linked list from them (using a `Node` class with `.val` and `.next`), **reverse it in place** using pointer manipulation, then return the reversed values as a list.\n\n**Example**: `reverse_list([1, 2, 3, 4])` → `[4, 3, 2, 1]`\n\nThe point of this problem is the **iterative pointer-swapping** (`prev, curr, next_`) — don't just reverse the input list with slicing; build actual `Node` objects and re-link them.",
+  "starter_code": "class Node:\n    def __init__(self, val, next=None):\n        self.val = val\n        self.next = next\n\ndef reverse_list(vals):\n    # build a linked list from vals, reverse it via pointer-swapping, return as a list\n    pass\n",
+  "function_name": "reverse_list",
+  "tests": [
+    {"args": [[1, 2, 3, 4]], "expected": [4, 3, 2, 1]},
+    {"args": [[]], "expected": []},
+    {"args": [[1]], "expected": [1]},
+    {"args": [[1, 2]], "expected": [2, 1]},
+    {"args": [[5, 4, 3, 2, 1]], "expected": [1, 2, 3, 4, 5]}
+  ],
+  "reference_solution": "class Node:\n    def __init__(self, val, next=None):\n        self.val = val\n        self.next = next\n\ndef reverse_list(vals):\n    head = None\n    for v in reversed(vals):\n        head = Node(v, head)\n\n    prev, curr = None, head\n    while curr:\n        next_ = curr.next\n        curr.next = prev\n        prev = curr\n        curr = next_\n\n    out = []\n    node = prev\n    while node:\n        out.append(node.val)\n        node = node.next\n    return out\n",
+  "hint_notes": "Iterative pointer-swapping: at each step save next_, point curr.next backward to prev, then advance prev and curr. Off-by-one trap: if you advance curr before saving next_, you lose the rest of the list. Tag: pointer-swap-order."
+}

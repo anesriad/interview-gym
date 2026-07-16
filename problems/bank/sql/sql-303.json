@@ -1,0 +1,12 @@
+{
+  "id": "sql-303",
+  "area": "sql",
+  "topic": "NULL handling",
+  "difficulty": "medium",
+  "title": "Accounts with 3+ unpaid invoices",
+  "prompt": "An invoice is **unpaid** if its `paid_date` is `NULL` (this includes `outstanding` invoices, but not `refunded` ones — a refund still has a `paid_date`).\n\nFor each account, count `total_invoices`, `paid_invoices`, and `unpaid_invoices`. Only keep accounts with **3 or more** unpaid invoices.\n\nReturn `account_id`, `account_name`, `total_invoices`, `paid_invoices`, `unpaid_invoices`.\n\nOrder by `unpaid_invoices` descending, then `account_id` ascending.\n\nRefresher goal: `COUNT(col)` (ignores NULLs) vs `COUNT(*)` (counts every row) — and filtering an aggregate with `HAVING`, not `WHERE`.",
+  "starter_code": "-- Tables: accounts, subscriptions, invoices\n-- Write your query below\n\n",
+  "reference_sql": "SELECT a.account_id, a.account_name, COUNT(*) AS total_invoices, COUNT(i.paid_date) AS paid_invoices, COUNT(*) - COUNT(i.paid_date) AS unpaid_invoices FROM accounts a JOIN invoices i ON i.account_id = a.account_id GROUP BY a.account_id, a.account_name HAVING COUNT(*) - COUNT(i.paid_date) >= 3 ORDER BY unpaid_invoices DESC, a.account_id",
+  "order_matters": true,
+  "hint_notes": "COUNT(i.paid_date) skips NULL paid_date rows automatically, while COUNT(*) counts every row regardless. unpaid = COUNT(*) - COUNT(paid_date). Filter the derived unpaid count with HAVING since it's computed from an aggregate, not a raw column — WHERE can't reference it."
+}

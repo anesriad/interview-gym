@@ -1,0 +1,11 @@
+{
+  "id": "ai-043",
+  "area": "ai",
+  "topic": "RAG Evaluation",
+  "difficulty": "easy",
+  "title": "What tools are commonly used to run RAG evaluation in practice, and what does each specialize in?",
+  "prompt": "What tools are commonly used to run RAG evaluation in practice, and what does each specialize in?\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use \ud83d\udca1 Hint, \ud83e\udde0 AI feedback, or \ud83d\udcd7 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "You don't need to compute all these metrics manually \u2014 several libraries specialize in RAG evaluation. Ragas provides RAG-specific metrics like faithfulness and context relevance out of the box. TruLens tracks grounding and feedback functions over traces. DeepEval focuses on LLM-based scoring for custom rubrics. LangChain offers evaluation chains that plug into its broader orchestration ecosystem. LlamaIndex ships built-in eval modules tied to its retrieval abstractions.\n\n**Takeaway:** Pick a tool based on what's already in your stack \u2014 Ragas or DeepEval for a from-scratch eval pipeline, LangChain/LlamaIndex evaluators if you're already building on those frameworks, TruLens if grounding/feedback tracking is the priority.",
+  "hint_notes": "Ragas and DeepEval are the go-to standalone eval libraries; LangChain/LlamaIndex evaluators make sense if you're already using those frameworks."
+}

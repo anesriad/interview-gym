@@ -1,0 +1,20 @@
+{
+  "id": "py-305",
+  "area": "python",
+  "topic": "binary search",
+  "difficulty": "medium",
+  "title": "Binary Search in Rotated Sorted Array",
+  "prompt": "Given a sorted array `nums` that has been **rotated** at an unknown pivot, and a `target`, return the index of `target` in **O(log n)**, or `-1` if it's not present. All elements are distinct.\n\n**Example**: `search([4,5,6,7,0,1,2], 0)` → `4`\n\nThe trick: at each step, one half of the array (left-to-mid, or mid-to-right) is always properly sorted — figure out which half, then decide if the target could be in it.",
+  "starter_code": "def search(nums, target):\n    pass\n",
+  "function_name": "search",
+  "tests": [
+    {"args": [[4, 5, 6, 7, 0, 1, 2], 0], "expected": 4},
+    {"args": [[4, 5, 6, 7, 0, 1, 2], 3], "expected": -1},
+    {"args": [[1], 0], "expected": -1},
+    {"args": [[1], 1], "expected": 0},
+    {"args": [[5, 1, 3], 5], "expected": 0},
+    {"args": [[3, 1], 1], "expected": 1}
+  ],
+  "reference_solution": "def search(nums, target):\n    lo, hi = 0, len(nums) - 1\n    while lo <= hi:\n        mid = (lo + hi) // 2\n        if nums[mid] == target:\n            return mid\n        if nums[lo] <= nums[mid]:  # left half sorted\n            if nums[lo] <= target < nums[mid]:\n                hi = mid - 1\n            else:\n                lo = mid + 1\n        else:  # right half sorted\n            if nums[mid] < target <= nums[hi]:\n                lo = mid + 1\n            else:\n                hi = mid - 1\n    return -1\n",
+  "hint_notes": "Compare nums[lo] to nums[mid] to figure out which half is sorted, then check if target falls in that sorted half's range to decide which way to move. This is the classic interviewer-favorite because it tests binary search understanding, not memorization. Tag: rotated-array-half-check."
+}

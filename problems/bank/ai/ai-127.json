@@ -1,0 +1,11 @@
+{
+  "id": "ai-127",
+  "area": "ai",
+  "topic": "Company Rounds",
+  "difficulty": "medium",
+  "title": "Walk through a blameless postmortem for an incident where a model-serving cluster went down for 40 minutes because of a bad config push.",
+  "prompt": "Walk through a blameless postmortem for an incident where a model-serving cluster went down for 40 minutes because of a bad config push.\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use \ud83d\udca1 Hint, \ud83e\udde0 AI feedback, or \ud83d\udcd7 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "I'd structure it as a timeline of events, customer-facing impact, root cause versus contributing factors, and action items with owners and dates, all framed around what the system allowed to happen rather than who did it. The root cause here is no automated gate blocking a replica-count-to-zero change; a contributing factor is the detection gap, since the outage wasn't paged until customer-facing errors triggered a separate alert. Blameless framing surfaces the real fix instead of stopping at \"an engineer made a mistake.\"\n\n**Takeaway:** I'd audit months later whether that class of change is now actually caught by a gate, not just assume it's fixed because the ticket closed \u2014 a postmortem whose only action item is \"be more careful\" is a wish, not a fix.",
+  "hint_notes": "Structure: timeline, customer impact, root cause vs contributing factors, owned action items. Frame around what the system allowed, not who erred. Audit months later that the gate actually got built \u2014 \"be more careful\" is a wish, not a fix."
+}

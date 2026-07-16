@@ -1,0 +1,12 @@
+{
+  "id": "sql-302",
+  "area": "sql",
+  "topic": "CTEs",
+  "difficulty": "medium",
+  "title": "Accounts with refunds, using a CTE",
+  "prompt": "Find every account that has at least one **refunded** invoice.\n\nReturn `account_id`, `account_name`, and `refunded_usd` — the total refunded amount for that account, rounded to 2 decimals.\n\nOrder by `refunded_usd` descending, then `account_id` ascending.\n\n**Write this using a `WITH` clause (CTE)**, not a bare subquery — the point of this drill is practicing the CTE syntax, since interviewers sometimes ask you to rewrite a nested subquery as a CTE live to check you understand they're equivalent.",
+  "starter_code": "-- Tables: accounts, subscriptions, invoices\n-- Write your query below using a WITH clause\n\n",
+  "reference_sql": "WITH refund_totals AS (SELECT account_id, ROUND(SUM(amount_usd), 2) AS refunded_usd FROM invoices WHERE status = 'refunded' GROUP BY account_id) SELECT a.account_id, a.account_name, r.refunded_usd FROM accounts a JOIN refund_totals r ON r.account_id = a.account_id ORDER BY r.refunded_usd DESC, a.account_id",
+  "order_matters": true,
+  "hint_notes": "WITH refund_totals AS (...) then join accounts to it. A CTE and an equivalent subquery produce the same plan in DuckDB — this is purely a readability/practice exercise, so don't skip it just because a subquery 'also works'."
+}

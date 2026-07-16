@@ -1,0 +1,12 @@
+{
+  "id": "sql-304",
+  "area": "sql",
+  "topic": "self-joins",
+  "difficulty": "medium",
+  "title": "Detect plan upgrades via self-join",
+  "prompt": "Each account can have multiple rows in `subscriptions` representing consecutive plan stints (one stint ends the day before the next one starts; the current stint has `end_date IS NULL`).\n\nFind every **upgrade event**: a case where an account's next stint has a higher `mrr_usd` than the stint before it.\n\nUse a **self-join** on `subscriptions` (join the table to itself) to match each stint to the one immediately following it for the same account.\n\nReturn `account_id`, `from_plan`, `to_plan`, and `upgraded_on` (the `end_date` of the earlier stint — the day the upgrade took effect).\n\nOrder by `account_id`, then `upgraded_on`.",
+  "starter_code": "-- Tables: accounts, subscriptions, invoices\n-- Write your query below using a self-join on subscriptions\n\n",
+  "reference_sql": "SELECT DISTINCT s1.account_id, s1.plan AS from_plan, s2.plan AS to_plan, s1.end_date AS upgraded_on FROM subscriptions s1 JOIN subscriptions s2 ON s1.account_id = s2.account_id AND s2.start_date = s1.end_date + 1 WHERE s2.mrr_usd > s1.mrr_usd ORDER BY s1.account_id, upgraded_on",
+  "order_matters": true,
+  "hint_notes": "Self-join subscriptions to itself (alias s1 and s2) on matching account_id where s2.start_date is the day after s1.end_date. Compare s2.mrr_usd > s1.mrr_usd to isolate upgrades (vs downgrades or lateral plan changes)."
+}

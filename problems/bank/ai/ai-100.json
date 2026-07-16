@@ -1,0 +1,11 @@
+{
+  "id": "ai-100",
+  "area": "ai",
+  "topic": "Model Serving",
+  "difficulty": "medium",
+  "title": "Would you deploy a model-serving workload as a Kubernetes Deployment or a StatefulSet, and why does it matter?",
+  "prompt": "Would you deploy a model-serving workload as a Kubernetes Deployment or a StatefulSet, and why does it matter?\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use \ud83d\udca1 Hint, \ud83e\udde0 AI feedback, or \ud83d\udcd7 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "Deployment, almost always. Model servers are stateless \u2014 given the same model artifact and input, any replica can answer any request, and replicas are fully interchangeable. StatefulSet exists for workloads that need stable network identity and stable per-replica storage, like databases, which a model server doesn't need. StatefulSet's guarantees \u2014 ordered pod creation and termination, stable hostnames, persistent per-pod volumes \u2014 are pure overhead for a stateless workload.\n\n**Takeaway:** Choosing StatefulSet \"to be safe,\" out of an instinct that state equals safety, misses that the model artifact loads fresh from storage regardless of which pod serves it \u2014 and it silently turns rolling updates from parallel into strictly sequential, which can be a 10x deploy slowdown.",
+  "hint_notes": "Model servers are stateless \u2014 any replica answers any request identically. Deployment gives fast parallel rolling updates; StatefulSet's ordered-pod/stable-storage guarantees are pure overhead and silently make updates sequential."
+}

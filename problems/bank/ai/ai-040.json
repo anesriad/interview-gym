@@ -1,0 +1,11 @@
+{
+  "id": "ai-040",
+  "area": "ai",
+  "topic": "RAG Evaluation",
+  "difficulty": "medium",
+  "title": "What is Faithfulness in RAG evaluation, and how do you detect an unfaithful answer?",
+  "prompt": "What is Faithfulness in RAG evaluation, and how do you detect an unfaithful answer?\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use \ud83d\udca1 Hint, \ud83e\udde0 AI feedback, or \ud83d\udcd7 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "Faithfulness checks whether the generated answer is supported by the retrieved context \u2014 it's the primary signal for detecting hallucinations. The test is: is every claim in the answer backed by something in the context? Example: if the context chunk says \"Paris is capital of France\" and the model answers \"Paris is capital of France and has population 5 million,\" the population claim isn't in the context, so the answer is unfaithful even though the first half is correct.\n\n**Takeaway:** A faithful answer is grounded entirely in the sources provided; an unfaithful answer contains hallucinated additions the model introduced from its own parametric knowledge or invented outright.",
+  "hint_notes": "Faithfulness = is every claim in the response backed by the retrieved context. Any claim not traceable to context is a hallucination."
+}

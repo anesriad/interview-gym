@@ -1,0 +1,12 @@
+{
+  "id": "sql-301",
+  "area": "sql",
+  "topic": "window functions",
+  "difficulty": "medium",
+  "title": "Top 3 accounts by paid revenue, per industry",
+  "prompt": "For each **industry**, find the **top 3 accounts by total paid invoice amount**.\n\n- Only consider invoices with `status = 'paid'`.\n- If two accounts tie on total paid amount, both should keep the same rank (don't skip ranks the way `ROW_NUMBER()` would).\n\nReturn `industry`, `account_id`, `total_paid` (rounded to 2 decimals), and `rnk` — the account's rank within its industry.\n\nOrder by `industry` alphabetically, then `rnk`, then `account_id`.\n\nRefresher goal: know `RANK()` vs `ROW_NUMBER()` vs `DENSE_RANK()` cold, and explain when ties matter.",
+  "starter_code": "-- Tables: accounts, subscriptions, invoices\n-- Write your query below\n\n",
+  "reference_sql": "SELECT industry, account_id, total_paid, rnk FROM (SELECT a.industry, a.account_id, ROUND(SUM(i.amount_usd), 2) AS total_paid, RANK() OVER (PARTITION BY a.industry ORDER BY SUM(i.amount_usd) DESC) AS rnk FROM accounts a JOIN invoices i ON i.account_id = a.account_id WHERE i.status = 'paid' GROUP BY a.industry, a.account_id) WHERE rnk <= 3 ORDER BY industry, rnk, account_id",
+  "order_matters": true,
+  "hint_notes": "Aggregate to account-level total first, then RANK() OVER (PARTITION BY industry ORDER BY total DESC), filter rnk <= 3 in an outer query. Using ROW_NUMBER() instead of RANK() would break ties incorrectly — know the difference cold."
+}

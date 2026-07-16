@@ -1,0 +1,11 @@
+{
+  "id": "ai-037",
+  "area": "ai",
+  "topic": "RAG Evaluation",
+  "difficulty": "medium",
+  "title": "Explain Recall@K in RAG retrieval evaluation with an example.",
+  "prompt": "Explain Recall@K in RAG retrieval evaluation with an example.\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use \ud83d\udca1 Hint, \ud83e\udde0 AI feedback, or \ud83d\udcd7 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "Recall@K measures whether the correct chunk is present in the top K retrieved results \u2014 \"did we at least fetch the right info?\" Conceptually it's relevant chunks retrieved divided by total relevant chunks. Example: for the question \"What is the capital of France?\" with chunks C1 (Paris is capital of France, relevant), C2 (France population data), and C3 (Berlin is capital of Germany), if the retriever returns the top 2 as C2 and C1, the relevant chunk C1 is in that top 2, so Recall@2 = 1 (perfect). If C1 had not been retrieved, Recall@2 = 0.\n\n**Takeaway:** High recall means the system doesn't miss important information, even if some retrieved chunks are irrelevant noise.",
+  "hint_notes": "Recall@K = relevant chunks retrieved / total relevant chunks. It only cares whether the right chunk showed up somewhere in the top K, not how clean the rest of the set is."
+}

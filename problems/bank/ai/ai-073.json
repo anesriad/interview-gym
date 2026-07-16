@@ -1,0 +1,11 @@
+{
+  "id": "ai-073",
+  "area": "ai",
+  "topic": "Memory, Databases & Caching for GenAI",
+  "difficulty": "medium",
+  "title": "How would you update embeddings when source documents change frequently, without causing stale or duplicate retrievals?",
+  "prompt": "How would you update embeddings when source documents change frequently, without causing stale or duplicate retrievals?\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use \ud83d\udca1 Hint, \ud83e\udde0 AI feedback, or \ud83d\udcd7 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "Implement an atomic shadow-ingestion workflow to prevent stale RAG retrievals or downtime during index synchronization. Priority webhook queue: listen to source change APIs (Confluence, Google Drive, etc.) and enqueue updates prioritized by document query traffic, so hot documents get refreshed first. Shadow ingestion: parse, chunk, and embed the updated version into the vector store marked with status `active` \u2014 without touching or removing the old version yet. Atomic swap and supersede: delete the old vector records and update the corresponding SQL chunk rows to status `superseded` within a single transaction window, so the cutover is atomic rather than gradual. The correctness guardrail: always filter vector queries on `status = active` so queries never return duplicate or half-deleted chunks during the update window.\n\n**Takeaway:** Never update embeddings in place \u2014 ingest the new version alongside the old under a different status, then atomically swap and supersede, with every query filtered to active status so an in-flight update is never visible as a partial or duplicate result.",
+  "hint_notes": "Shadow-ingest the new version as `active`, then atomically delete-old/supersede-old in one transaction. Every query filters on status=active so mid-update states are never visible."
+}

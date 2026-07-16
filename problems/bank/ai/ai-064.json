@@ -1,0 +1,11 @@
+{
+  "id": "ai-064",
+  "area": "ai",
+  "topic": "Memory, Databases & Caching for GenAI",
+  "difficulty": "medium",
+  "title": "How would you design short-term and long-term memory for an AI agent performing multi-step tasks?",
+  "prompt": "How would you design short-term and long-term memory for an AI agent performing multi-step tasks?\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use \ud83d\udca1 Hint, \ud83e\udde0 AI feedback, or \ud83d\udcd7 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "Short-term memory holds working context in the LLM's context window; long-term memory stores durable facts across sessions in external databases. Short-term memory lives in the active context window (RAM-equivalent), holding the task plan, tool outputs, and step-by-step progress, constrained by a strict token limit (e.g. 128k) and managed via token counting and step compression. Long-term memory lives in vector plus relational databases, holding user facts, past decisions, and domain knowledge, constrained by retrieval latency and relevance rather than a hard token cap, and managed via semantic search and recency decay. The memory graduation handoff: when a task concludes, durable findings \u2014 user preferences, verified workflow solutions \u2014 graduate from working context into long-term vector/relational tables so future sessions retrieve them automatically instead of starting from zero.\n\n**Takeaway:** Design memory as two tiers with an explicit handoff between them, not one undifferentiated blob \u2014 short-term is bounded and disposable, long-term is durable and retrieval-based.",
+  "hint_notes": "Short-term = context window, token-limited, step-scoped. Long-term = vector+relational DB, retrieval-limited, cross-session. The \"graduation\" step moves durable facts from one to the other at task end."
+}

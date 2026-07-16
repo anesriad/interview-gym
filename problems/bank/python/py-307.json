@@ -1,0 +1,18 @@
+{
+  "id": "py-307",
+  "area": "python",
+  "topic": "backtracking",
+  "difficulty": "medium",
+  "title": "Subsets",
+  "prompt": "Given a list of unique integers `nums`, return **all possible subsets** (the power set). Order doesn't matter for grading — subsets and their contents will be compared regardless of order.\n\n**Example**: `subsets([1,2,3])` → all 8 subsets, including `[]` and `[1,2,3]`.",
+  "starter_code": "def subsets(nums):\n    pass\n",
+  "function_name": "subsets",
+  "tests": [
+    {"args": [[1, 2, 3]], "expected": [[], [1], [2], [3], [1, 2], [1, 3], [2, 3], [1, 2, 3]], "any_order": true},
+    {"args": [[]], "expected": [[]], "any_order": true},
+    {"args": [[0]], "expected": [[], [0]], "any_order": true},
+    {"args": [[1, 2]], "expected": [[], [1], [2], [1, 2]], "any_order": true}
+  ],
+  "reference_solution": "def subsets(nums):\n    result = []\n\n    def backtrack(start, path):\n        result.append(path[:])\n        for i in range(start, len(nums)):\n            path.append(nums[i])\n            backtrack(i + 1, path)\n            path.pop()\n\n    backtrack(0, [])\n    return result\n",
+  "hint_notes": "Classic backtracking template: choose (append), explore (recurse with start=i+1), un-choose (pop). Record the current path at every node of the recursion, not just at the leaves. Bit-mask iteration (0..2^n-1) is an equivalent non-recursive approach worth mentioning. Tag: backtracking-choose-explore-unchoose."
+}

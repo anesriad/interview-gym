@@ -1,0 +1,11 @@
+{
+  "id": "ai-050",
+  "area": "ai",
+  "topic": "MLOps & LLMOps",
+  "difficulty": "medium",
+  "title": "What are the 4 versioning concerns in LLMOps, and what happens when each changes?",
+  "prompt": "What are the 4 versioning concerns in LLMOps, and what happens when each changes?\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use \ud83d\udca1 Hint, \ud83e\udde0 AI feedback, or \ud83d\udcd7 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "Classical MLOps versions datasets and models. LLMOps has four distinct artifacts requiring strict version control: (1) Model version \u2014 the underlying API model (e.g. GPT-4-0409); provider updates silently shift tone, formatting, or safety behavior, so pin versions and run a full regression before routing traffic to a new one. (2) Prompt version \u2014 system prompts and few-shot examples; any edit can improve targeted cases while breaking others, so never deploy a prompt change without running the full evaluation set. (3) Retrieval config \u2014 embeddings, chunking, and index parameters; changes what context the model sees, altering outputs even if prompts and models stay identical. (4) Evaluation set \u2014 test cases and rubrics; changing the test set breaks historical comparability, so always document changes and keep old sets around for continuity.\n\n**Takeaway:** All four artifacts move independently and each can silently change system behavior on its own \u2014 treat every one of them as a versioned, reviewable artifact, not just the model.",
+  "hint_notes": "Model, prompt, retrieval config, and eval set are 4 independent versioning axes \u2014 a regression can come from any one changing while the others stay fixed."
+}

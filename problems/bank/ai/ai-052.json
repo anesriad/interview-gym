@@ -1,0 +1,11 @@
+{
+  "id": "ai-052",
+  "area": "ai",
+  "topic": "MLOps & LLMOps",
+  "difficulty": "medium",
+  "title": "What are the unique responsibilities of an LLMOps engineer that a traditional MLOps or backend engineer wouldn't typically own?",
+  "prompt": "What are the unique responsibilities of an LLMOps engineer that a traditional MLOps or backend engineer wouldn't typically own?\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use \ud83d\udca1 Hint, \ud83e\udde0 AI feedback, or \ud83d\udcd7 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "Unique responsibilities cluster around the new artifacts, external dependencies, and probabilistic failure modes of LLMs: prompt lifecycle (designing, versioning, testing, and deploying prompts as code; managing A/B tests and review workflows); evaluation design (building rubrics where there's no single correct answer, calibrating LLM-as-judge models against humans); retrieval pipeline ops (maintaining ingestion pipelines, doc freshness, embedding migrations, and vector store performance); cost and context ops (monitoring token usage at the system level, diagnosing cost spikes, optimizing context budgets); vendor management (tracking model deprecations, evaluating new releases, managing API rate limits, planning migrations); and non-determinism ops (building statistical pass/fail frameworks and behavioral assertions against output distributions).\n\n**Takeaway:** An LLMOps engineer owns the prompt as a first-class artifact, the evaluation rubric as a design problem, and the vendor relationship as an operational dependency \u2014 responsibilities that don't map cleanly onto either classical MLOps or backend engineering.",
+  "hint_notes": "Six clusters: prompt lifecycle, evaluation design, retrieval pipeline ops, cost/context ops, vendor management, non-determinism ops."
+}

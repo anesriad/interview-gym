@@ -1,0 +1,11 @@
+{
+  "id": "ai-080",
+  "area": "ai",
+  "topic": "MLOps Foundations",
+  "difficulty": "medium",
+  "title": "How does the CRISP-DM process model compare to a modern, production-first ML lifecycle?",
+  "prompt": "How does the CRISP-DM process model compare to a modern, production-first ML lifecycle?\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use \ud83d\udca1 Hint, \ud83e\udde0 AI feedback, or \ud83d\udcd7 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "CRISP-DM treats deployment as the last of six phases, almost an afterthought bolted onto a research process. A production-first lifecycle flips that: deployment, monitoring, and retraining aren't the finish line, they're the environment the whole project lives in from day one, and the loop runs continuously rather than linearly. Concretely, that means framing the problem around what's servable and monitorable, building the data pipeline the way it'll run in production from the first experiment, and treating evaluation and rollback as ongoing concerns, not one-time gates.\n\n**Takeaway:** CRISP-DM came from an era where projects were closer to one-shot analyses. Production ML systems don't end at deployment, they keep running and keep needing intervention \u2014 a framework that treats deployment as terminal is exactly the assumption that gets teams burned when nobody owns what happens after.",
+  "hint_notes": "CRISP-DM: deployment is the last of 6 phases. Production-first: deployment/monitoring/retraining are the environment the project lives in from day one, running as a continuous loop."
+}

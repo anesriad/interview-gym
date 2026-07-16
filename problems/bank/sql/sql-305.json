@@ -1,0 +1,12 @@
+{
+  "id": "sql-305",
+  "area": "sql",
+  "topic": "date bucketing",
+  "difficulty": "easy",
+  "title": "Monthly paid revenue trend",
+  "prompt": "Compute total **paid** invoice revenue **bucketed by month**.\n\nReturn `month` (the first day of the month, as a date) and `revenue_usd` (sum of `amount_usd` for `status = 'paid'` invoices issued that month, rounded to 2 decimals).\n\nOrder by `month` ascending.\n\nRefresher goal: `DATE_TRUNC('month', ...)` for grouping by calendar month — practice this cold, since date-bucketing syntax is one of the most common places people freeze under time pressure even when they know the concept.",
+  "starter_code": "-- Tables: accounts, subscriptions, invoices\n-- Write your query below\n\n",
+  "reference_sql": "SELECT DATE_TRUNC('month', issued_date) AS month, ROUND(SUM(amount_usd), 2) AS revenue_usd FROM invoices WHERE status = 'paid' GROUP BY DATE_TRUNC('month', issued_date) ORDER BY month",
+  "order_matters": true,
+  "hint_notes": "GROUP BY DATE_TRUNC('month', issued_date). Filter status='paid' in WHERE before grouping. Common mistake: grouping by issued_date directly (which groups by exact day, not month)."
+}

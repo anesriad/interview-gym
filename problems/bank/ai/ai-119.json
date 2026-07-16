@@ -1,0 +1,11 @@
+{
+  "id": "ai-119",
+  "area": "ai",
+  "topic": "System Design",
+  "difficulty": "medium",
+  "title": "Design the feature freshness architecture for a recommendation system where \"user just viewed this exact product 30 seconds ago\" needs to influence the next request's ranking.",
+  "prompt": "Design the feature freshness architecture for a recommendation system where \"user just viewed this exact product 30 seconds ago\" needs to influence the next request's ranking.\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use \ud83d\udca1 Hint, \ud83e\udde0 AI feedback, or \ud83d\udcd7 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "This needs a streaming feature pipeline sitting alongside the existing batch pipeline, not replacing it. Page views and clicks flow into a stream, a stream processor computes short-window features like \"items viewed in the last 5 minutes\" and writes them to a low-latency online store, and at request time the ranking model pulls both slow-changing batch features and fresh streaming features from the same feature store's online path. A 6-hour refresh cycle can't capture \"viewed 30 seconds ago\" by definition, so you need a fundamentally different data path with sub-minute latency.\n\n**Takeaway:** Streaming and batch feature definitions need to share a transformation library, or the same logical feature will drift apart between the two paths.",
+  "hint_notes": "Add a streaming feature pipeline alongside batch, not replacing it \u2014 stream processor computes short-window features (last 5 min) into a low-latency online store. Share a transformation library between batch/streaming paths or the same feature drifts apart between them."
+}

@@ -1,0 +1,11 @@
+{
+  "id": "ai-042",
+  "area": "ai",
+  "topic": "RAG Evaluation",
+  "difficulty": "medium",
+  "title": "What is Answer Relevancy in RAG evaluation, and how can a factually correct answer still score poorly on it?",
+  "prompt": "What is Answer Relevancy in RAG evaluation, and how can a factually correct answer still score poorly on it?\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use \ud83d\udca1 Hint, \ud83e\udde0 AI feedback, or \ud83d\udcd7 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "Answer Relevancy measures how well the generated answer actually addresses the user's question \u2014 the retriever might work fine, but the model can still go off-topic. Example: for the question \"Symptoms of diabetes,\" an answer like \"Diabetes is a metabolic disorder discovered in 1500 BC\" is factually correct but doesn't answer what was asked, so it scores low on Answer Relevancy despite having no factual errors.\n\n**Takeaway:** Faithfulness and Answer Relevancy are independent axes \u2014 an answer can be perfectly faithful to its context and still fail the user by not addressing their actual question, which is why both need to be measured separately.",
+  "hint_notes": "Answer Relevancy is orthogonal to correctness \u2014 a true statement that doesn't address the question still fails this metric."
+}

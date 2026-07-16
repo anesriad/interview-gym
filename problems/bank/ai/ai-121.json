@@ -1,0 +1,11 @@
+{
+  "id": "ai-121",
+  "area": "ai",
+  "topic": "Debugging & Failures",
+  "difficulty": "medium",
+  "title": "Your nightly training pipeline has been failing at 3 AM with CrashLoopBackOff for the last two days, but it ran fine for six months without changes to the DAG. What's your diagnostic sequence?",
+  "prompt": "Your nightly training pipeline has been failing at 3 AM with CrashLoopBackOff for the last two days, but it ran fine for six months without changes to the DAG. What's your diagnostic sequence?\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use \ud83d\udca1 Hint, \ud83e\udde0 AI feedback, or \ud83d\udcd7 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "This is OOM-driven CrashLoopBackOff, and the exit code tells me that immediately, so I don't start by reading application code. I'd run `kubectl describe pod` first to confirm the exact termination reason, `kubectl logs --previous` to see whatever output the app produced, check what actually changed recently \u2014 deploys, config, node pool versions, or upstream data volume \u2014 and pull memory usage graphs leading up to the kill to see if it's a slow climb or a sudden spike. Exit code 137 with OOMKilled is a deterministic signal, not a guess.\n\n**Takeaway:** Since the DAG code hasn't changed, the cause has to be the environment or the data \u2014 in one real case, a silent node pool auto-upgrade changed allocatable memory per node just enough to push a previously fine job over the limit.",
+  "hint_notes": "Exit code 137 + OOMKilled is deterministic, not a guess \u2014 check pod description, previous logs, recent environment/config/node-pool changes, and the memory graph shape (slow climb vs spike) before reading application code."
+}

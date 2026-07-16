@@ -1,0 +1,11 @@
+{
+  "id": "ai-059",
+  "area": "ai",
+  "topic": "MLOps & LLMOps",
+  "difficulty": "medium",
+  "title": "Compare the architectural and operational differences between a chatbot, a RAG system, and an agent.",
+  "prompt": "Compare the architectural and operational differences between a chatbot, a RAG system, and an agent.\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use \ud83d\udca1 Hint, \ud83e\udde0 AI feedback, or \ud83d\udcd7 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "These represent increasing architectural complexity, and operational surface area and incident complexity roughly double at each step. Chatbot (contained): architecture is prompt + history + message \u2192 model \u2192 response; ops challenges are prompt/history management and non-determinism, with a contained failure surface limited to model behavior or prompt quality. RAG system (retrieval added): adds embedding, vector database search, and context retrieval; ops challenges expand to ingestion pipeline reliability, document freshness, chunking maintenance, and embedding versioning, and you need tooling to isolate retrieval errors from generation errors. Agent (tools and loops added): adds tool execution, multi-step decision loops, and branching; ops challenges further expand to tool reliability, infinite-loop prevention, partial-task-failure handling, runaway token cost control, and multi-step trace observability.\n\n**Takeaway:** Each added capability \u2014 retrieval, then tools/loops \u2014 roughly doubles the operational surface area, so architecture choice should be justified by actual requirements, not defaulted to the most capable option.",
+  "hint_notes": "Chatbot < RAG < Agent in complexity \u2014 each layer adds its own new failure modes (retrieval reliability for RAG, tool/loop risk for agents) on top of the previous layer's."
+}

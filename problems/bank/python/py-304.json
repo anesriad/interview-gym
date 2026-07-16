@@ -1,0 +1,19 @@
+{
+  "id": "py-304",
+  "area": "python",
+  "topic": "heaps",
+  "difficulty": "medium",
+  "title": "Kth Largest Element in an Array",
+  "prompt": "Given an unsorted array `nums` and an integer `k`, return the **kth largest element** (not the kth distinct element — duplicates count separately).\n\n**Example**: `find_kth_largest([3,2,1,5,6,4], 2)` → `5`\n\nAim for better than a full O(n log n) sort — a heap of size k gets you O(n log k). Be ready to discuss both approaches and their complexity.",
+  "starter_code": "def find_kth_largest(nums, k):\n    pass\n",
+  "function_name": "find_kth_largest",
+  "tests": [
+    {"args": [[3, 2, 1, 5, 6, 4], 2], "expected": 5},
+    {"args": [[3, 2, 3, 1, 2, 4, 5, 5, 6], 4], "expected": 4},
+    {"args": [[1], 1], "expected": 1},
+    {"args": [[7, 6, 5, 4, 3, 2, 1], 1], "expected": 7},
+    {"args": [[-1, -2, -3, -4], 2], "expected": -2}
+  ],
+  "reference_solution": "import heapq\n\ndef find_kth_largest(nums, k):\n    heap = []\n    for n in nums:\n        heapq.heappush(heap, n)\n        if len(heap) > k:\n            heapq.heappop(heap)\n    return heap[0]\n",
+  "hint_notes": "Maintain a min-heap of size k: push every element, pop the smallest whenever the heap exceeds size k. The heap's smallest element is then the kth largest overall. heapq.nlargest(k, nums)[-1] is the one-liner equivalent. Tag: heap-size-k-tradeoff."
+}

@@ -1,0 +1,11 @@
+{
+  "id": "ai-079",
+  "area": "ai",
+  "topic": "MLOps Foundations",
+  "difficulty": "medium",
+  "title": "Why does MLOps exist as a discipline separate from DevOps, given that both are ultimately about shipping software reliably?",
+  "prompt": "Why does MLOps exist as a discipline separate from DevOps, given that both are ultimately about shipping software reliably?\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use \ud83d\udca1 Hint, \ud83e\udde0 AI feedback, or \ud83d\udcd7 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "MLOps exists because a trained model isn't just code \u2014 it's a function learned from data, and that data keeps changing after the model ships. DevOps assumes that once code is tested and deployed, its behavior stays fixed until someone changes the code. The same model file, with zero code changes, can start giving worse predictions just because the real world it's making decisions about shifted underneath it. Traditional software has a deterministic contract: same input, same output. ML models encode statistical patterns from a training snapshot, so when the input distribution drifts, accuracy can silently degrade with no deploy at all.\n\n**Takeaway:** DevOps has no concept for \"my code is fine but its behavior degraded because the world changed\" \u2014 that's why MLOps needs its own tooling: data versioning, drift detection, retraining pipelines, and model-specific rollback criteria.",
+  "hint_notes": "The core distinction: code behavior is fixed until you change it; model behavior can silently drift as the world changes, with zero code changes."
+}

@@ -1,0 +1,11 @@
+{
+  "id": "ai-107",
+  "area": "ai",
+  "topic": "Model Governance",
+  "difficulty": "medium",
+  "title": "Your platform serves both an EU-based insurance client and a US-based one. The EU client's model falls under GDPR and potentially the EU AI Act's \"high-risk\" category. What governance obligations does that trigger that your US-only models don't have?",
+  "prompt": "Your platform serves both an EU-based insurance client and a US-based one. The EU client's model falls under GDPR and potentially the EU AI Act's \"high-risk\" category. What governance obligations does that trigger that your US-only models don't have?\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use \ud83d\udca1 Hint, \ud83e\udde0 AI feedback, or \ud83d\udcd7 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "The EU model picks up a much heavier obligation set: a conformity assessment, a formal risk management system, technical documentation meeting AI Act Annex IV requirements, human oversight design, and post-market monitoring, plus GDPR obligations like a right to explanation and a data protection impact assessment before deployment. These are legal obligations tied to jurisdiction and risk classification, not generic best practices \u2014 a platform fine for a US client can be legally exposed serving the same model type to an EU client.\n\n**Takeaway:** I'd architect this by tagging each model with a jurisdiction and risk-tier at the platform level, gating the extra requirements behind that tag in the deployment pipeline \u2014 post-market monitoring under the AI Act is ongoing, so a model change without re-assessment is itself a compliance gap.",
+  "hint_notes": "EU high-risk classification triggers: conformity assessment, formal risk management system, Annex IV technical docs, human oversight design, post-market monitoring, plus GDPR DPIA and right-to-explanation. Tag models by jurisdiction+risk-tier to gate these."
+}

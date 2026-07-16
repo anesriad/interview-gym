@@ -1,0 +1,11 @@
+{
+  "id": "ai-039",
+  "area": "ai",
+  "topic": "RAG Evaluation",
+  "difficulty": "medium",
+  "title": "What is Context Relevancy in RAG evaluation, and how is it different from Recall@K?",
+  "prompt": "What is Context Relevancy in RAG evaluation, and how is it different from Recall@K?\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use \ud83d\udca1 Hint, \ud83e\udde0 AI feedback, or \ud83d\udcd7 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "Context Relevancy measures how relevant the retrieved context is to the question overall, not just whether the one correct chunk is present. It's usually scored by an LLM or a similarity model rather than a simple set-membership check. Example: for \"Side effects of paracetamol?\" if retrieval returns C1 (paracetamol side effects list, relevant) and C2 (how to store medicines, not relevant), even though the answer can technically still be generated from C1, C2 lowers the overall context relevancy score because it's off-topic noise sitting in the prompt.\n\n**Takeaway:** Recall@K asks a binary question \u2014 is the right chunk present \u2014 while Context Relevancy asks a graded question \u2014 how strongly related is everything that got retrieved, which better reflects what the LLM actually has to reason over.",
+  "hint_notes": "Context Relevancy is a graded, often LLM-scored measure of overall relatedness, not just presence/absence of the one right chunk like Recall@K."
+}

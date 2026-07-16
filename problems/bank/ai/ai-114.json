@@ -1,0 +1,11 @@
+{
+  "id": "ai-114",
+  "area": "ai",
+  "topic": "Performance & Cost",
+  "difficulty": "medium",
+  "title": "Your team's GPU inference bill tripled after a traffic spike that autoscaling handled correctly, but nobody noticed the scale-down policy was too conservative. How do you fix this without risking latency SLAs?",
+  "prompt": "Your team's GPU inference bill tripled after a traffic spike that autoscaling handled correctly, but nobody noticed the scale-down policy was too conservative. How do you fix this without risking latency SLAs?\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use \ud83d\udca1 Hint, \ud83e\udde0 AI feedback, or \ud83d\udcd7 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "The scale-up side worked fine, the problem is entirely on the scale-down side. I'd tighten the scale-down trigger \u2014 shorten the cooldown window from something like 30 minutes to 5-10, and base it on a metric that actually reflects load, like request rate or queue depth, instead of a lagging CPU average \u2014 and make scale-down gradual instead of all-or-nothing, removing one or two pods at a time and watching latency before removing more. The cost overrun didn't come from autoscaling failing, it came from an asymmetric policy: fast to add capacity, slow to remove it.\n\n**Takeaway:** I'd protect against flapping with a cooldown that only applies to scale-down and requiring the low-load condition to hold across multiple consecutive checks.",
+  "hint_notes": "Fix is entirely on the scale-down side: shorten cooldown (30min \u2192 5-10min), use request-rate/queue-depth instead of lagging CPU average, remove pods gradually while watching latency. Guard against flapping with a scale-down-only cooldown."
+}

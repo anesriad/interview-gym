@@ -1,0 +1,11 @@
+{
+  "id": "ai-124",
+  "area": "ai",
+  "topic": "Debugging & Failures",
+  "difficulty": "medium",
+  "title": "Two of your five parallel feature computation tasks in an Airflow DAG are marked \"success\" but produced empty output files. The DAG as a whole shows green. Why does this happen and how do you fix your pipeline design to prevent it?",
+  "prompt": "Two of your five parallel feature computation tasks in an Airflow DAG are marked \"success\" but produced empty output files. The DAG as a whole shows green. Why does this happen and how do you fix your pipeline design to prevent it?\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use \ud83d\udca1 Hint, \ud83e\udde0 AI feedback, or \ud83d\udcd7 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "This happens because Airflow's task success state reflects whether the code exited without raising an exception, not whether the output is actually valid. A task can read zero rows, write an empty file, and return cleanly, and Airflow has no idea anything is wrong. I'd add an explicit post-write assertion inside each task checking output row count or file size before letting it report success, and for tasks reading from partitioned storage, add a check that expected partitions actually exist and are fully written before reading them.\n\n**Takeaway:** A common real cause is reading from a partition still mid-write from an upstream job, which returns zero rows without throwing any error since an empty read is technically a valid read.",
+  "hint_notes": "Task \"success\" = no exception raised, not \"output is valid.\" Add explicit post-write assertions (row count / file size) before reporting success, and check partitions are fully written before reading \u2014 a mid-write partition read returns zero rows with no error."
+}

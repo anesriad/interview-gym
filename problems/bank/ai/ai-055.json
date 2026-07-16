@@ -1,0 +1,11 @@
+{
+  "id": "ai-055",
+  "area": "ai",
+  "topic": "MLOps & LLMOps",
+  "difficulty": "medium",
+  "title": "What is the role of orchestration versus a simple API call wrapper in an LLM application?",
+  "prompt": "What is the role of orchestration versus a simple API call wrapper in an LLM application?\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use \ud83d\udca1 Hint, \ud83e\udde0 AI feedback, or \ud83d\udcd7 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "A wrapper handles the happy path in maybe 20 lines of code: take input, call the API, return the output. Orchestration is the robust software layer that actually makes production AI work, managing multi-step sequencing (coordinating model calls, tools, and data lookups), state management (maintaining chat history, tool results, and session state), tool calling (executing API/DB calls, validating results, feeding them back into context), error handling (retries, circuit breakers, and fallbacks for API failures), context window management (pruning, summarizing, or dropping older context), and routing/dispatch (classifying queries to specialized models or RAG paths).\n\n**Takeaway:** A wrapper only covers the happy path; orchestration is what handles happy paths, error paths, edge cases, retries, and state together as a full software layer \u2014 that's the actual engineering effort in a production LLM system.",
+  "hint_notes": "Wrapper = input \u2192 API call \u2192 output. Orchestration = state, tools, retries, context management, and routing on top of that call."
+}

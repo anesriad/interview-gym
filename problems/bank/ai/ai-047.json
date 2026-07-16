@@ -1,0 +1,11 @@
+{
+  "id": "ai-047",
+  "area": "ai",
+  "topic": "MLOps & LLMOps",
+  "difficulty": "medium",
+  "title": "How does non-determinism affect system design, testing, and monitoring for LLM systems?",
+  "prompt": "How does non-determinism affect system design, testing, and monitoring for LLM systems?\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use \ud83d\udca1 Hint, \ud83e\udde0 AI feedback, or \ud83d\udcd7 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "Non-determinism is the biggest conceptual shift from traditional engineering \u2014 same inputs don't produce identical outputs. System design impact: you can't treat outputs as deterministic function calls, so downstream JSON parsers and logic must tolerate phrasing/structural variation; for safety-critical paths like financial or access decisions, set temperature to 0 to trade diversity for predictability. Testing impact: no traditional unit tests asserting exact strings \u2014 write semantic assertion tests (\"mentions customer name,\" \"includes citation,\" \"no prohibited language\"); for regressions, run test cases 5-10 times and measure pass rates, since a 70% pass rate reveals consistency bugs a single run would hide. Monitoring impact: you can't alert on \"output changed from yesterday\" because outputs always change \u2014 instead monitor distributions and statistical process control: quality score shifts, refusal rate changes, and format compliance drops.\n\n**Takeaway:** Non-determinism forces a shift from exact-match thinking to distributional thinking across design, tests, and monitoring alike.",
+  "hint_notes": "Same input \u2260 same output. Use temperature=0 for safety-critical paths, semantic assertions instead of exact-match tests, and distribution-based monitoring instead of diff-based alerts."
+}

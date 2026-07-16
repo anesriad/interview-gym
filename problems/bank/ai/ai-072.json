@@ -1,0 +1,11 @@
+{
+  "id": "ai-072",
+  "area": "ai",
+  "topic": "Memory, Databases & Caching for GenAI",
+  "difficulty": "medium",
+  "title": "What challenges arise when storing millions to billions of embeddings in production, and how do you address the memory/latency tradeoff?",
+  "prompt": "What challenges arise when storing millions to billions of embeddings in production, and how do you address the memory/latency tradeoff?\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use \ud83d\udca1 Hint, \ud83e\udde0 AI feedback, or \ud83d\udcd7 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "At billion-scale, bottlenecks shift from raw computation to RAM capacity, index build latency, and disk IOPS tradeoffs. In-memory HNSW keeps the full graph in RAM, giving the lowest latency (under 10ms) but becoming very costly at scale. DiskANN/SSD stores the graph on NVMe instead, trading a low memory footprint for high capacity at the cost of slight IO overhead per query. IVF-PQ compresses the index 8x-32x via inverted clusters plus product quantization, scaling to billions of vectors with only a minor recall drop. The Product Quantization (PQ) advantage: once full-precision float32 embeddings exceed available RAM, applying IVF-PQ or scalar int8 quantization compresses the index footprint by 4x-8x with negligible recall degradation.\n\n**Takeaway:** Pick the index strategy based on where your bottleneck actually is \u2014 in-memory HNSW while RAM budget allows it, then DiskANN or IVF-PQ once vector count outgrows what you can afford to keep fully in memory.",
+  "hint_notes": "In-memory HNSW = lowest latency, highest RAM cost. DiskANN = low RAM, slight IO overhead. IVF-PQ = 8x-32x compression via quantization, scales to billions with minor recall loss."
+}

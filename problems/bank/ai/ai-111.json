@@ -1,0 +1,11 @@
+{
+  "id": "ai-111",
+  "area": "ai",
+  "topic": "Cloud MLOps",
+  "difficulty": "medium",
+  "title": "You're migrating a training pipeline from self-managed Airflow-on-EC2 to SageMaker Pipelines. What breaks first, and how do you handle it?",
+  "prompt": "You're migrating a training pipeline from self-managed Airflow-on-EC2 to SageMaker Pipelines. What breaks first, and how do you handle it?\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use \ud83d\udca1 Hint, \ud83e\udde0 AI feedback, or \ud83d\udcd7 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "The first thing that breaks is almost never the happy-path steps like training, it's custom steps that call internal APIs assuming long-running EC2 state. SageMaker Pipelines steps are ephemeral, containerized, and stateless between steps, so anything that depended on a persistent EC2 process holding an open connection or writing to local disk a later step reads from has to be redesigned. I'd map every Airflow operator to its closest SageMaker Pipelines step type and flag ones with no clean equivalent early, and explicitly rebuild retry and backfill logic since SageMaker's retry semantics are per-step and don't replicate Airflow's DAG-level backfill.\n\n**Takeaway:** The risk isn't syntax, it's silent behavioral differences in steps that leaned on Airflow's persistence model implicitly.",
+  "hint_notes": "Custom steps assuming long-running EC2 state break first \u2014 SageMaker Pipelines steps are ephemeral/stateless between steps. Map every Airflow operator explicitly, and rebuild retry/backfill logic since SageMaker's retry semantics are per-step, not DAG-level."
+}

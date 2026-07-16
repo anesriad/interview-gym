@@ -49,14 +49,14 @@ export default function ProblemList() {
       (sort === 1 ? 1 : -1) * ((DIFF_ORDER[a.difficulty] ?? 9) - (DIFF_ORDER[b.difficulty] ?? 9))
     );
   }
-  const solved = problems.filter((p) => p.status === "solved").length;
+  const solved = shown.filter((p) => p.status === "solved").length;
 
   return (
     <div className="page">
       <header className="topbar">
-        <h1>Interview Prep</h1>
+        <h1>Interview Gym</h1>
         <span className="muted">
-          {solved} / {problems.length} solved
+          {solved} / {shown.length} solved
         </span>
         <span className="toptools">
           <button className="btn tool" onClick={startGen} disabled={gen?.running}

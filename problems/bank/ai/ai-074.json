@@ -1,0 +1,11 @@
+{
+  "id": "ai-074",
+  "area": "ai",
+  "topic": "Memory, Databases & Caching for GenAI",
+  "difficulty": "medium",
+  "title": "What indexing strategies help vector databases perform similarity search efficiently at scale?",
+  "prompt": "What indexing strategies help vector databases perform similarity search efficiently at scale?\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use \ud83d\udca1 Hint, \ud83e\udde0 AI feedback, or \ud83d\udcd7 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "Exact k-NN search is O(N \u00d7 D) and far too slow for real-time AI at scale \u2014 ANN (approximate nearest neighbor) algorithms structure the vector space for logarithmic-ish navigation instead. HNSW builds multi-layer navigable small world graphs and is the standard choice for RAG up to roughly 10M-50M vectors, offering the highest recall of the three. IVF uses k-means to build inverted Voronoi cluster centroids, and is a good fit for fast indexing when memory is constrained. IVF-PQ combines inverted clusters with product quantization and is what you reach for at 100M+ to billion-scale vector collections. Critical HNSW tuning parameters: `ef_construction` trades index quality against build time, `ef_search` trades query recall against search latency, and `M` controls graph edge density per node.\n\n**Takeaway:** HNSW is the default for RAG-scale collections (up to tens of millions of vectors); reach for IVF or IVF-PQ specifically when memory constraints or billion-scale collection sizes rule HNSW out.",
+  "hint_notes": "HNSW = best recall, up to ~50M vectors. IVF = memory-constrained fast indexing. IVF-PQ = billion-scale. Tune HNSW via ef_construction (build), ef_search (query recall/latency), M (graph density)."
+}

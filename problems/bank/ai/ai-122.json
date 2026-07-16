@@ -1,0 +1,11 @@
+{
+  "id": "ai-122",
+  "area": "ai",
+  "topic": "Debugging & Failures",
+  "difficulty": "medium",
+  "title": "A data engineer swapped an upstream Airflow task's output format from CSV to Parquet \"for efficiency\" without telling you. Your feature engineering DAG has been silently producing malformed features for three days before anyone noticed. How do you catch this class of failure going forward?",
+  "prompt": "A data engineer swapped an upstream Airflow task's output format from CSV to Parquet \"for efficiency\" without telling you. Your feature engineering DAG has been silently producing malformed features for three days before anyone noticed. How do you catch this class of failure going forward?\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use \ud83d\udca1 Hint, \ud83e\udde0 AI feedback, or \ud83d\udcd7 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "The fix has two layers: stop trusting implicit format assumptions, and add a validation gate that would have caught this on day one. I'd add a schema and format validation step immediately after ingestion, before any feature logic runs; treat the handoff between teams as an explicit data contract rather than an informal agreement; and add row-count and non-null sanity checks right after the read step, since an empty dataframe from a failed parse is a classic silent failure.\n\n**Takeaway:** Unit tests validate your code against fixtures you wrote, not the live contract with an upstream system, which is exactly why reading a Parquet file as CSV can silently return an empty, usable-looking dataframe with no exception thrown.",
+  "hint_notes": "Add schema/format validation immediately after ingestion, treat cross-team handoffs as explicit data contracts, and add row-count/non-null sanity checks right after read \u2014 reading Parquet as CSV can silently return an empty dataframe with no exception."
+}

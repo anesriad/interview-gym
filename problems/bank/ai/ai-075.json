@@ -1,0 +1,11 @@
+{
+  "id": "ai-075",
+  "area": "ai",
+  "topic": "Memory, Databases & Caching for GenAI",
+  "difficulty": "medium",
+  "title": "How would you design hybrid search combining vector similarity and keyword search?",
+  "prompt": "How would you design hybrid search combining vector similarity and keyword search?\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use \ud83d\udca1 Hint, \ud83e\udde0 AI feedback, or \ud83d\udcd7 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "Dense embeddings capture semantic meaning; sparse keyword search (BM25) captures exact SKU codes, IDs, and proper nouns that embeddings tend to blur together. The hybrid search pipeline runs three stages: parallel retrieval \u2014 execute dense vector search and sparse BM25 keyword search concurrently, each producing its own ranked candidate list; Reciprocal Rank Fusion (RRF) \u2014 merge the two ranked lists without needing score normalization, using RRF_Score = sum of 1/(60 + rank_i) across the lists a document appears in, which sidesteps the problem of dense and sparse scores living on incomparable scales; dynamic query weighting \u2014 automatically boost the BM25 weight when the query contains exact SKU IDs or proper nouns, since those are exactly the cases sparse search handles better than dense embeddings.\n\n**Takeaway:** Reciprocal Rank Fusion is the standard way to combine dense and sparse rankings because it operates on rank position rather than raw score, avoiding the score-normalization problem you'd hit trying to directly average a cosine similarity with a BM25 score.",
+  "hint_notes": "Run dense + BM25 in parallel, merge via RRF (rank-based, avoids score-normalization issues), and boost BM25 weight dynamically when the query looks like an exact-match query (SKU/proper noun)."
+}

@@ -1,0 +1,11 @@
+{
+  "id": "ai-086",
+  "area": "ai",
+  "topic": "Data Engineering",
+  "difficulty": "medium",
+  "title": "Your team uses DVC to version datasets alongside Git. A data scientist says \"the model trained fine on my laptop but the CI pipeline can't find the dataset.\" Diagnose this.",
+  "prompt": "Your team uses DVC to version datasets alongside Git. A data scientist says \"the model trained fine on my laptop but the CI pipeline can't find the dataset.\" Diagnose this.\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use \ud83d\udca1 Hint, \ud83e\udde0 AI feedback, or \ud83d\udcd7 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "This is almost always a DVC remote configuration problem, not a code problem. DVC doesn't store the actual data in Git, it stores small pointer files with hashes, and the real data lives in a remote like S3. If `dvc pull` never runs in CI, the pointer files exist but the actual data files they reference never get downloaded. First I'd check whether the CI pipeline runs `dvc pull` at all before training \u2014 missing this is the single most common cause. Then whether CI has credentials to access the DVC remote, since the data scientist's laptop likely has cloud credentials cached that CI doesn't inherit. Then whether the `.dvc` metadata was actually committed, since it's easy to run `dvc add` locally and forget to `git add` the resulting pointer file.\n\n**Takeaway:** DVC failures in CI are almost always a missing `dvc pull`, missing CI credentials, or an uncommitted pointer file \u2014 check those three in order before assuming it's a code bug.",
+  "hint_notes": "DVC stores pointer files in Git, real data in a remote. Diagnostic order: does CI run `dvc pull`? does CI have remote credentials? was the `.dvc` pointer file actually committed?"
+}

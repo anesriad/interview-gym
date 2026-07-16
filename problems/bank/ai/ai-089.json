@@ -1,0 +1,11 @@
+{
+  "id": "ai-089",
+  "area": "ai",
+  "topic": "Experiment Tracking",
+  "difficulty": "medium",
+  "title": "What's the difference between a \"run\" and an \"experiment\" in MLflow, and how would you structure experiments for a team that trains dozens of model variants per week across three different problem types?",
+  "prompt": "What's the difference between a \"run\" and an \"experiment\" in MLflow, and how would you structure experiments for a team that trains dozens of model variants per week across three different problem types?\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use \ud83d\udca1 Hint, \ud83e\udde0 AI feedback, or \ud83d\udcd7 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "An experiment is the top-level container, think of it as a folder. A run is a single execution logged inside it, with its own params, metrics, and artifacts. Teams go wrong either by putting everything in one experiment, which becomes an unsearchable pile, or creating a new experiment for every tiny variation, which fragments related work so badly comparison becomes useless. For a team training dozens of variants across three problem types, I'd structure one experiment per problem type, then rely on tags and naming conventions to organize runs \u2014 model family, owning engineer, exploratory versus release-candidate status.\n\n**Takeaway:** For hyperparameter sweeps I'd use nested runs, a parent run for the sweep and child runs per trial, so it's one logical unit instead of dozens of flat, unrelated runs.",
+  "hint_notes": "Experiment = folder-level container. Run = one execution inside it. Structure: one experiment per problem type, tags for organization, nested parent/child runs for hyperparameter sweeps."
+}

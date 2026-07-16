@@ -1,0 +1,20 @@
+{
+  "id": "py-x006",
+  "area": "python",
+  "topic": "backtracking/math",
+  "difficulty": "medium",
+  "title": "Permutation sequence",
+  "prompt": "The set `[1, 2, ..., n]` contains a total of `n!` unique permutations.\n\nGiven `n` and `k`, return the `k`th permutation sequence (1-indexed), listed in lexicographical order, as a **string**.\n\n**Example**: `solution(3, 3)` → `\"213\"` (the permutations of `[1,2,3]` in order are 123, 132, 213, 231, 312, 321).\n\nInput Constraints:\n- `n` will be between 1 and 9 inclusive.\n- `k` will be between 1 and `n!` inclusive.\n\nAim for **O(n^2)** — build the answer digit by digit using factorial number system math instead of generating and sorting all permutations.",
+  "starter_code": "def solution(n, k):\n    pass\n",
+  "function_name": "solution",
+  "tests": [
+    {"args": [3, 3], "expected": "213"},
+    {"args": [4, 9], "expected": "2314"},
+    {"args": [2, 2], "expected": "21"},
+    {"args": [1, 1], "expected": "1"},
+    {"args": [3, 1], "expected": "123"},
+    {"args": [4, 24], "expected": "4321"}
+  ],
+  "reference_solution": "import math\n\ndef solution(n, k):\n    digits = [str(i) for i in range(1, n + 1)]\n    k -= 1\n    result = []\n    for i in range(n, 0, -1):\n        fact = math.factorial(i - 1)\n        idx = k // fact\n        k %= fact\n        result.append(digits.pop(idx))\n    return ''.join(result)",
+  "hint_notes": "Factorial number system: with n digits remaining, each choice of the next digit fixes (n-1)! permutations. Use k // (n-1)! to pick the index (0-based) out of the remaining digits, then reduce k %= (n-1)! and repeat. Common mistake: forgetting to convert k to 0-indexed first."
+}

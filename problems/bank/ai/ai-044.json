@@ -1,0 +1,11 @@
+{
+  "id": "ai-044",
+  "area": "ai",
+  "topic": "MLOps & LLMOps",
+  "difficulty": "medium",
+  "title": "What is LLMOps and how does it differ from traditional MLOps?",
+  "prompt": "What is LLMOps and how does it differ from traditional MLOps?\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use \ud83d\udca1 Hint, \ud83e\udde0 AI feedback, or \ud83d\udcd7 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "LLMOps is the set of practices, tools, and workflows for deploying and operating LLM systems in production. It grew out of MLOps, but the overlap is smaller than expected. Shared ground: both care about deployment pipelines, monitoring, versioning, and reliability \u2014 \"build something, ship carefully, watch in prod\" applies to both. New challenges specific to LLMOps: prompt versioning and CI/CD, non-deterministic outputs, context window management, and per-token cost scaling.\n\n**Takeaway:** The fundamental divergence is threefold \u2014 different artifact (in MLOps you own/train the model, in LLMOps models are external API infrastructure), text over code (English prose prompts sitting in the codebase are the highest-leverage variable, creating new governance needs), and complex evaluation (you can't evaluate helpfulness with precision/recall \u2014 it requires LLM judges, human raters, and behavioral rubrics).",
+  "hint_notes": "Same operational instincts (deploy carefully, monitor), but LLMOps adds prompt-as-artifact governance, non-determinism, and evaluation without ground truth."
+}

@@ -1,0 +1,11 @@
+{
+  "id": "ai-105",
+  "area": "ai",
+  "topic": "Model Governance",
+  "difficulty": "medium",
+  "title": "Your company just got flagged for a SOC 2 audit and the auditor asks you to prove which model version served predictions to customers on a specific date three months ago. What do you need in place to answer this in minutes instead of days?",
+  "prompt": "Your company just got flagged for a SOC 2 audit and the auditor asks you to prove which model version served predictions to customers on a specific date three months ago. What do you need in place to answer this in minutes instead of days?\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use \ud83d\udca1 Hint, \ud83e\udde0 AI feedback, or \ud83d\udcd7 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "You need structured, queryable inference-level logging that ties every prediction back to a model version, the exact feature values used, and the code commit that produced it, stored somewhere append-only and indexed so you can filter by date and customer in seconds. Every inference call should emit a record with model version, feature snapshot, code commit SHA, timestamp, and request ID, and the registry itself needs to track exactly which version was live at which time window.\n\n**Takeaway:** \"Prove it in minutes\" only works if the answer was designed to be queryable from day one \u2014 if your only option is grepping through scattered application logs, you don't have an audit trail, you have exhaust that happens to contain the answer somewhere.",
+  "hint_notes": "Every inference call needs to emit an append-only, indexed record: model version, feature snapshot, code commit SHA, timestamp, request ID. The registry must track which version was live in which time window."
+}

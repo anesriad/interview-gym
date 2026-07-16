@@ -1,0 +1,11 @@
+{
+  "id": "ai-085",
+  "area": "ai",
+  "topic": "Data Engineering",
+  "difficulty": "medium",
+  "title": "Compare Delta Lake and Apache Iceberg for a multi-team ML platform where different teams use Spark, Trino, and Flink against the same tables.",
+  "prompt": "Compare Delta Lake and Apache Iceberg for a multi-team ML platform where different teams use Spark, Trino, and Flink against the same tables.\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use \ud83d\udca1 Hint, \ud83e\udde0 AI feedback, or \ud83d\udcd7 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "Both solve the same underlying problem \u2014 ACID transactions and versioning on top of object storage \u2014 but differ in how engine-agnostic they are in practice. Delta Lake was built by Databricks and, while open source now, its best support has historically been on Spark and Databricks-native tooling. Iceberg was designed from the start to be engine-neutral, with first-class support across Spark, Trino, and Flink, because it was built by a team that had multiple engines hitting the same tables.\n\n**Takeaway:** For a platform with a dozen teams on a mix of engines, I'd lean toward Iceberg because interoperability is stronger out of the box. The deciding factor isn't which format is \"better\" abstractly, it's which one matches your actual engine diversity.",
+  "hint_notes": "Both give ACID+versioning on object storage. Delta Lake's best support is historically Spark/Databricks-native; Iceberg was designed engine-neutral from day one. Pick based on your actual engine mix, not abstract quality."
+}

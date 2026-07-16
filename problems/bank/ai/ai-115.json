@@ -1,0 +1,11 @@
+{
+  "id": "ai-115",
+  "area": "ai",
+  "topic": "Performance & Cost",
+  "difficulty": "medium",
+  "title": "How do you decide between scaling a model server on CPU versus GPU for a given workload?",
+  "prompt": "How do you decide between scaling a model server on CPU versus GPU for a given workload?\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use \ud83d\udca1 Hint, \ud83e\udde0 AI feedback, or \ud83d\udcd7 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "It comes down to model architecture and batch economics, not \"GPU is always faster.\" Deep neural nets with heavy matrix multiplication benefit from GPU parallelism, especially at higher batch sizes. Tree-based models like gradient boosted trees are mostly sequential branching logic, which GPUs aren't particularly good at accelerating, so CPU is often just as fast and much cheaper. Low request concurrency reduces the GPU advantage further, since you're not keeping enough parallel lanes busy to justify the cost.\n\n**Takeaway:** The decision should come from profiling actual throughput per dollar on both, not defaulting to whichever hardware the team already has templates for \u2014 a gradient boosted tree model inherited on GPU nodes from a deep learning team's template is a classic expensive mistake.",
+  "hint_notes": "GPU wins for deep nets with heavy matmul at high batch size. Tree-based models (GBTs) are mostly sequential branching logic \u2014 CPU is often just as fast and cheaper. Decide via profiled throughput-per-dollar, not inherited hardware templates."
+}

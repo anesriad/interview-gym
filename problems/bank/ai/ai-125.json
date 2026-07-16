@@ -1,0 +1,11 @@
+{
+  "id": "ai-125",
+  "area": "ai",
+  "topic": "Company Rounds",
+  "difficulty": "medium",
+  "title": "Design a globally distributed feature store that must serve fraud-scoring features with strong consistency across three regions (US, EU, APAC). Walk through your architecture.",
+  "prompt": "Design a globally distributed feature store that must serve fraud-scoring features with strong consistency across three regions (US, EU, APAC). Walk through your architecture.\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use \ud83d\udca1 Hint, \ud83e\udde0 AI feedback, or \ud83d\udcd7 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "For the specific features that need strong consistency \u2014 transaction velocity counters \u2014 I would not use a simple multi-master eventually-consistent store. I'd use a consensus-based replicated store with quorum writes across regions, keyed by customer ID, so writes only commit once a majority of regions acknowledge them, meaning wherever a read happens next, it sees the latest state. I'd use bounded-staleness read replicas for everything that doesn't need strict consistency, since strong consistency isn't free.\n\n**Takeaway:** Fraud detection needs immediate consistency for velocity-type counters because a fraud ring can exploit a staleness window, spending in two regions within the replication lag before the system catches up \u2014 \"just replicate everywhere eventually-consistent, we'll catch it in a batch job\" misses the point of a real-time velocity check.",
+  "hint_notes": "Only the specific strongly-consistent features (velocity counters) need quorum-write consensus replication; everything else can use bounded-staleness read replicas. A fraud ring can exploit an eventual-consistency staleness window across regions."
+}

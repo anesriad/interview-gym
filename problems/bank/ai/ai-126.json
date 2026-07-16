@@ -1,0 +1,11 @@
+{
+  "id": "ai-126",
+  "area": "ai",
+  "topic": "Company Rounds",
+  "difficulty": "medium",
+  "title": "How would you define and enforce an SLO for a model-serving system that has both a latency requirement and an accuracy requirement?",
+  "prompt": "How would you define and enforce an SLO for a model-serving system that has both a latency requirement and an accuracy requirement?\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use \ud83d\udca1 Hint, \ud83e\udde0 AI feedback, or \ud83d\udcd7 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "I'd keep these as two separate SLOs with independent error budgets rather than blending them into one score: a latency SLO like p99 under 50ms measured in real time from serving metrics, and an accuracy SLO like 92% weekly measured offline against delayed ground truth. Each triggers different actions when exhausted \u2014 for accuracy, that might mean freezing non-essential model changes and escalating to root-cause the drift. Latency and accuracy fail on different timescales and for different reasons.\n\n**Takeaway:** Blending latency and accuracy into one combined \"reliability score\" sounds tidy but removes your ability to diagnose or budget either dimension independently, which is the entire point of having an SLO in the first place.",
+  "hint_notes": "Two independent SLOs, not one blended score: latency (real-time, e.g. p99<50ms) and accuracy (offline, e.g. 92% weekly against delayed ground truth). They fail on different timescales and need different error-budget-exhausted actions."
+}

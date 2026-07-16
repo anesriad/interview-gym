@@ -1,0 +1,11 @@
+{
+  "id": "ai-108",
+  "area": "ai",
+  "topic": "ML Security",
+  "difficulty": "medium",
+  "title": "An attacker is sending thousands of slightly varied requests per hour to your fraud-detection model's public scoring API and appears to be reconstructing a surrogate model from the responses. What attack is this and how do you detect it?",
+  "prompt": "An attacker is sending thousands of slightly varied requests per hour to your fraud-detection model's public scoring API and appears to be reconstructing a surrogate model from the responses. What attack is this and how do you detect it?\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use \ud83d\udca1 Hint, \ud83e\udde0 AI feedback, or \ud83d\udcd7 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "This is a model extraction attack, or model stealing. The attacker doesn't need your weights or training data, just enough input/output pairs to train a surrogate model that mimics your decision boundary closely enough to evade fraud detection or build a competing product on your work. Any single request looks legitimate \u2014 the giveaway is the query pattern: systematic, low-diversity variation, someone nudging one or two features at a time across thousands of calls.\n\n**Takeaway:** Rate limiting alone doesn't stop someone patient enough to extract slowly under the limit \u2014 the real fix starts with recognizing this as a query-pattern problem, tiered by trust level and request cost, not a single global limit.",
+  "hint_notes": "Model extraction/stealing: attacker trains a surrogate from input/output pairs, no weight access needed. Detect via query-pattern analysis (systematic low-diversity variation), not just rate limits, since a patient attacker stays under any single global limit."
+}

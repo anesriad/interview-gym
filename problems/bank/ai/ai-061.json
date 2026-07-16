@@ -1,0 +1,11 @@
+{
+  "id": "ai-061",
+  "area": "ai",
+  "topic": "MLOps & LLMOps",
+  "difficulty": "medium",
+  "title": "Agents can call tools, loop, and make autonomous decisions. What new risks does this introduce compared to single-turn LLM calls?",
+  "prompt": "Agents can call tools, loop, and make autonomous decisions. What new risks does this introduce compared to single-turn LLM calls?\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use \ud83d\udca1 Hint, \ud83e\udde0 AI feedback, or \ud83d\udcd7 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "Each autonomous agent capability introduces severe operational risks that single-turn LLM calls don't have. Core risk classes: tool risks \u2014 real-world actions like sending emails or editing a database can cause irreversible harm if manipulated, and API failures can break multi-step tasks mid-flight; looping risks \u2014 indefinite loops when termination conditions aren't met burn tokens continuously and can trigger repeated real-world actions; compound errors \u2014 a slight error at step 2 can lead to a completely unintended result by step 10 as errors compound across steps. New ops requirements to counter this: hard iteration limits (cap max tool calls and reasoning steps per task), persistent state logging (full execution tracing for debugging), human-in-the-loop (mandatory approval checkpoints for irreversible actions), session cost alerts (catch runaway agents instantly), and loop detection (heuristics based on action history).\n\n**Takeaway:** Autonomy multiplies blast radius \u2014 a single bad decision in a multi-step agent can compound or repeat, so agents need hard iteration caps, approval gates on irreversible actions, and full execution tracing that single-turn chatbots don't require.",
+  "hint_notes": "Tool risk (irreversible real-world actions), looping risk (burns tokens/repeats actions), compound errors (early mistakes snowball) \u2014 mitigated with iteration limits, human-in-the-loop, and loop detection."
+}

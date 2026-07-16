@@ -1,0 +1,82 @@
+{
+  "title": "Shortest Subarray with Sum at Least K",
+  "topic": "arrays",
+  "difficulty": "hard",
+  "prompt": "Given an array of integers `nums` and an integer `k`, return the length of the shortest subarray with sum at least `k`. If there is no such subarray, return -1.\n\nA subarray is a contiguous part of the array.\n\nExample:\nInput: nums = [2, 1, 3, 4, 5], k = 7\nOutput: 2\nExplanation: The subarray [3, 4] has sum 7 which is at least 7, and length 2.",
+  "starter_code": "def shortest_subarray_with_sum_at_least_k(nums, k):\n    pass\n",
+  "function_name": "shortest_subarray_with_sum_at_least_k",
+  "tests": [
+    {
+      "args": [
+        [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        11
+      ],
+      "expected": 3
+    },
+    {
+      "args": [
+        [
+          2,
+          1,
+          3,
+          4,
+          5
+        ],
+        7
+      ],
+      "expected": 2
+    },
+    {
+      "args": [
+        [
+          1,
+          2,
+          3
+        ],
+        6
+      ],
+      "expected": 3
+    },
+    {
+      "args": [
+        [
+          1,
+          2,
+          3
+        ],
+        7
+      ],
+      "expected": -1
+    },
+    {
+      "args": [
+        [
+          5
+        ],
+        5
+      ],
+      "expected": 1
+    },
+    {
+      "args": [
+        [
+          -1,
+          2,
+          3
+        ],
+        4
+      ],
+      "expected": 2
+    }
+  ],
+  "reference_solution": "from collections import deque\n\ndef shortest_subarray_with_sum_at_least_k(nums, k):\n    prefix_sum = [0]\n    for num in nums:\n        prefix_sum.append(prefix_sum[-1] + num)\n    \n    dq = deque()\n    result = len(nums) + 1\n    \n    for i in range(len(prefix_sum)):\n        while dq and prefix_sum[i] - prefix_sum[dq[0]] >= k:\n            result = min(result, i - dq.popleft())\n        \n        while dq and prefix_sum[i] <= prefix_sum[dq[-1]]:\n            dq.pop()\n        \n        dq.append(i)\n    \n    return result if result <= len(nums) else -1",
+  "hint_notes": "Use prefix sums with a deque to maintain potential start indices. Key insight: for any ending index, we want the earliest start index such that prefix_sum[end] - prefix_sum[start] >= k. The deque helps efficiently find this by maintaining increasing order of prefix sums.",
+  "id": "py-x005",
+  "area": "python"
+}

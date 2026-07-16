@@ -1,0 +1,11 @@
+{
+  "id": "ai-099",
+  "area": "ai",
+  "topic": "Model Serving",
+  "difficulty": "medium",
+  "title": "What does a production-grade Dockerfile for a model-serving container look like, and what do people usually get wrong?",
+  "prompt": "What does a production-grade Dockerfile for a model-serving container look like, and what do people usually get wrong?\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use \ud83d\udca1 Hint, \ud83e\udde0 AI feedback, or \ud83d\udcd7 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "Use a multi-stage build to keep the final image slim, pin dependency versions, start from a slim or distroless base, never bake secrets into a layer, and put frequently-changing app code after the rarely-changing dependency layer so Docker's build cache actually helps. Image size directly drives autoscaling responsiveness \u2014 a new node has to pull the full image before a pod can start serving traffic, and a bloated image full of build tools and pip caches is almost always accidental.\n\n**Takeaway:** The common mistake is skipping multi-stage builds entirely, so compilers and dev dependencies end up shipped in the final image, tripling its size for zero runtime benefit \u2014 multi-stage builds let you install everything needed to build in one stage and copy only the final runtime artifacts into a clean second stage.",
+  "hint_notes": "Multi-stage build, pinned versions, slim/distroless base, no baked secrets, dependency layer before app-code layer (cache-friendly ordering). Common mistake: skipping multi-stage builds ships compilers/dev-deps and triples image size."
+}

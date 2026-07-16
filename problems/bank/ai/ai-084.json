@@ -1,0 +1,11 @@
+{
+  "id": "ai-084",
+  "area": "ai",
+  "topic": "Data Engineering",
+  "difficulty": "medium",
+  "title": "What's the practical difference between Delta Lake and plain Parquet files on S3 for an ML training pipeline, and when would you actually pay the cost of adopting Delta Lake?",
+  "prompt": "What's the practical difference between Delta Lake and plain Parquet files on S3 for an ML training pipeline, and when would you actually pay the cost of adopting Delta Lake?\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use \ud83d\udca1 Hint, \ud83e\udde0 AI feedback, or \ud83d\udcd7 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "Plain Parquet on S3 is just files \u2014 there's no transaction guarantee across multiple files, no built-in way to know which files belong to a consistent snapshot, and no history of what changed. Delta Lake adds a transaction log on top of Parquet that gives you ACID guarantees, versioning, and the ability to time-travel to a previous state of the table. If a write job crashes halfway through with plain Parquet, you can be left with a partial set of files and no clean way to know the table is in a bad state. Delta's transaction log records every commit atomically, so readers see the full old or new version, never a half-written mix, plus schema enforcement.\n\n**Takeaway:** I'd pay for Delta once multiple jobs write to the same table, or once reproducing a training run's exact data snapshot actually matters.",
+  "hint_notes": "Plain Parquet = no cross-file transaction guarantee, no snapshot consistency. Delta Lake = transaction log gives ACID + versioning + time-travel. Adopt it once multiple writers or reproducibility of exact snapshots matters."
+}

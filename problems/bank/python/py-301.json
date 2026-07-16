@@ -1,0 +1,21 @@
+{
+  "id": "py-301",
+  "area": "python",
+  "topic": "stacks",
+  "difficulty": "easy",
+  "title": "Valid Parentheses",
+  "prompt": "Given a string `s` containing only the characters `()[]{}`, determine if the brackets are **balanced and properly nested**.\n\n**Examples**:\n- `is_valid(\"()[]{}\")` → `True`\n- `is_valid(\"(]\")` → `False`\n- `is_valid(\"\")` → `True`\n\nAim for **O(n)** using a stack.",
+  "starter_code": "def is_valid(s):\n    pass\n",
+  "function_name": "is_valid",
+  "tests": [
+    {"args": ["()[]{}"], "expected": true},
+    {"args": ["(]"], "expected": false},
+    {"args": [""], "expected": true},
+    {"args": ["([)]"], "expected": false},
+    {"args": ["{[]}"], "expected": true},
+    {"args": ["((("], "expected": false},
+    {"args": [")"], "expected": false}
+  ],
+  "reference_solution": "def is_valid(s):\n    pairs = {')': '(', ']': '[', '}': '{'}\n    stack = []\n    for ch in s:\n        if ch in pairs:\n            if not stack or stack.pop() != pairs[ch]:\n                return False\n        else:\n            stack.append(ch)\n    return not stack\n",
+  "hint_notes": "Push openers onto a stack; on a closer, pop and check it matches via a dict of pairs. Empty stack on a closer, or a leftover stack at the end, both mean invalid. Tag: stack-matching-pairs."
+}

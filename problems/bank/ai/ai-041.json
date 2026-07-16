@@ -1,0 +1,11 @@
+{
+  "id": "ai-041",
+  "area": "ai",
+  "topic": "RAG Evaluation",
+  "difficulty": "medium",
+  "title": "What is Groundedness in RAG evaluation, and how is it different from Faithfulness?",
+  "prompt": "What is Groundedness in RAG evaluation, and how is it different from Faithfulness?\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use \ud83d\udca1 Hint, \ud83e\udde0 AI feedback, or \ud83d\udcd7 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "Groundedness measures how strongly the answer is tied to the provided documents \u2014 it's similar to faithfulness but focused specifically on source dependence rather than claim-by-claim accuracy. If the model could have produced the same answer without the retrieved context at all, groundedness is low, even if the answer happens to be factually correct. Example: given context on Indian tax rules, an answer containing generic tax advice not actually derived from that context is poorly grounded, because the model likely pulled it from general pretraining knowledge instead of the supplied documents.\n\n**Takeaway:** Faithfulness checks whether claims contradict or go beyond the context; groundedness checks whether the answer actually depended on the context to begin with \u2014 a subtle but important distinction for RAG systems where you specifically want the model using your documents, not its own memorized knowledge.",
+  "hint_notes": "Groundedness asks \"could the model have said this without the context?\" \u2014 it's about source dependence, not just claim accuracy."
+}

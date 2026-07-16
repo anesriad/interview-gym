@@ -1,0 +1,19 @@
+{
+  "id": "py-314",
+  "area": "python",
+  "topic": "recursion/dicts",
+  "difficulty": "medium",
+  "title": "Flatten a Dict (dot-notation)",
+  "prompt": "Given a nested dict `d`, return a **flat dict** where nested keys are joined with `.`.\n\n**Example**: `flatten_dict({\"a\": {\"b\": 1, \"c\": {\"d\": 2}}})` → `{\"a.b\": 1, \"a.c.d\": 2}`\n\nRealistic for config/JSON handling in applied AI pipelines — recurse whenever a value is itself a dict, accumulating the key prefix as you go.",
+  "starter_code": "def flatten_dict(d, prefix=\"\"):\n    pass\n",
+  "function_name": "flatten_dict",
+  "tests": [
+    {"args": [{"a": {"b": 1, "c": {"d": 2}}}], "expected": {"a.b": 1, "a.c.d": 2}},
+    {"args": [{}], "expected": {}},
+    {"args": [{"x": 1, "y": 2}], "expected": {"x": 1, "y": 2}},
+    {"args": [{"a": {"b": {"c": {"d": 5}}}}], "expected": {"a.b.c.d": 5}},
+    {"args": [{"a": 1, "b": {"c": 2}, "d": {"e": {"f": 3}, "g": 4}}], "expected": {"a": 1, "b.c": 2, "d.e.f": 3, "d.g": 4}}
+  ],
+  "reference_solution": "def flatten_dict(d, prefix=\"\"):\n    result = {}\n    for k, v in d.items():\n        key = f\"{prefix}.{k}\" if prefix else k\n        if isinstance(v, dict):\n            result.update(flatten_dict(v, key))\n        else:\n            result[key] = v\n    return result\n",
+  "hint_notes": "Recurse on dict values, accumulating the joined key prefix as an argument; on a non-dict value, write it into the result under the accumulated key. An empty nested dict ({}) contributes nothing since its own loop simply doesn't run. Tag: recursive-key-accumulation."
+}

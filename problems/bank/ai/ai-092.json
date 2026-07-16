@@ -1,0 +1,11 @@
+{
+  "id": "ai-092",
+  "area": "ai",
+  "topic": "Testing ML Systems",
+  "difficulty": "medium",
+  "title": "Your team implements a custom weighted F-beta metric for a fraud model where false negatives cost 20x more than false positives. How do you unit test a custom metric implementation before trusting it in evaluation?",
+  "prompt": "Your team implements a custom weighted F-beta metric for a fraud model where false negatives cost 20x more than false positives. How do you unit test a custom metric implementation before trusting it in evaluation?\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use \ud83d\udca1 Hint, \ud83e\udde0 AI feedback, or \ud83d\udcd7 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "I never trust a custom metric until I've hand-calculated a handful of small examples and confirmed the code matches my math exactly. I'd pick 3 to 5 tiny confusion matrices by hand, compute the expected F-beta score on paper, and assert the function returns that exact number. I'd add tests for the extremes \u2014 all predictions correct, all wrong, an empty batch that should raise rather than silently divide by zero \u2014 and a test confirming the beta weighting actually changes the result versus plain F1.\n\n**Takeaway:** The classic mistake is testing the metric only against itself, recomputing the same formula in the test file \u2014 that just proves you copied a formula twice, not that it's correct.",
+  "hint_notes": "Hand-calculate expected values on 3-5 tiny confusion matrices and assert exact match. Test extremes (all-correct, all-wrong, empty-should-raise). Never test a metric by recomputing the same formula in the test."
+}

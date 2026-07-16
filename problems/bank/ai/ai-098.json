@@ -1,0 +1,11 @@
+{
+  "id": "ai-098",
+  "area": "ai",
+  "topic": "Model Serving",
+  "difficulty": "medium",
+  "title": "Walk through the components of a production FastAPI model-serving app beyond just @app.post(\"/predict\").",
+  "prompt": "Walk through the components of a production FastAPI model-serving app beyond just @app.post(\"/predict\").\n\n*Answer in the editor as you would out loud in an interview (a few sentences to a short paragraph is fine). Then use \ud83d\udca1 Hint, \ud83e\udde0 AI feedback, or \ud83d\udcd7 Show answer.*",
+  "starter_code": "",
+  "reference_solution": "A production server needs a lot more than the predict route: model loading in a startup lifecycle hook rather than per-request, a schema for input validation, separate readiness and liveness endpoints instead of one generic health check, structured logging with request IDs, metrics instrumentation, graceful shutdown handling, and a clear separation between validation errors and inference errors in the response codes. A data scientist's prototype is optimized for \"does it work,\" not \"does it survive production.\" Loading the model on every request means every call pays the full deserialization cost, which can be hundreds of milliseconds.\n\n**Takeaway:** Validation failures should return 422 immediately before the model is ever touched; inference failures should return 500 or 503 and get logged separately so dashboards can tell bad client input apart from a broken service.",
+  "hint_notes": "Startup-hook model loading, input schema validation, separate readiness/liveness endpoints, structured logging with request IDs, metrics, graceful shutdown, and 422 (validation) vs 500/503 (inference) error separation."
+}
